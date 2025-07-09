@@ -11,7 +11,10 @@ export default {
   theme: {
   	extend: {
   		colors: {
-        blueMain:'#005fbe',
+        	primaryColor:'#FF0000',
+			darkBgColor:'#000000',
+			redColor:'#FF0000',
+			neonRed: '#FF073A',
   			background: 'hsl(var(--background))',
   			foreground: 'hsl(var(--foreground))',
   			card: {
@@ -89,7 +92,10 @@ export default {
   		animation: {
   			'accordion-down': 'accordion-down 0.2s ease-out',
   			'accordion-up': 'accordion-up 0.2s ease-out'
-  		}
+  		},
+		maxWidth:{
+			'7xl': '80rem'
+		}
   	}
   },
    plugins: [require("tailwindcss-animate")],
