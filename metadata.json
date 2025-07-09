@@ -1,0 +1,6 @@
+
+{
+  "name": "React Vite Tailwind Skeleton",
+  "description": "A starter skeleton for a React.js application using Vite and a full Tailwind CSS build process with PostCSS.",
+  "requestFramePermissions": []
+}
