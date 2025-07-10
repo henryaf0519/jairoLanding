@@ -14,6 +14,7 @@ import {
 import Header from "./components/header";
 import Title from "./components/title";
 import ToolCard from "./components/toolCards";
+import { VerticalScrollTestimonials } from "./components/testimonies";
 
 const App: React.FC = () => {
   return (
@@ -247,17 +248,24 @@ const App: React.FC = () => {
               Integrado a las mejores herramientas
             </h2>
           </div>
-          
         </div>
       </section>
       <div>
-            <div
-              className="max-w-7xl mx-auto h-[2px] w-full
-                bg-[linear-gradient(90deg,transparent,#EF4444,#F97316,transparent)]"/>
-            <ToolCard />
-            <div className="max-w-7xl mx-auto h-[2px] w-full
-                bg-[linear-gradient(90deg,transparent,#EF4444,#F97316,transparent)]"/>
-          </div>
+        <div
+          className="max-w-7xl mx-auto h-[2px] w-full
+                bg-[linear-gradient(90deg,transparent,#EF4444,#F97316,transparent)]"
+        />
+        <ToolCard />
+        <div
+          className="max-w-7xl mx-auto h-[2px] w-full
+                bg-[linear-gradient(90deg,transparent,#EF4444,#F97316,transparent)]"
+        />
+      </div>
+      <section id="servicios" className="px-6 bg-black">
+        <div className="max-w-7xl mx-auto">
+          <VerticalScrollTestimonials />
+        </div>
+      </section>
     </div>
   );
 };
