@@ -13,15 +13,21 @@ import {
 } from "lucide-react";
 import Header from "./components/header";
 import Title from "./components/title";
+import ToolCard from "./components/toolCards";
 
 const App: React.FC = () => {
   return (
     <div className="min-h-screen bg-darkBgColor">
       <Header />
-      <section id="servicios" className=" px-6 bg-black">
+      <section id="servicios" className="px-6 bg-black">
         <div className="max-w-7xl mx-auto">
           <div className="h-screen flex items-center justify-center">
             <Title />
+          </div>
+          <div className="max-w-6xl mx-auto">
+            <h2 className="text-4xl font-bold text-center mb-16 text-white">
+              Nuestros Servicios Innovadores
+            </h2>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-16">
@@ -236,12 +242,24 @@ const App: React.FC = () => {
               </CardBody>
             </CardContainer>
           </div>
+          <div className="mt-20 max-w-6xl mx-auto">
+            <h2 className="text-4xl font-bold text-center mb-16 text-white">
+              Integrado a las mejores herramientas
+            </h2>
+          </div>
+          
         </div>
       </section>
+      <div>
+            <div
+              className="max-w-7xl mx-auto h-[2px] w-full
+                bg-[linear-gradient(90deg,transparent,#EF4444,#F97316,transparent)]"/>
+            <ToolCard />
+            <div className="max-w-7xl mx-auto h-[2px] w-full
+                bg-[linear-gradient(90deg,transparent,#EF4444,#F97316,transparent)]"/>
+          </div>
     </div>
   );
 };
-
-
 
 export default App;
