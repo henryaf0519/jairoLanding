@@ -128,84 +128,81 @@ const cardsData = [
 
 export const VerticalScrollTestimonials: React.FC = () => {
   const mainContainerRef = useRef<HTMLDivElement>(null);
-    const pinContainerRef = useRef<HTMLDivElement>(null);
-    const cardRefs = useRef<(HTMLDivElement | null)[]>([]);
+  const pinContainerRef = useRef<HTMLDivElement>(null);
+  const cardRefs = useRef<(HTMLDivElement | null)[]>([]);
 
-    useEffect(() => {
-      
-        if (gsap && ScrollTrigger && mainContainerRef.current) {
-            gsap.registerPlugin(ScrollTrigger);
+  useEffect(() => {
+    if (gsap && ScrollTrigger && mainContainerRef.current) {
+        gsap.registerPlugin(ScrollTrigger);
 
-            const pinElement = pinContainerRef.current;
-            // We animate all cards except for the first one
-            const cardsToAnimate = cardRefs.current.slice(1);
+        const pinElement = pinContainerRef.current;
+        // Animar todas las tarjetas excepto la primera
+        const cardsToAnimate = cardRefs.current.slice(1);
 
-            if (!pinElement || cardsToAnimate.some(card => !card)) return;
-            
-            // Set the initial state of the cards that will be animated.
-            // They start invisible, scaled down, and shifted down to appear from behind the first card.
-            gsap.set(cardsToAnimate, {
-                y: 100,
-                scale: 0.9,
-                opacity: 0,
-                transformOrigin: 'top center',
+        if (!pinElement || cardsToAnimate.some(card => !card)) return;
+
+        // Establecer el estado inicial de las tarjetas que se animarán
+        gsap.set(cardsToAnimate, {
+            y: 100,
+            scale: 0.9,
+            opacity: 0,
+            transformOrigin: 'top center',
+        });
+
+        // Crear una línea de tiempo de GSAP controlada por el desplazamiento
+        const tl = gsap.timeline({
+            scrollTrigger: {
+                trigger: pinElement,
+                pin: true,
+                start: "top top",
+                end: `+=${cardsToAnimate.length * 500}`, 
+                scrub: 2, 
+            },
+        });
+
+        // Animación para cada tarjeta
+        cardsToAnimate.forEach((card, index) => {
+            const rotationDeg = -4 + index; // Inicia en -4 y se incrementa
+            tl.to(card, {
+                y: 0,
+                scale: 1,
+                opacity: 1,
+                rotation: rotationDeg, // Aplica la rotación incremental
+                ease: "power2.inOut",
             });
+        });
+    }
 
-            // Create a GSAP timeline that is controlled by the scroll position.
-            const tl = gsap.timeline({
-                scrollTrigger: {
-                    trigger: pinElement,
-                    pin: true,
-                    start: "top top",
-                    // The animation completes over a scroll distance proportional to the number of cards
-                    end: `+=${cardsToAnimate.length * 500}`, 
-                    scrub: 2, // Smoothly links the animation progress to the scrollbar
-                },
-            });
+    // Función de limpieza para evitar fugas de memoria al eliminar ScrollTriggers
+    return () => {
+        ScrollTrigger?.getAll().forEach(trigger => trigger.kill());
+    };
+  }, []);
 
-            // Add an animation for each card to the timeline sequentially.
-            cardsToAnimate.forEach((card) => {
-                tl.to(card, {
-                    y: 0,
-                    scale: 1,
-                    opacity: 1,
-                    ease: "power2.inOut",
-                });
-            });
-        }
-        
-        // Cleanup function to kill ScrollTriggers on component unmount to prevent memory leaks
-        return () => {
-            ScrollTrigger?.getAll().forEach(trigger => trigger.kill());
-        };
-    }, []);
-
-    return (
-        <main ref={mainContainerRef}>
-            
-            
-            <section ref={pinContainerRef} className="h-screen flex items-center justify-center">
-                <div className="relative w-[320px] h-[480px] md:w-[400px] md:h-[600px]">
-                    {cardsData.map((card, index) => (
-                         <div
-                            key={card.id}
-                            ref={el => (cardRefs.current[index] = el)}
-                            className="absolute top-0 left-0 w-full h-full"
-                            style={{ zIndex: card.zIndex }}
+  return (
+    <main ref={mainContainerRef}>
+        <section ref={pinContainerRef} className="h-screen flex items-center justify-center">
+            <div className="relative w-[320px] h-[480px] md:w-[400px] md:h-[600px]">
+                {cardsData.map((card, index) => (
+                    <div
+                        key={card.id}
+                        ref={el => (cardRefs.current[index] = el)}
+                        className="absolute top-0 left-0 w-full h-full"
+                        style={{ zIndex: card.zIndex }}
+                    >
+                        <Card
+                            className={`bg-gradient-to-br ${card.color} border-2 border-black` }
+                            title={card.title}
+                            description={card.description}
                         >
-                            <Card
-                                className={`bg-gradient-to-br ${card.color}`}
-                                title={card.title}
-                                description={card.description}
-                            >
-                               <div className="text-sm opacity-60">Contenido de la tarjeta #{card.id}.</div>
-                            </Card>
-                        </div>
-                    ))}
-                </div>
-            </section>
-             
-        </main>
-    );
+                           <div className="text-sm opacity-60">Contenido de la tarjeta #{card.id}.</div>
+                        </Card>
+                    </div>
+                ))}
+            </div>
+        </section>
+    </main>
+  );
 };
+
 export default VerticalScrollTestimonials;
