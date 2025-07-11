@@ -15,6 +15,7 @@ import Header from "./components/header";
 import Title from "./components/title";
 import ToolCard from "./components/toolCards";
 import { VerticalScrollTestimonials } from "./components/testimonies";
+import Footer from "./components/footer";
 
 const App: React.FC = () => {
   return (
@@ -264,6 +265,16 @@ const App: React.FC = () => {
       <section id="servicios" className="px-6 bg-black">
         <div className="max-w-7xl mx-auto">
           <VerticalScrollTestimonials />
+        </div>
+      </section>
+      <section className="mt-[100px]">
+        <div>
+          <div
+            className="max-w-7xl mx-auto h-[2px] w-full
+                bg-[linear-gradient(90deg,transparent,#EF4444,#F97316,transparent)]"
+          />
+          < Footer />
+
         </div>
       </section>
     </div>
