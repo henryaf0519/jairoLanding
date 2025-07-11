@@ -1,6 +1,5 @@
-import { Boxes } from "./background-boxes";
-import AnimatedGradientButton from "./button";
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
+import GlowingButton from "./glowingButton";
 
 const Title = () => {
   const titles = [
@@ -52,7 +51,6 @@ const Title = () => {
     <div className="h-96 relative w-full overflow-hidden bg-darkBgColor flex flex-col items-center justify-center rounded-lg">
       <div className="absolute inset-0 w-full h-full bg-darkBgColor z-20 [mask-image:radial-gradient(transparent,white)] pointer-events-none" />
 
-      <Boxes />
       <div className="max-w-4xl mx-auto flex flex-col items-center justify-center">
         <h1 className="text-5xl md:text-6xl font-extrabold text-center mt-2 leading-tight text-white relative z-20">
           Potencia Tu Negocio con
@@ -65,12 +63,9 @@ const Title = () => {
           web de vanguardia para transformar tu operación y maximizar tus
           resultados.
         </p>
-        <AnimatedGradientButton
-          onClick={() => alert("Button Clicked!")}
-          className="mt-10"
-        >
-          Agendar Demo
-        </AnimatedGradientButton>
+        <div className="z-20">
+          <GlowingButton  />
+        </div>
       </div>
     </div>
   );

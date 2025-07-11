@@ -54,17 +54,6 @@ const App: React.FC = () => {
                   psicológicos, consultorios y más. Nuestros agentes IA se
                   encargan de la disponibilidad, recordatorios y confirmaciones.
                 </CardItem>
-                <div className="flex justify-between items-center mt-20">
-                  <CardItem
-                    translateZ={20}
-                    as="a"
-                    href="https://twitter.com/mannupaaji"
-                    target="__blank"
-                    className="text-base py-2 rounded-xl font-normal dark:text-white text-white"
-                  >
-                    Saber mas →
-                  </CardItem>
-                </div>
               </CardBody>
             </CardContainer>
 
@@ -89,17 +78,6 @@ const App: React.FC = () => {
                   agendar servicios y realizar pagos de forma integrada y
                   segura, todo gestionado por nuestra IA.
                 </CardItem>
-                <div className="flex justify-between items-center mt-20">
-                  <CardItem
-                    translateZ={20}
-                    as="a"
-                    href="https://twitter.com/mannupaaji"
-                    target="__blank"
-                    className="text-base py-2 rounded-xl font-normal dark:text-white text-white"
-                  >
-                    Saber mas →
-                  </CardItem>
-                </div>
               </CardBody>
             </CardContainer>
             <CardContainer className="inter-var m-4 w-full sm:w-[80%] lg:w-[100%] border border-white rounded-xl transition-all duration-300 hover:border-neonRed hover:ring-4 hover:ring-neonRed">
@@ -123,17 +101,6 @@ const App: React.FC = () => {
                   vender productos, resolver dudas frecuentes y ofrecer soporte
                   al cliente de manera instantánea.
                 </CardItem>
-                <div className="flex justify-between items-center mt-20">
-                  <CardItem
-                    translateZ={20}
-                    as="a"
-                    href="https://twitter.com/mannupaaji"
-                    target="__blank"
-                    className="text-base py-2 rounded-xl font-normal dark:text-white text-white"
-                  >
-                    Saber mas →
-                  </CardItem>
-                </div>
               </CardBody>
             </CardContainer>
             <CardContainer className="inter-var m-4 w-full sm:w-[80%] lg:w-[100%] border border-white rounded-xl transition-all duration-300 hover:border-neonRed hover:ring-4 hover:ring-neonRed">
@@ -159,17 +126,6 @@ const App: React.FC = () => {
                   optimizar el rendimiento y asegurar la mejor experiencia de
                   usuario.
                 </CardItem>
-                <div className="flex justify-between items-center mt-20">
-                  <CardItem
-                    translateZ={20}
-                    as="a"
-                    href="https://twitter.com/mannupaaji"
-                    target="__blank"
-                    className="text-base py-2 rounded-xl font-normal dark:text-white text-white"
-                  >
-                    Saber mas →
-                  </CardItem>
-                </div>
               </CardBody>
             </CardContainer>
             <CardContainer className="inter-var m-4 w-full sm:w-[80%] lg:w-[100%] border border-white rounded-xl transition-all duration-300 hover:border-neonRed hover:ring-4 hover:ring-neonRed">
@@ -195,17 +151,6 @@ const App: React.FC = () => {
                   integrada para ofrecer una experiencia moderna, eficiente y
                   atractiva a tus usuarios.
                 </CardItem>
-                <div className="flex justify-between items-center mt-20">
-                  <CardItem
-                    translateZ={20}
-                    as="a"
-                    href="https://twitter.com/mannupaaji"
-                    target="__blank"
-                    className="text-base py-2 rounded-xl font-normal dark:text-white text-white"
-                  >
-                    Saber mas →
-                  </CardItem>
-                </div>
               </CardBody>
             </CardContainer>
             <CardContainer className="inter-var m-4 w-full sm:w-[80%] lg:w-[100%] border border-white rounded-xl transition-all duration-300 hover:border-neonRed hover:ring-4 hover:ring-neonRed">
@@ -230,17 +175,6 @@ const App: React.FC = () => {
                   repetitivas, mejora la eficiencia y permite que tu equipo se
                   enfoque en lo que realmente importa.
                 </CardItem>
-                <div className="flex justify-between items-center mt-20">
-                  <CardItem
-                    translateZ={20}
-                    as="a"
-                    href="https://twitter.com/mannupaaji"
-                    target="__blank"
-                    className="text-base py-2 rounded-xl font-normal dark:text-white text-white"
-                  >
-                    Saber mas →
-                  </CardItem>
-                </div>
               </CardBody>
             </CardContainer>
           </div>
