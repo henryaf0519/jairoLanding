@@ -16,13 +16,44 @@ import Title from "./components/title";
 import ToolCard from "./components/toolCards";
 import { VerticalScrollTestimonials } from "./components/testimonies";
 import Footer from "./components/footer";
+import { useScroll, useTransform } from "motion/react";
+import { GoogleGeminiEffect } from "./components/gemini";
 
 const App: React.FC = () => {
+   const ref = React.useRef(null);
+  const { scrollYProgress } = useScroll({
+    target: ref,
+    offset: ["start start", "end start"],
+  });
+   const pathLengthFirst = useTransform(scrollYProgress, [0, 0.8], [0.2, 1.2]);
+  const pathLengthSecond = useTransform(scrollYProgress, [0, 0.8], [0.15, 1.2]);
+  const pathLengthThird = useTransform(scrollYProgress, [0, 0.8], [0.1, 1.2]);
+  const pathLengthFourth = useTransform(scrollYProgress, [0, 0.8], [0.05, 1.2]);
+  const pathLengthFifth = useTransform(scrollYProgress, [0, 0.8], [0, 1.2]);
+
   return (
     <div className="min-h-screen bg-darkBgColor">
       <Header />
       <section id="servicios" className="px-6 bg-black">
         <div className="max-w-7xl mx-auto">
+          <div
+            className="h-[400vh] bg-black w-full dark:border dark:border-white/[0.1] rounded-md relative pt-40 overflow-clip"
+            ref={ref}
+          >
+            <GoogleGeminiEffect
+            title="Potencia Tu Negocio con"
+            description="  En Orvex, creamos agentes de IA inteligentes y desarrollamos páginas
+          web de vanguardia para transformar tu operación y maximizar tus
+          resultados."
+              pathLengths={[
+                pathLengthFirst,
+                pathLengthSecond,
+                pathLengthThird,
+                pathLengthFourth,
+                pathLengthFifth,
+              ]}
+            />
+          </div>
           <div className="h-screen flex items-center justify-center">
             <Title />
           </div>
@@ -207,8 +238,7 @@ const App: React.FC = () => {
             className="max-w-7xl mx-auto h-[2px] w-full
                 bg-[linear-gradient(90deg,transparent,#EF4444,#F97316,transparent)]"
           />
-          < Footer />
-
+          <Footer />
         </div>
       </section>
     </div>
