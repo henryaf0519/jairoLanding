@@ -1,7 +1,8 @@
 "use client";
 import { cn } from "../../utils/utils";
 import { motion, MotionValue } from "motion/react";
-import React from "react";
+import { useState, useEffect } from "react";
+import GlowingButton from "./glowingButton";
 
 const transition = {
   duration: 0,
@@ -19,20 +20,68 @@ export const TitleAnimate = ({
   description?: string;
   className?: string;
 }) => {
+  const titles = [
+    "Inteligencia Artificial",
+    "Automatización Inteligente",
+    "Desarrollo Web de Impacto",
+    "Transformación Digital",
+  ];
+  const [titleIndex, setTitleIndex] = useState(0);
+  const [currentText, setCurrentText] = useState("");
+  const [isDeleting, setIsDeleting] = useState(false);
+  const typingSpeed = 15;
+  const deletingSpeed = 10;
+  const pauseDuration = 2000;
+  useEffect(() => {
+    const handleTyping = () => {
+      const fullText = titles[titleIndex];
+
+      if (isDeleting) {
+        setCurrentText((prev) => prev.substring(0, prev.length - 1));
+      } else {
+        setCurrentText((prev) => fullText.substring(0, prev.length + 1));
+      }
+    };
+
+    let timer: number;
+
+    if (!isDeleting && currentText === titles[titleIndex]) {
+      // Pause when word is fully typed
+      timer = window.setTimeout(() => {
+        setIsDeleting(true);
+      }, pauseDuration);
+    } else if (isDeleting && currentText === "") {
+      // Move to next word when deleted
+      setIsDeleting(false);
+      setTitleIndex((prevIndex) => (prevIndex + 1) % titles.length);
+    } else {
+      // Continue typing or deleting
+      timer = window.setTimeout(
+        handleTyping,
+        isDeleting ? deletingSpeed : typingSpeed
+      );
+    }
+
+    return () => clearTimeout(timer);
+  }, [currentText, isDeleting, titleIndex]);
+
   return (
     <div className={cn("sticky top-0", className)}>
       <p className="text-lg md:text-7xl font-normal pb-4 text-center bg-clip-text text-transparent bg-gradient-to-b from-neutral-100 to-neutral-300">
         {title || `Build with Aceternity UI`}
       </p>
+      <h1 className="h-[90px] text-5xl md:text-6xl leading-[1.5] md:leading-[1.5] font-extrabold text-center mt-2   relative z-20 bg-gradient-to-r from-red-600 via-[#ff0000] to-red-400 bg-clip-text text-transparent ">
+        {currentText}
+      </h1>
       <p className="text-xs md:text-xl font-normal text-center text-neutral-400 mt-4 max-w-lg mx-auto">
         {description ||
           `Scroll this component and see the bottom SVG come to life wow this
         works!`}
       </p>
       <div className="w-full h-[890px] -top-60 md:-top-40  flex items-center justify-center bg-red-transparent absolute ">
-        <button className="font-bold bg-white rounded-full md:px-4 md:py-2 px-2 py-1 md:mt-24 mt-8 z-30 md:text-base text-black text-xs  w-fit mx-auto ">
-          Agendar Demo
-        </button>
+        <div className="z-20 mt-20">
+          <GlowingButton />
+        </div>
       </div>
       <svg
         width="100%"
