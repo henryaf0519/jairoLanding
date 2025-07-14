@@ -14,6 +14,7 @@ const Title = () => {
   const typingSpeed = 15;
   const deletingSpeed = 10;
   const pauseDuration = 2000;
+  
 
   useEffect(() => {
     const handleTyping = () => {

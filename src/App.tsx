@@ -17,7 +17,7 @@ import ToolCard from "./components/toolCards";
 import { VerticalScrollTestimonials } from "./components/testimonies";
 import Footer from "./components/footer";
 import { useScroll, useTransform } from "motion/react";
-import { GoogleGeminiEffect } from "./components/gemini";
+import { TitleAnimate } from "./components/titleAnimate";
 
 const App: React.FC = () => {
    const ref = React.useRef(null);
@@ -34,15 +34,13 @@ const App: React.FC = () => {
   return (
     <div className="min-h-screen bg-darkBgColor">
       <Header />
-      <section id="servicios" className="px-6 bg-black">
-        <div className="max-w-7xl mx-auto">
-          <div
-            className="h-[400vh] bg-black w-full dark:border dark:border-white/[0.1] rounded-md relative pt-40 overflow-clip"
+       <div
+            className="h-[200vh] bg-black w-full dark:border dark:border-white/[0.1] rounded-md relative pt-40 overflow-clip"
             ref={ref}
           >
-            <GoogleGeminiEffect
-            title="Potencia Tu Negocio con"
-            description="  En Orvex, creamos agentes de IA inteligentes y desarrollamos páginas
+            <TitleAnimate
+            title=" Potencia Tu Negocio con"
+            description=" En Orvex, creamos agentes de IA inteligentes y desarrollamos páginas
           web de vanguardia para transformar tu operación y maximizar tus
           resultados."
               pathLengths={[
@@ -54,8 +52,11 @@ const App: React.FC = () => {
               ]}
             />
           </div>
-          <div className="h-screen flex items-center justify-center">
-            <Title />
+      <section id="servicios" className="px-6 bg-black">
+        <div className="max-w-7xl mx-auto">
+         
+          <div className=" flex items-center justify-center">
+            
           </div>
           <div className="max-w-6xl mx-auto">
             <h2 className="text-4xl font-bold text-center mb-16 text-white">
