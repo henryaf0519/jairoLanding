@@ -14,6 +14,7 @@ export default {
         darkBgColor: "#000000",
         redColor: "#FF0000",
         neonRed: "#FF073A",
+        grayColor:"#2a2627",
         background: "hsl(var(--background))",
         foreground: "hsl(var(--foreground))",
         card: {
