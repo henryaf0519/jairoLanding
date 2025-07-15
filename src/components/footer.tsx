@@ -33,55 +33,63 @@ const Footer = () => {
   );
   return (
     <>
-      <footer className="bg-black text-white py-10">
-        <div className="container mx-auto px-6 flex justify-between items-center">
-          <div className="flex flex-col space-y-4">
-            <p className="text-lg font-semibold">
-              © 2025 Orvex. Todos los derechos reservados.
-            </p>
-          </div>
+     <footer className="bg-black text-white py-10">
+  <div className="container mx-auto px-6 flex flex-col md:flex-row justify-between items-center md:items-start space-y-8 md:space-y-0">
+    
+    {/* Texto legal */}
+    <div className="text-center md:text-left">
+      <p className="text-lg font-semibold">
+        © 2025 Orvex. Todos los derechos reservados.
+      </p>
+    </div>
 
-          <div className="flex items-center space-x-6">
-            {/* Iconos de Instagram al lado del botón */}
-            <a
-              href="https://www.instagram.com"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-white hover:text-pink-500 w-12 h-12 flex items-center justify-center"
-            >
-              <img
-                src={InstagramIcon}
-                alt="Instagram"
-                className="w-8 h-8 object-contain" // Tamaño ajustado para los iconos
-              />
-            </a>
-            <a
-              href="https://www.instagram.com"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-white hover:text-pink-500 w-12 h-12 flex items-center justify-center"
-            >
-              <img
-                src={Whastsapp}
-                alt="Instagram"
-                className="w-8 h-8 object-contain" // Tamaño ajustado para los iconos
-              />
-            </a>
-            {/* Botón de Agendar Demo al lado de los iconos */}
-            <button
-              className="px-6 py-2 rounded-full font-semibold transition-all duration-300 ease-in-out"
-              style={{
-                backgroundColor: primaryColor,
-                color: "white",
-                boxShadow: `0 4px 15px rgba(255, 0, 0, 0.4)`,
-              }}
-              onClick={() => setIsModalOpen(true)}
-            >
-              Agendar Demo
-            </button>
-          </div>
-        </div>
-      </footer>
+    {/* Íconos + botón */}
+    <div className="flex flex-col items-center md:flex-row md:space-x-6 space-y-4 md:space-y-0">
+      
+      {/* Íconos */}
+      <div className="flex space-x-4">
+        <a
+          href="https://www.instagram.com"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="w-12 h-12 flex items-center justify-center rounded-full bg-white/10 hover:bg-pink-600 transition"
+        >
+          <img
+            src={InstagramIcon}
+            alt="Instagram"
+            className="w-6 h-6 object-contain"
+          />
+        </a>
+        <a
+          href="https://www.instagram.com"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="w-12 h-12 flex items-center justify-center rounded-full bg-white/10 hover:bg-green-500 transition"
+        >
+          <img
+            src={Whastsapp}
+            alt="Whatsapp"
+            className="w-6 h-6 object-contain"
+          />
+        </a>
+      </div>
+
+      {/* Botón */}
+      <button
+        className="mt-4 md:mt-0 px-6 py-2 rounded-full font-semibold transition-all duration-300 ease-in-out"
+        style={{
+          backgroundColor: primaryColor,
+          color: "white",
+          boxShadow: `0 4px 15px rgba(255, 0, 0, 0.4)`,
+        }}
+        onClick={() => setIsModalOpen(true)}
+      >
+        Agendar Demo
+      </button>
+    </div>
+  </div>
+</footer>
+
       {isModalOpen && ReactDOM.createPortal(modal, document.body)}
     </>
   );
