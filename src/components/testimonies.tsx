@@ -58,7 +58,7 @@ const cardsData = [
         color: 'bg-white',
         zIndex: 10,
         testimonialAuthor: 'Daniel Cardona',
-        img:'../../assets/woman1.png'
+        img:'/assets/woman1.png'
     },
     {
         id: 2,
@@ -67,7 +67,7 @@ const cardsData = [
         color: 'bg-white',
         zIndex: 20,
         testimonialAuthor: 'Aron D\'mello',
-        img:'../../assets/woman1.png'
+        img:'/assets/woman1.png'
     },
     {
         id: 3,
@@ -76,7 +76,7 @@ const cardsData = [
         color: 'bg-white',
         zIndex: 30,
         testimonialAuthor: 'Alejandro Sarmiento',
-        img:'../../assets/woman1.png'
+        img:'/assets/woman1.png'
     },
     {
         id: 4,
@@ -85,7 +85,7 @@ const cardsData = [
         color: 'bg-white',
         zIndex: 40,
         testimonialAuthor: 'Sebastián B.',
-        img:'../../assets/woman1.png'
+        img:'/assets/woman1.png'
     },
     {
         id: 5,
@@ -94,7 +94,7 @@ const cardsData = [
         color: 'bg-white',
         zIndex: 50,
         testimonialAuthor: 'Hannah Brownlee',
-        img:'../../assets/woman1.png'
+        img:'/assets/woman1.png'
     },
     {
         id: 6,
@@ -103,7 +103,7 @@ const cardsData = [
         color: 'bg-white',
         zIndex: 60,
         testimonialAuthor: 'Christian Perez',
-        img:'../../assets/woman1.png'
+        img:'/assets/woman1.png'
     },
     {
         id: 7,
@@ -112,7 +112,7 @@ const cardsData = [
         color: 'bg-white',
         zIndex: 70,
         testimonialAuthor: 'Juan Camilo García',
-        img:'../../assets/woman1.png'
+        img:'/assets/woman1.png'
     },
     {
         id: 8,
@@ -121,7 +121,7 @@ const cardsData = [
         color: 'bg-white',
         zIndex: 80,
         testimonialAuthor: 'Daniel Salinas',
-        img:'../../assets/woman1.png'
+        img:'/assets/woman1.png'
     },
     {
         id: 9,
@@ -130,7 +130,7 @@ const cardsData = [
         color: 'bg-white',
         zIndex: 90,
         testimonialAuthor: 'Benedicta Mendez',
-        img:'../../assets/woman1.png'
+        img:'/assets/woman1.png'
     },
     {
         id: 10,
@@ -139,7 +139,7 @@ const cardsData = [
         color: 'bg-white',
         zIndex: 100,
         testimonialAuthor: 'María R.',
-        img:'../../assets/woman1.png'
+        img:'/assets/woman1.png'
     },
     {
         id: 11,
@@ -148,7 +148,7 @@ const cardsData = [
         color: 'bg-white',
         zIndex: 110,
         testimonialAuthor: 'Leo Isaza',
-        img:'../../assets/woman1.png'
+        img:'/assets/woman1.png'
     },
     {
         id: 12,
@@ -157,7 +157,7 @@ const cardsData = [
         color: 'bg-white',
         zIndex: 120,
         testimonialAuthor: 'Santiago Ruiz',
-        img:'../../assets/woman1.png'
+        img:'/assets/woman1.png'
     }
 ];
 

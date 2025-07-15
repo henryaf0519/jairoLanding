@@ -6,13 +6,10 @@ import {
   DollarSign,
   MessageSquare,
   Code,
-  Star,
-  ChevronRight,
   Laptop,
   Settings,
 } from "lucide-react";
 import Header from "./components/header";
-import Title from "./components/title";
 import ToolCard from "./components/toolCards";
 import { VerticalScrollTestimonials } from "./components/testimonies";
 import Footer from "./components/footer";

@@ -62,18 +62,14 @@ useEffect(() => {
         <div className="flex items-center">
           {/* Logo de Orvex */}
           <div
-            className="h-8 w-8 mr-2"
-            style={{ backgroundColor: darkBgColor }}
+            className=" mr-2"
           >
             <img
-              src="https://placehold.co/32x32/1a1a1a/FF0000?text=ORVEX"
+              src="/assets/logo.png"
               alt="Orvex Logo"
               className="h-full w-full object-contain"
             />
           </div>
-          <span className="text-2xl font-bold" style={{ color: primaryColor }}>
-            ORVEX
-          </span>
         </div>
         <div className="space-x-6 hidden md:flex">
           <a

@@ -1,50 +1,50 @@
-import React, { useEffect, useRef } from "react";
+import { useEffect, useRef } from "react";
 import gsap from "gsap";
 const logos = [
   {
-    src: "../../assets/airtable.webp",
+    src: "/assets/airtable.webp",
     alt: "Logo 1",
   },
   {
-    src: "../../assets/calendar.webp",
+    src: "/assets/calendar.webp",
     alt: "Logo 4",
   },
   {
-    src: "../../assets/chatgpt.webp",
+    src: "/assets/chatgpt.webp",
     alt: "Logo 5",
   },
   {
-    src: "../../assets/facebook.webp",
+    src: "/assets/facebook.webp",
     alt: "Logo 7",
   },
    {
-    src: "../../assets/gemini.webp",
+    src: "/assets/gemini.webp",
     alt: "Logo 7",
   },
   {
-    src: "../../assets/gmail.webp",
+    src: "/assets/gmail.webp",
     alt: "Logo 18",
   },
   {
-    src: "../../assets/instagram.webp",
+    src: "/assets/instagram.webp",
     alt: "Logo 18",
   },
   {
-    src: "../../assets/mailchimp.webp",
+    src: "/assets/mailchimp.webp",
     alt: "Logo 18",
   },
   {
-    src: "../../assets/meta.webp",
+    src: "/assets/meta.webp",
     alt: "Logo 10",
   },
   {
-    src: "../../assets/openai.webp",
+    src: "/assets/openai.webp",
     alt: "Logo 15",
   },
-  { src: "../../assets/sheets.webp" },
-  { src: "../../assets/whatsapp.webp" },
+  { src: "/assets/sheets.webp" },
+  { src: "/assets/whatsapp.webp" },
   {
-    src: "../../assets/wompi.webp",
+    src: "/assets/wompi.webp",
   },
 ];
 

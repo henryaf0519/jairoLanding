@@ -1,13 +1,12 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import ReactDOM from "react-dom";
-import InstagramIcon from "../../assets/Iwhite.svg"; // Asegúrate de la ruta correcta
-import Whastsapp from "../../assets/ww.svg"; // Asegúrate de la ruta correcta
+import InstagramIcon from "/assets/Iwhite.svg"; 
+import Whastsapp from "/assets/ww.svg";
 import SignupFormDemo from "./form/form";
 
 const Footer = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const primaryColor = "#FF0000"; // Rojo de Orvex
-  const darkBgColor = "#1a1a1a"; // Fondo oscuro
   const modal = (
     <div
       className="

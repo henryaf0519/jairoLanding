@@ -58,6 +58,7 @@ export default function SignupFormDemo() {
   .then(() => {
   })
   .catch((err) => {
+    console.log('err: ', err)
   });
 };
 
