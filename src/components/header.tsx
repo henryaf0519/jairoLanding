@@ -5,7 +5,6 @@ import SignupFormDemo from "./form/form";
 const Header = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const primaryColor = "#FF0000"; // Rojo de Orvex
-  const darkBgColor = "#1a1a1a"; // Fondo oscuro
   const modal = (
   <div
     className="
@@ -67,7 +66,7 @@ useEffect(() => {
             <img
               src="/assets/logo.png"
               alt="Orvex Logo"
-              className="h-full w-full object-contain"
+              className="w-[150px] h-auto md:w-[200px] md:h-[55px] object-contain"
             />
           </div>
         </div>
