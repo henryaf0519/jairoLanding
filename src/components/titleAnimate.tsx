@@ -65,7 +65,7 @@ export const TitleAnimate = ({
       <p className="text-lg md:text-7xl font-normal pb-4 text-center bg-clip-text text-transparent bg-gradient-to-b from-neutral-100 to-neutral-300">
         {title || `Build with Aceternity UI`}
       </p>
-      <h1 className="h-[90px] text-5xl md:text-6xl leading-[1.5] md:leading-[1.5] font-extrabold text-center mt-2   relative z-20 bg-gradient-to-r from-red-600 via-[#ff0000] to-red-400 bg-clip-text text-transparent ">
+      <h1 className="h-[90px] text-3xl sm:text-4xl md:text-6xl leading-[1.5] md:leading-[1.5] font-extrabold text-center mt-2 relative z-20 bg-gradient-to-r from-red-600 via-[#ff0000] to-red-400 bg-clip-text text-transparent ">
         {currentText}
       </h1>
       <p className="text-xs md:text-xl font-normal text-center text-neutral-400 mt-4 max-w-lg mx-auto">
@@ -80,10 +80,9 @@ export const TitleAnimate = ({
       </div>
       <svg
         width="100%"
-        height="890"
         viewBox="0 0 1440 890"
         xmlns="http://www.w3.org/2000/svg"
-        className=" absolute -top-60  md:-top-40 w-full"
+         className="absolute w-full h-[500px] md:h-[890px] mt-[216px] sm:mt-0 -top-60 md:-top-40"
         preserveAspectRatio="none"
       >
         <motion.path
