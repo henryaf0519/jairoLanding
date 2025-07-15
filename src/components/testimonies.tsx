@@ -17,23 +17,35 @@ interface CardProps {
 }
 
 const Card: React.FC<CardProps> = ({ className, title, description, children, img }) => (
-    <div 
-        className={`w-full h-full bg-white rounded-2xl shadow-xl hover:shadow-2xl p-6 md:p-8 flex flex-col justify-between transition-all duration-300 transform hover:scale-105 ${className}`}
-    >
-        <div className="flex flex-col items-center space-y-4">
-          
-            <h3 className="text-2xl font-semibold text-gray-800">{title}</h3>
-            <p className="mt-2 text-lg text-gray-600 opacity-90">{description}</p>
-        </div>
+  <div
+  className={`w-full bg-white rounded-2xl shadow-xl hover:shadow-2xl p-4 sm:p-6 md:p-8 
+              flex flex-col justify-between 
+              transition-all duration-300 transform hover:scale-105 
+              min-h-[420px] sm:min-h-[380px] md:min-h-[350px]
+              ${className}`}
+>
 
-        <div className="flex flex-row items-center space-x-4 mt-4">
-            {/* Aquí movemos la imagen para que esté al lado de los "children" */}
-            <div className="w-16 h-16 rounded-full overflow-hidden border-4 border-gray-200">
-                <img src={img} alt="Avatar" className="w-full h-full object-cover" />
-            </div>
-            <div className="flex-grow">{children}</div>
-        </div>
+  {/* Título y descripción */}
+  <div className="flex flex-col items-center space-y-2 text-center">
+    <h3 className="text-xl sm:text-2xl font-semibold text-gray-800 break-words">
+      {title}
+    </h3>
+    <p className="text-base sm:text-lg text-gray-600 opacity-90 break-words">
+      {description}
+    </p>
+  </div>
+
+  {/* Imagen + children */}
+  <div className="flex items-center gap-4 mt-6 flex-wrap">
+    <div className="w-14 h-14 sm:w-16 sm:h-16 rounded-full overflow-hidden border-4 border-gray-200 shrink-0">
+      <img src={img} alt="Avatar" className="w-full h-full object-cover" />
     </div>
+    <div className="flex-grow break-words text-sm sm:text-base">
+      {children}
+    </div>
+  </div>
+</div>
+
 );
 
 
@@ -208,31 +220,45 @@ export const VerticalScrollTestimonials: React.FC = () => {
 
   return (
     <main ref={mainContainerRef}>
-        <section ref={pinContainerRef} className="h-[700px] flex items-center justify-center flex-col">
-            <h2 className="text-4xl font-bold text-center mb-[190px] text-white">
-              Lo que dicen de nosotros
-            </h2>
-            <div className="relative w-[600px] h-[350px] md:w-[600px] md:h-[350px]">
-                {cardsData.map((card, index) => (
-                    <div
-                        key={card.id}
-                        ref={el => (cardRefs.current[index] = el)}
-                        className="absolute top-0 left-0 w-full h-full"
-                        style={{ zIndex: card.zIndex }}
-                    >
-                        <Card
-                            className={`bg-gradient-to-br ${card.color} border-2 border-black` }
-                            title={card.title}
-                            description={card.description}
-                            img={card.img}
-                        >
-                           <div className="text-sm opacity-60">{card.testimonialAuthor}</div>
-                        </Card>
-                    </div>
-                ))}
-            </div>
-        </section>
-    </main>
+  <section
+    ref={pinContainerRef}
+    className="min-h-[700px] flex items-center justify-center flex-col px-4"
+  >
+    <h2 className="text-3xl md:text-4xl font-bold text-center mb-20 text-white">
+      Lo que dicen de nosotros
+    </h2>
+
+    <div
+      className="
+        relative 
+        w-full 
+        max-w-[600px] 
+        aspect-[3/2] 
+        md:h-[350px] 
+        md:aspect-auto
+      "
+    >
+      {cardsData.map((card, index) => (
+        <div
+          key={card.id}
+          ref={(el) => (cardRefs.current[index] = el)}
+          className="absolute top-0 left-0 w-full h-full"
+          style={{ zIndex: card.zIndex }}
+        >
+          <Card
+            className={`bg-gradient-to-br ${card.color} border-2 border-black`}
+            title={card.title}
+            description={card.description}
+            img={card.img}
+          >
+            <div className="text-sm opacity-60">{card.testimonialAuthor}</div>
+          </Card>
+        </div>
+      ))}
+    </div>
+  </section>
+</main>
+
   );
 };
 
