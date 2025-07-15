@@ -6,17 +6,17 @@ const Header = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const primaryColor = "#FF0000"; // Rojo de Orvex
   const modal = (
-  <div
-    className="
+    <div
+      className="
       fixed inset-0 
       z-[9999]               
       flex items-center justify-center
       bg-darkBgColor bg-opacity-50
       p-4
     "
-  >
-    <div
-      className="
+    >
+      <div
+        className="
         border border-white 
         bg-darkBgColor 
         rounded-3xl 
@@ -28,41 +28,39 @@ const Header = () => {
         overflow-y-auto 
         relative
       "
-    >
-      {/* Botón de cerrar */}
-      <button
-        onClick={() => setIsModalOpen(false)}
-        className="absolute top-2 right-2 text-white hover:text-gray-400 text-2xl leading-none"
       >
-        &times;
-      </button>
+        {/* Botón de cerrar */}
+        <button
+          onClick={() => setIsModalOpen(false)}
+          className="absolute top-2 right-2 text-white hover:text-gray-400 text-2xl leading-none"
+        >
+          &times;
+        </button>
 
-      {/* Contenido del modal */}
-      <div className="p-6">
-        <SignupFormDemo />
+        {/* Contenido del modal */}
+        <div className="p-6">
+          <SignupFormDemo />
+        </div>
       </div>
     </div>
-  </div>
-);
-useEffect(() => {
-  if (isModalOpen) {
-    document.body.style.overflow = "hidden";
-  } else {
-    document.body.style.overflow = "auto";
-  }
+  );
+  useEffect(() => {
+    if (isModalOpen) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "auto";
+    }
 
-  return () => {
-    document.body.style.overflow = "auto";
-  };
-}, [isModalOpen]);
+    return () => {
+      document.body.style.overflow = "auto";
+    };
+  }, [isModalOpen]);
   return (
     <>
-      <nav className=" shadow-md py-4 px-6 flex justify-between items-center fixed w-full z-10">
+      <nav className="shadow-md py-4 px-6 flex justify-between items-center w-full z-10 sticky top-0 bg-opacity-90 backdrop-blur-sm bg-darkBgColor">
         <div className="flex items-center">
           {/* Logo de Orvex */}
-          <div
-            className=" mr-2"
-          >
+          <div className=" mr-2">
             <img
               src="/assets/logo.png"
               alt="Orvex Logo"
