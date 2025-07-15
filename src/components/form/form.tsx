@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import { Label } from "./label";
 import { Input } from "./input";
 import { cn } from "../../../utils/utils";
+import emailjs from '@emailjs/browser';
 
 type Errors = {
   firstname?: string;
@@ -36,8 +37,30 @@ export default function SignupFormDemo() {
     if (Object.keys(newErrors).length === 0) {
       // Aquí puedes enviar `data` a tu API, cerrar modal, etc.
       console.log("Enviando datos:", data);
+      sendMessage(data)
     }
   };
+
+
+  const sendMessage = (data: Record<string, string>) => {
+  emailjs.send(
+    "service_w1zagv4",
+    "template_tb05qji",
+    {
+      type: "Cotización",
+      from_name: data.firstname,
+      email: data.email,
+      numberphone: data.number,
+      message: `Deseo agendar un demo de agente IA estos son mis datos ${data.number}, ${data.email} \n Motivo: ${data.message}`,
+    },
+    "prOm35TXg66H46DY2"
+  )
+  .then(() => {
+  })
+  .catch((err) => {
+  });
+};
+
 
   return (
     <div className="shadow-input mx-auto w-full max-w-md rounded-none p-4 md:rounded-2xl md:p-8 dark:bg-black">
@@ -117,6 +140,16 @@ export default function SignupFormDemo() {
             id="industry"
             name="industry"
             placeholder="Ventas"
+            type="text"
+            className="border-none"
+          />
+        </LabelInputContainer>
+         <LabelInputContainer className="mt-4">
+          <Label htmlFor="message">¿Cómo podemos ayudarte?</Label>
+          <Input
+            id="message"
+            name="message"
+            placeholder="Escribe tu mensaje aquí"
             type="text"
             className="border-none"
           />

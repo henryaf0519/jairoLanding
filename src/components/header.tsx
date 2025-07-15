@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import ReactDOM from "react-dom";
 import SignupFormDemo from "./form/form";
 
@@ -7,28 +7,55 @@ const Header = () => {
   const primaryColor = "#FF0000"; // Rojo de Orvex
   const darkBgColor = "#1a1a1a"; // Fondo oscuro
   const modal = (
+  <div
+    className="
+      fixed inset-0 
+      z-[9999]               
+      flex items-center justify-center
+      bg-darkBgColor bg-opacity-50
+      p-4
+    "
+  >
     <div
       className="
-        fixed inset-0 
-        z-[9999]               /* z-index superalto */
-        flex items-center justify-center
-        bg-darkBgColor bg-opacity-50
-       
+        border border-white 
+        bg-darkBgColor 
+        rounded-3xl 
+        shadow-lg 
+        w-full 
+        max-w-md 
+        h-full sm:h-auto 
+        sm:max-h-[90vh] 
+        overflow-y-auto 
+        relative
       "
     >
-      <div className=" border border-white bg-darkBgColor rounded-3xl shadow-lg p-6 w-full max-w-md relative">
-        {/* Botón de cerrar */}
-        <button
-          onClick={() => setIsModalOpen(false)}
-          className="absolute top-2 right-2 text-white hover:text-gray-700 text-2xl leading-none"
-        >
-          &times;
-        </button>
+      {/* Botón de cerrar */}
+      <button
+        onClick={() => setIsModalOpen(false)}
+        className="absolute top-2 right-2 text-white hover:text-gray-400 text-2xl leading-none"
+      >
+        &times;
+      </button>
 
+      {/* Contenido del modal */}
+      <div className="p-6">
         <SignupFormDemo />
       </div>
     </div>
-  );
+  </div>
+);
+useEffect(() => {
+  if (isModalOpen) {
+    document.body.style.overflow = "hidden";
+  } else {
+    document.body.style.overflow = "auto";
+  }
+
+  return () => {
+    document.body.style.overflow = "auto";
+  };
+}, [isModalOpen]);
   return (
     <>
       <nav className=" shadow-md py-4 px-6 flex justify-between items-center fixed w-full z-10">
