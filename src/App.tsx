@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { CardBody, CardContainer, CardItem } from "./components/3d-card";
 import {
   CalendarCheck,
@@ -15,8 +15,13 @@ import { VerticalScrollTestimonials } from "./components/testimonies";
 import Footer from "./components/footer";
 import { useScroll, useTransform } from "motion/react";
 import { TitleAnimate } from "./components/titleAnimate";
+import MobileTestimonialsCarousel from "./mobileTestimonies";
 
 const App: React.FC = () => {
+  const [isMobile, setIsMobile] = useState(false);
+  const updateDevice = () => {
+    setIsMobile(window.innerWidth <= 768);
+  };
    const ref = React.useRef(null);
   const { scrollYProgress } = useScroll({
     target: ref,
@@ -27,7 +32,14 @@ const App: React.FC = () => {
   const pathLengthThird = useTransform(scrollYProgress, [0, 0.8], [0.1, 1.2]);
   const pathLengthFourth = useTransform(scrollYProgress, [0, 0.8], [0.05, 1.2]);
   const pathLengthFifth = useTransform(scrollYProgress, [0, 0.8], [0, 1.2]);
+  useEffect(() => {
+    updateDevice();  // Verifica el tamaño de la pantalla al cargar
+    window.addEventListener('resize', updateDevice); // Actualiza el estado en cambio de tamaño de la pantalla
 
+    return () => {
+      window.removeEventListener('resize', updateDevice);
+    };
+  }, []);
   return (
     <div className="min-h-screen bg-darkBgColor">
       <Header />
@@ -226,8 +238,14 @@ const App: React.FC = () => {
         />
       </div>
       <section id="servicios" className="px-6 bg-black">
-        <div className="max-w-7xl mx-auto">
-          <VerticalScrollTestimonials />
+         <div className="max-w-7xl mx-auto">
+          {isMobile ? (
+            // Si es móvil, renderiza el carrusel
+            <MobileTestimonialsCarousel />
+          ) : (
+            // Si no es móvil, renderiza las tarjetas animadas
+            <VerticalScrollTestimonials />
+          )}
         </div>
       </section>
       <section className="mt-[100px]">
