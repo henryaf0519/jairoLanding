@@ -74,7 +74,7 @@ export const TitleAnimate = ({
         works!`}
       </p>
       <div className="w-full h-[890px] -top-60 md:-top-40  flex items-center justify-center bg-red-transparent absolute ">
-        <div className="z-20 mt-20">
+        <div className="z-20 mt-[146px] md:mt-20">
           <GlowingButton />
         </div>
       </div>
@@ -82,7 +82,7 @@ export const TitleAnimate = ({
         width="100%"
         viewBox="0 0 1440 890"
         xmlns="http://www.w3.org/2000/svg"
-         className="absolute w-full h-[500px] md:h-[890px] mt-[216px] sm:mt-0 -top-60 md:-top-40"
+         className="absolute w-full h-[500px] md:h-[890px] mt-[250px] sm:mt-0 -top-60 md:-top-40"
         preserveAspectRatio="none"
       >
         <motion.path

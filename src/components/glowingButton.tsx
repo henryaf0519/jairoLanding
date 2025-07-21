@@ -36,55 +36,53 @@ const GlowingButton: React.FC = () => {
         className="mt-10 relative inline-flex items-center justify-center w-64 h-19 rounded-full p-1 group focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2 focus:ring-offset-slate-900"
         onClick={() => setIsModalOpen(true)}
       >
-        {/* Background glow element */}
+        {/* Background glow element (no change needed here, it adapts) */}
         <div
           className="
-            absolute 
-            -inset-0.5 
-            bg-gradient-to-r from-[#FF0000] to-[#EF4444]
-            rounded-full 
-            blur-lg 
-            opacity-75 
-            group-hover:opacity-500 
-            transition 
-            duration-1000 
-            group-hover:duration-3000
-            animate-[pulse_8s_cubic-bezier(0.4,0,0.6,1)_infinite]
-          "
+      absolute
+      -inset-0.5
+      bg-gradient-to-r from-[#FF0000] to-[#EF4444]
+      rounded-full
+      blur-lg
+      opacity-75
+      group-hover:opacity-500
+      transition
+      duration-1000
+      group-hover:duration-3000
+      animate-[pulse_8s_cubic-bezier(0.4,0,0.6,1)_infinite]
+    "
         ></div>
 
-        {/* Button content */}
+        {/* Button content - THIS IS WHERE THE CHANGE HAPPENS */}
         <div
-          className="
-            relative 
-            w-60 h-18
-            px-10 py-4 
-            text-lg
-            font-bold
-            text-white
-            bg-primaryColor
-            rounded-full 
-            leading-none 
-            flex 
-            items-center
-            justify-center
-            transform
-            group-hover:scale-105
-            transition-transform
-            duration-300
-            ease-in-out
-            cursor-pointer
-          "
-        >
-          Agendar Demo
-        </div>
+    className="
+      relative
+      w-36 h-10      /* Even Smaller Mobile size */
+      px-4 py-2      /* Smaller Mobile padding */
+      text-sm        /* Smaller Mobile text size */
+      md:w-60 md:h-[50px] /* Desktop size: Stays the same */
+      md:px-10 md:py-4 /* Desktop padding: Stays the same */
+      md:text-lg     /* Desktop text size: Stays the same */
+      font-bold
+      text-white
+      bg-primaryColor
+      rounded-full
+      leading-none
+      flex
+      items-center
+      justify-center
+      transform
+      group-hover:scale-105
+      transition-transform
+      duration-300
+      ease-in-out
+      cursor-pointer
+    "
+  >
+    Agendar Demo
+  </div>
       </button>
-
-      {isModalOpen &&
-        ReactDOM.createPortal(
-          modal,
-          document.body
-        )}
+      {isModalOpen && ReactDOM.createPortal(modal, document.body)}
     </>
   );
 };
