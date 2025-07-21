@@ -15,7 +15,7 @@ import { VerticalScrollTestimonials } from "./components/testimonies";
 import Footer from "./components/footer";
 import { useScroll, useTransform } from "motion/react";
 import { TitleAnimate } from "./components/titleAnimate";
-import MobileTestimonialsCarousel from "./mobileTestimonies";
+import MobileTestimonialsCarousel from "./components/mobileTestimonies";
 
 const App: React.FC = () => {
   const [isMobile, setIsMobile] = useState(false);
