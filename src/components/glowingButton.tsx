@@ -18,7 +18,7 @@ const GlowingButton: React.FC = () => {
           &times;
         </button>
 
-        <SignupFormDemo />
+        <SignupFormDemo closeModal={() => setIsModalOpen(false)}/>
       </div>
     </div>
     );

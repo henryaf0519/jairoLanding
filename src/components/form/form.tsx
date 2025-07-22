@@ -10,8 +10,12 @@ type Errors = {
   email?: string;
   number?: string;
 };
+interface SignupFormDemoProps {
+  closeModal: () => void; // Función para cerrar el modal
+}
 
-export default function SignupFormDemo() {
+export default function SignupFormDemo({ closeModal }: SignupFormDemoProps) {  
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const [errors, setErrors] = useState<Errors>({});
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
@@ -58,13 +62,16 @@ export default function SignupFormDemo() {
         },
         "prOm35TXg66H46DY2"
       )
-      .then(() => {})
+      .then(() => {
+        setIsModalOpen(true);
+      })
       .catch((err) => {
         console.log("err: ", err);
       });
   };
 
   return (
+    <>
     <div className="shadow-input mx-auto w-full max-w-md rounded-none p-4 md:rounded-2xl md:p-8 dark:bg-black">
       <h2 className="text-xl font-bold text-white dark:text-neutral-200">
         Orvex te da la bienvenida
@@ -173,6 +180,28 @@ export default function SignupFormDemo() {
         <div className="my-8 h-[1px] w-full bg-gradient-to-r from-transparent via-neutral-300 to-transparent dark:via-neutral-700" />
       </form>
     </div>
+    {isModalOpen && (
+        <div className="fixed inset-0 z-[9999] flex items-center justify-center bg-darkBgColor bg-opacity-50">
+          <div className="p-6 rounded-2xl shadow-lg w-full max-w-lg bg-darkBgColor border-2 border-white">
+            <h2 className="text-2xl font-semibold text-center text-primaryColor mb-4">
+              ¡Gracias por contactarnos!
+            </h2>
+            <p className="text-center text-lg mb-6 text-white">
+              Nos estaremos contactando contigo muy pronto para agendar el demo.
+            </p>
+            <div className="flex justify-center">
+              <button
+                className="px-6 py-2 rounded-full bg-primaryColor text-white font-semibold hover:bg-primaryColor transition-all"
+                onClick={() => {setIsModalOpen(false); closeModal()}} // Cerrar el modal
+              >
+                Cerrar
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+    </>
+    
   );
 }
 

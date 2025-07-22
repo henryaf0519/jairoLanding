@@ -20,7 +20,7 @@ const Header = () => {
           &times;
         </button>
 
-        <SignupFormDemo />
+        <SignupFormDemo  closeModal={() => setIsModalOpen(false)}/>
       </div>
     </div>
   );

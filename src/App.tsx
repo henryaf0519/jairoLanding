@@ -41,9 +41,10 @@ const App: React.FC = () => {
     };
   }, []);
   return (
-    <div className="min-h-screen bg-darkBgColor">
+    <div className="min-h-screen bg-darkBgColor" >
       <Header />
        <div
+            id="inicio"
             className="h-[200vh] bg-black w-full dark:border dark:border-white/[0.1] rounded-md relative pt-40 overflow-clip"
             ref={ref}
           >
@@ -226,7 +227,7 @@ const App: React.FC = () => {
           </div>
         </div>
       </section>
-      <div>
+      <div  id="testimonios">
         <div
           className="max-w-7xl mx-auto h-[2px] w-full
                 bg-[linear-gradient(90deg,transparent,#EF4444,#F97316,transparent)]"
@@ -237,7 +238,7 @@ const App: React.FC = () => {
                 bg-[linear-gradient(90deg,transparent,#EF4444,#F97316,transparent)]"
         />
       </div>
-      <section id="servicios" className="px-6 bg-black">
+      <section  className="px-6 bg-black">
          <div className="max-w-7xl mx-auto">
           {isMobile ? (
             <MobileTestimonialsCarousel />
