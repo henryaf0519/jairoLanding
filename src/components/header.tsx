@@ -17,6 +17,7 @@ const Header = () => {
     >
       <div
         className="
+        h-[550px]
         border border-white 
         bg-darkBgColor 
         rounded-3xl 

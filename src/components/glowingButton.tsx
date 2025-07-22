@@ -5,18 +5,11 @@ import SignupFormDemo from "./form/form";
 const GlowingButton: React.FC = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
+
   // La función que crea el portal
-  const modal = (
-    <div
-      className="
-        fixed inset-0 
-        z-[9999]               /* z-index superalto */
-        flex items-center justify-center
-        bg-darkBgColor bg-opacity-50
-       
-      "
-    >
-      <div className=" border border-white bg-darkBgColor rounded-3xl shadow-lg p-6 w-full max-w-md relative">
+ const modal = (
+        <div className="fixed inset-0 z-[9999] flex items-center justify-center bg-darkBgColor bg-opacity-50">
+      <div className="relative bg-darkBgColor rounded-3xl shadow-lg p-6 w-full max-w-md h-[90vh] sm:h-[90vh] overflow-auto border-2 border-white">
         {/* Botón de cerrar */}
         <button
           onClick={() => setIsModalOpen(false)}
@@ -28,7 +21,7 @@ const GlowingButton: React.FC = () => {
         <SignupFormDemo />
       </div>
     </div>
-  );
+    );
 
   return (
     <>

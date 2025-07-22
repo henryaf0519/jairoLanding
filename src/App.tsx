@@ -240,10 +240,8 @@ const App: React.FC = () => {
       <section id="servicios" className="px-6 bg-black">
          <div className="max-w-7xl mx-auto">
           {isMobile ? (
-            // Si es móvil, renderiza el carrusel
             <MobileTestimonialsCarousel />
           ) : (
-            // Si no es móvil, renderiza las tarjetas animadas
             <VerticalScrollTestimonials />
           )}
         </div>

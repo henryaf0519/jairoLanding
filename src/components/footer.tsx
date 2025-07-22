@@ -17,7 +17,7 @@ const Footer = () => {
          
         "
     >
-      <div className=" border border-white bg-darkBgColor rounded-3xl shadow-lg p-6 w-full max-w-md relative">
+      <div className="h-[800px] border border-white bg-darkBgColor rounded-3xl shadow-lg p-6 w-full max-w-md relative">
         {/* Botón de cerrar */}
         <button
           onClick={() => setIsModalOpen(false)}
