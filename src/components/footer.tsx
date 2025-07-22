@@ -7,29 +7,21 @@ import SignupFormDemo from "./form/form";
 const Footer = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const primaryColor = "#FF0000"; // Rojo de Orvex
-  const modal = (
-    <div
-      className="
-          fixed inset-0 
-          z-[9999]               /* z-index superalto */
-          flex items-center justify-center
-          bg-darkBgColor bg-opacity-50
-         
-        "
-    >
-      <div className="h-[800px] border border-white bg-darkBgColor rounded-3xl shadow-lg p-6 w-full max-w-md relative">
-        {/* Botón de cerrar */}
-        <button
-          onClick={() => setIsModalOpen(false)}
-          className="absolute top-2 right-2 text-white hover:text-gray-700 text-2xl leading-none"
-        >
-          &times;
-        </button>
-
-        <SignupFormDemo />
+   const modal = (
+          <div className="fixed inset-0 z-[9999] flex items-center justify-center bg-darkBgColor bg-opacity-50">
+        <div className="relative bg-darkBgColor rounded-3xl shadow-lg p-6 w-full max-w-md h-[90vh] sm:h-[90vh] overflow-auto border-2 border-white">
+          {/* Botón de cerrar */}
+          <button
+            onClick={() => setIsModalOpen(false)}
+            className="absolute top-2 right-2 text-white hover:text-gray-700 text-2xl leading-none"
+          >
+            &times;
+          </button>
+  
+          <SignupFormDemo />
+        </div>
       </div>
-    </div>
-  );
+      );
   return (
     <>
      <footer className="bg-black text-white py-10">
