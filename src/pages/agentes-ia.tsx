@@ -597,7 +597,6 @@ const AgentesIA: React.FC = () => {
                 <textarea
                   id="message"
                   name="message"
-                  rows="5"
                   placeholder="Cuéntanos más sobre tus necesidades (opcional)"
                   className="w-full p-4 rounded-lg bg-gray-700 text-white border border-gray-600 focus:outline-none focus:border-primaryColor transition duration-200"
                   value={formData.message}

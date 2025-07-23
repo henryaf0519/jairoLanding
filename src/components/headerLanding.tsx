@@ -74,21 +74,21 @@ const HeaderLanding = () => {
           >
             Agentes
           </a>
-           <a
+          <a
             href="#integration"
             className="hover:text-gray-400 font-medium transition-colors duration-200"
             style={{ color: "white" }}
           >
             Integracion
           </a>
-           <a
+          <a
             href="#benefits"
             className="hover:text-gray-400 font-medium transition-colors duration-200"
             style={{ color: "white" }}
           >
             Beneficios
           </a>
-           <a
+          <a
             href="#industry"
             className="hover:text-gray-400 font-medium transition-colors duration-200"
             style={{ color: "white" }}
@@ -102,17 +102,17 @@ const HeaderLanding = () => {
           >
             Contacto
           </a>
-          <button
-            className="px-6 py-2 rounded-full font-semibold transition-all duration-300 ease-in-out"
+          <a
+            href="#contact"
+            className="inline-block px-6 py-2 rounded-full font-semibold transition-all duration-300 ease-in-out"
             style={{
               backgroundColor: primaryColor,
               color: "white",
               boxShadow: `0 4px 15px rgba(255, 0, 0, 0.4)`,
             }}
-            onClick={() => setIsModalOpen(true)}
           >
             Agendar Demo
-          </button>
+          </a>
         </div>
 
         {/* Botón de menú para móviles */}
@@ -181,7 +181,7 @@ const HeaderLanding = () => {
           >
             Agentes
           </a>
-           <a
+          <a
             onClick={toggleMenu}
             href="#integration"
             className="hover:text-gray-400 font-medium transition-colors duration-200"
@@ -189,7 +189,7 @@ const HeaderLanding = () => {
           >
             Integracion
           </a>
-           <a
+          <a
             onClick={toggleMenu}
             href="#integration"
             className="hover:text-gray-400 font-medium transition-colors duration-200"
@@ -197,7 +197,7 @@ const HeaderLanding = () => {
           >
             Beneficios
           </a>
-           <a
+          <a
             onClick={toggleMenu}
             href="#industry"
             className="hover:text-gray-400 font-medium transition-colors duration-200"
@@ -205,7 +205,7 @@ const HeaderLanding = () => {
           >
             Industrias
           </a>
-           <a
+          <a
             onClick={toggleMenu}
             href="#contact"
             className="hover:text-gray-400 font-medium transition-colors duration-200"
@@ -213,17 +213,17 @@ const HeaderLanding = () => {
           >
             Contacto
           </a>
-          <button
-            className="px-6 py-2 rounded-full font-semibold transition-all duration-300 ease-in-out"
+          <a
+            href="#contact"
+            className="inline-block px-6 py-2 rounded-full font-semibold transition-all duration-300 ease-in-out"
             style={{
               backgroundColor: primaryColor,
               color: "white",
               boxShadow: `0 4px 15px rgba(255, 0, 0, 0.4)`,
             }}
-            onClick={() => setIsModalOpen(true)}
           >
             Agendar Demo
-          </button>
+          </a>
         </div>
       )}
 
