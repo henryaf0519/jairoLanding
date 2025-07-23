@@ -20,6 +20,7 @@ import {
   FaShieldAlt,
 } from "react-icons/fa";
 import HeaderLanding from "../components/headerLanding";
+import emailjs from "@emailjs/browser";
 
 function Card({
   icon,
@@ -39,7 +40,16 @@ function Card({
   );
 }
 
+interface FormErrors {
+  firstname?: string;
+  email?: string;
+  number?: string;
+  message?: string;
+}
+
 const AgentesIA: React.FC = () => {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [errors, setErrors] = useState<FormErrors>({});
   const steps = [
     {
       id: 1,
@@ -129,6 +139,75 @@ const AgentesIA: React.FC = () => {
     { icon: FaStore, label: "E-commerce" },
     { icon: FaLightbulb, label: "Servicios de Asesoría" },
   ];
+  const [formData, setFormData] = useState({
+    firstname: "",
+    email: "",
+    number: "",
+    message: "",
+  });
+  const handleChange = (e: any) => {
+    const { name, value } = e.target;
+    setFormData((prev) => ({ ...prev, [name]: value }));
+    // Al cambiar, limpiamos el error de ese campo
+    setErrors((prev) => ({ ...prev, [name]: "" }));
+  };
+  const validate = (): FormErrors => {
+    const newErrors: FormErrors = {};
+
+    if (!formData.firstname.trim()) {
+      newErrors.firstname = "Este campo es obligatorio";
+    }
+
+    if (!formData.email.trim()) {
+      newErrors.email = "Este campo es obligatorio";
+    } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
+      newErrors.email = "Ingresa un email válido";
+    }
+
+    if (!formData.number.trim()) {
+      newErrors.number = "Este campo es obligatorio";
+    }
+
+    return newErrors;
+  };
+  const handleSubmit = (e: any) => {
+    e.preventDefault();
+    const validationErrors = validate();
+    if (Object.keys(validationErrors).length > 0) {
+      setErrors(validationErrors);
+      return;
+    }
+    sendMessage(formData);
+    setErrors({});
+  };
+
+  const sendMessage = (data: Record<string, string>) => {
+    emailjs
+      .send(
+        "service_w1zagv4",
+        "template_tb05qji",
+        {
+          type: "Cotización",
+          from_name: data.firstname,
+          email: data.email,
+          numberphone: data.number,
+          message: `Deseo agendar un demo de agente IA estos son mis datos ${data.number}, ${data.email} \n Motivo: ${data.message}`,
+        },
+        "prOm35TXg66H46DY2"
+      )
+      .then(() => {
+        setIsModalOpen(true);
+        setFormData({
+          firstname: "",
+          email: "",
+          number: "",
+          message: "",
+        });
+      })
+      .catch((err) => {
+        console.log("err: ", err);
+      });
+  };
 
   return (
     <>
@@ -159,7 +238,7 @@ const AgentesIA: React.FC = () => {
                 className="bg-red-600 hover:bg-red-700 text-white font-bold py-3 px-8 rounded-full shadow-lg transition transform hover:scale-105"
               >
                 Solicita una Demostración Gratuita
-              </a>         
+              </a>
             </div>
           </div>
         </section>
@@ -446,36 +525,74 @@ const AgentesIA: React.FC = () => {
               siguiente nivel? Completa el formulario y uno de nuestros expertos
               se pondrá en contacto contigo.
             </p>
-            <form className="bg-gray-900 p-8 rounded-xl shadow-xl">
+            <form
+              className="bg-gray-900 p-8 rounded-xl shadow-xl"
+              onSubmit={handleSubmit}
+              noValidate
+            >
+              {/* Nombre */}
               <div className="mb-6">
                 <input
                   type="text"
-                  id="name"
-                  name="name"
+                  id="firstname"
+                  name="firstname"
                   placeholder="Tu Nombre Completo"
-                  className="w-full p-4 rounded-lg bg-gray-700 text-white border border-gray-600 focus:outline-none focus:border-primaryColor transition duration-200"
-                  required
+                  className={`w-full p-4 rounded-lg bg-gray-700 text-white border transition duration-200 ${
+                    errors.firstname
+                      ? "border-red-500 focus:border-red-500"
+                      : "border-gray-600 focus:border-primaryColor"
+                  }`}
+                  value={formData.firstname}
+                  onChange={handleChange}
                 />
+                {errors.firstname && (
+                  <p className="mt-1 text-red-400 text-sm">
+                    {errors.firstname}
+                  </p>
+                )}
               </div>
+
+              {/* Email */}
               <div className="mb-6">
                 <input
                   type="email"
                   id="email"
                   name="email"
                   placeholder="Tu Correo Electrónico"
-                  className="w-full p-4 rounded-lg bg-gray-700 text-white border border-gray-600 focus:outline-none focus:border-primaryColor transition duration-200"
-                  required
+                  className={`w-full p-4 rounded-lg bg-gray-700 text-white border transition duration-200 ${
+                    errors.email
+                      ? "border-red-500 focus:border-red-500"
+                      : "border-gray-600 focus:border-primaryColor"
+                  }`}
+                  value={formData.email}
+                  onChange={handleChange}
                 />
+                {errors.email && (
+                  <p className="mt-1 text-red-400 text-sm">{errors.email}</p>
+                )}
               </div>
+
+              {/* Teléfono (opcional) */}
               <div className="mb-6">
                 <input
                   type="tel"
-                  id="phone"
-                  name="phone"
+                  id="number"
+                  name="number"
                   placeholder="Tu Número de Teléfono"
-                  className="w-full p-4 rounded-lg bg-gray-700 text-white border border-gray-600 focus:outline-none focus:border-primaryColor transition duration-200"
+                  className={`w-full p-4 rounded-lg bg-gray-700 text-white border transition duration-200 ${
+                    errors.number
+                      ? "border-red-500 focus:border-red-500"
+                      : "border-gray-600 focus:border-primaryColor"
+                  }`}
+                  value={formData.number}
+                  onChange={handleChange}
                 />
+                {errors.number && (
+                  <p className="mt-1 text-red-400 text-sm">{errors.number}</p>
+                )}
               </div>
+
+              {/* Mensaje (opcional) */}
               <div className="mb-6">
                 <textarea
                   id="message"
@@ -483,8 +600,12 @@ const AgentesIA: React.FC = () => {
                   rows="5"
                   placeholder="Cuéntanos más sobre tus necesidades (opcional)"
                   className="w-full p-4 rounded-lg bg-gray-700 text-white border border-gray-600 focus:outline-none focus:border-primaryColor transition duration-200"
+                  value={formData.message}
+                  onChange={handleChange}
                 />
               </div>
+
+              {/* Botón de envío */}
               <button
                 type="submit"
                 className="bg-primaryColor hover:bg-red-700 text-white font-bold py-4 px-10 rounded-full shadow-lg transition duration-300 ease-in-out transform hover:scale-105 w-full"
@@ -502,6 +623,54 @@ const AgentesIA: React.FC = () => {
           </div>
         </section>
       </div>
+      {isModalOpen && (
+        <div className="fixed inset-0 z-[9999] flex items-center justify-center bg-darkBgColor bg-opacity-70 backdrop-blur-sm">
+          <div className="relative w-full max-w-md bg-gray-900 rounded-3xl shadow-2xl border-2 border-primaryColor overflow-hidden animate-fadeIn">
+            {/* Botón de cerrar */}
+            <button
+              onClick={() => setIsModalOpen(false)}
+              className="absolute top-4 right-4 text-gray-400 hover:text-white transition-colors"
+              aria-label="Cerrar modal"
+            ></button>
+
+            {/* Contenido */}
+            <div className="p-8 text-center space-y-4">
+              {/* Icono superior */}
+              <div className="mx-auto w-[41px] h-[40px] flex items-center justify-center rounded-full bg-primaryColor">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  className="h-8 w-8 text-white"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M9 12l2 2l4 -4m5 2a9 9 0 1 1 -18 0a9 9 0 0 1 18 0"
+                  />
+                </svg>
+              </div>
+
+              <h2 className="text-2xl font-bold text-white">
+                ¡Gracias por contactarnos!
+              </h2>
+              <p className="text-gray-300">
+                Nos pondremos en contacto contigo muy pronto para agendar el
+                demo.
+              </p>
+
+              <button
+                onClick={() => setIsModalOpen(false)}
+                className="mt-4 inline-block px-8 py-3 bg-primaryColor hover:bg-red-700 text-white font-semibold rounded-full shadow-lg transition transform hover:scale-105"
+              >
+                Cerrar
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </>
   );
 };

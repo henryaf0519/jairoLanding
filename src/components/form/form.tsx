@@ -88,11 +88,11 @@ export default function SignupFormDemo({ closeModal }: SignupFormDemoProps) {
 
           {/* Nombre */}
           <LabelInputContainer>
-            <Label htmlFor="firstname">Nombre</Label>
+            <Label htmlFor="firstname">Nombre Completo</Label>
             <Input
               id="firstname"
               name="firstname"
-              placeholder="Escribe tu nombre"
+              placeholder="Escribe tu nombre y apellio"
               type="text"
               className={cn(
                 errors.firstname ? "border-red-500" : "border-none"
@@ -101,17 +101,6 @@ export default function SignupFormDemo({ closeModal }: SignupFormDemoProps) {
             {errors.firstname && (
               <p className="text-white text-sm mt-1">{errors.firstname}</p>
             )}
-          </LabelInputContainer>
-
-          {/* Apellido */}
-          <LabelInputContainer className="mt-4">
-            <Label htmlFor="lastname">Apellido</Label>
-            <Input
-              id="lastname"
-              name="lastname"
-              placeholder="Escribe tu apellido"
-              type="text"
-            />
           </LabelInputContainer>
 
           {/* Email */}
