@@ -19,34 +19,32 @@ interface CardProps {
 
 const Card: React.FC<CardProps> = ({ className, title, description, children, img }) => (
   <div
-  className={`w-full bg-white rounded-2xl shadow-xl hover:shadow-2xl p-4 sm:p-6 md:p-8 
-              flex flex-col justify-between 
-              transition-all duration-300 transform hover:scale-105 
-              min-h-[420px] sm:min-h-[380px] md:min-h-[350px]
-              ${className}`}
->
+    className={`w-full bg-white rounded-2xl shadow-xl hover:shadow-2xl p-4 sm:p-6 md:p-8 
+                flex flex-col justify-between 
+                transition-all duration-300 transform hover:scale-105 
+                md:h-[425px] min-h-[380px] ${className}`} // Añadido md:h-[425px] para desktop
+  >
 
-  {/* Título y descripción */}
-  <div className="flex flex-col items-center space-y-2 text-center">
-    <h3 className="text-xl sm:text-2xl font-semibold text-gray-800 break-words">
-      {title}
-    </h3>
-    <p className="text-base sm:text-lg text-gray-600 opacity-90 break-words">
-      {description}
-    </p>
-  </div>
-
-  {/* Imagen + children */}
-  <div className="flex items-center gap-4 mt-6 flex-wrap">
-    <div className="w-14 h-14 sm:w-16 sm:h-16 rounded-full overflow-hidden border-4 border-gray-200 shrink-0">
-      <img src={img} alt="Avatar" className="w-full h-full object-cover" />
+    {/* Título y descripción */}
+    <div className="flex flex-col items-center space-y-2 text-center">
+      <h3 className="text-xl sm:text-2xl font-semibold text-gray-800 break-words">
+        {title}
+      </h3>
+      <p className="text-base sm:text-lg text-gray-600 opacity-90 break-words">
+        {description}
+      </p>
     </div>
-    <div className="flex-grow break-words text-sm sm:text-base">
-      {children}
+
+    {/* Imagen + children */}
+    <div className="flex items-center gap-4 mt-6 flex-wrap">
+      <div className="w-14 h-14 sm:w-16 sm:h-16 rounded-full overflow-hidden border-4 border-gray-200 shrink-0">
+        <img src={img} alt="Avatar" className="w-full h-full object-cover" />
+      </div>
+      <div className="flex-grow break-words text-sm sm:text-base">
+        {children}
+      </div>
     </div>
   </div>
-</div>
-
 );
 
 

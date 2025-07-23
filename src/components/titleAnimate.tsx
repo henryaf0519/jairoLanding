@@ -62,17 +62,17 @@ export const TitleAnimate = ({
 
   return (
     <div className={cn("sticky top-20", className)}>
-      <p className="text-lg md:text-7xl font-normal pb-4 text-center bg-clip-text text-transparent bg-gradient-to-b from-neutral-100 to-neutral-300">
-        {title || `Build with Aceternity UI`}
-      </p>
+      <p className="text-lg md:text-7xl font-normal pb-4 text-center bg-clip-text text-transparent bg-gradient-to-b from-neutral-100 to-neutral-300 max-w-[60rem] mx-auto">
+  {title || `Build with Aceternity UI`}
+</p>
+
       <h1 className="h-[90px] text-3xl sm:text-4xl md:text-6xl leading-[1.5] md:leading-[1.5] font-extrabold text-center mt-2 relative z-20 bg-gradient-to-r from-red-600 via-[#ff0000] to-red-400 bg-clip-text text-transparent ">
         {currentText}
       </h1>
-      <p className="text-xs md:text-xl font-normal text-center text-neutral-400 mt-4 max-w-lg mx-auto">
-        {description ||
-          `Scroll this component and see the bottom SVG come to life wow this
-        works!`}
-      </p>
+      <p className="text-xs md:text-xl font-normal text-center text-neutral-400 mt-4 max-w-[60rem] mx-auto">
+  {description || `Scroll this component and see the bottom SVG come to life wow this works!`}
+</p>
+
       <div className="w-full h-[890px] -top-60 md:-top-40  flex items-center justify-center bg-red-transparent absolute ">
         <div className="z-20 mt-[146px] md:mt-20">
           <GlowingButton />

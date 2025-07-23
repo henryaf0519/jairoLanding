@@ -50,9 +50,7 @@ const Home: React.FC = () => {
       >
         <TitleAnimate
           title=" Potencia Tu Negocio con"
-          description=" En Orvex, creamos agentes de IA inteligentes y desarrollamos páginas
-          web de vanguardia para transformar tu operación y maximizar tus
-          resultados."
+          description=" Cada pregunta repetida que responde un empleado es tiempo perdido. Cada visitante que abandona tu web sin respuesta es una venta perdida. En Orvex, recuperamos ese tiempo y convertimos visitantes, permitiendo que tu equipo se enfoque en lo que realmente importa: hacer crecer el negocio."
           pathLengths={[
             pathLengthFirst,
             pathLengthSecond,
@@ -221,7 +219,7 @@ const Home: React.FC = () => {
           </div>
           <div className="mt-20 max-w-6xl mx-auto">
             <h2 className="text-4xl font-bold text-center mb-16 text-white">
-              Integrado a las mejores herramientas
+              Tus Plataformas favoritas, ahora más inteligentes
             </h2>
           </div>
         </div>
