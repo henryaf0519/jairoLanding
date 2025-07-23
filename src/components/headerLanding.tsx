@@ -61,26 +61,47 @@ const HeaderLanding = () => {
             Inicio
           </a>
           <a
-            href="#servicios"
+            href="#capabilities"
             className="hover:text-gray-400 font-medium transition-colors duration-200"
             style={{ color: "white" }}
           >
             Servicios
           </a>
           <a
-            href="#testimonios"
+            href="#agents"
             className="hover:text-gray-400 font-medium transition-colors duration-200"
             style={{ color: "white" }}
           >
-            Testimonios
+            Agentes
           </a>
-          <Link
-            to="/agentes-ia"
+           <a
+            href="#integration"
             className="hover:text-gray-400 font-medium transition-colors duration-200"
             style={{ color: "white" }}
           >
-            Agentes IA
-          </Link>
+            Integracion
+          </a>
+           <a
+            href="#benefits"
+            className="hover:text-gray-400 font-medium transition-colors duration-200"
+            style={{ color: "white" }}
+          >
+            Beneficios
+          </a>
+           <a
+            href="#industry"
+            className="hover:text-gray-400 font-medium transition-colors duration-200"
+            style={{ color: "white" }}
+          >
+            Industrias
+          </a>
+          <a
+            href="#contact"
+            className="hover:text-gray-400 font-medium transition-colors duration-200"
+            style={{ color: "white" }}
+          >
+            Contacto
+          </a>
           <button
             className="px-6 py-2 rounded-full font-semibold transition-all duration-300 ease-in-out"
             style={{
@@ -146,7 +167,7 @@ const HeaderLanding = () => {
           </a>
           <a
             onClick={toggleMenu}
-            href="#servicios"
+            href="#capabilities"
             className="hover:text-gray-400 font-medium transition-colors duration-200"
             style={{ color: "white" }}
           >
@@ -154,11 +175,43 @@ const HeaderLanding = () => {
           </a>
           <a
             onClick={toggleMenu}
-            href="#testimonios"
+            href="#agents"
             className="hover:text-gray-400 font-medium transition-colors duration-200"
             style={{ color: "white" }}
           >
-            Testimonios
+            Agentes
+          </a>
+           <a
+            onClick={toggleMenu}
+            href="#integration"
+            className="hover:text-gray-400 font-medium transition-colors duration-200"
+            style={{ color: "white" }}
+          >
+            Integracion
+          </a>
+           <a
+            onClick={toggleMenu}
+            href="#integration"
+            className="hover:text-gray-400 font-medium transition-colors duration-200"
+            style={{ color: "white" }}
+          >
+            Beneficios
+          </a>
+           <a
+            onClick={toggleMenu}
+            href="#industry"
+            className="hover:text-gray-400 font-medium transition-colors duration-200"
+            style={{ color: "white" }}
+          >
+            Industrias
+          </a>
+           <a
+            onClick={toggleMenu}
+            href="#contact"
+            className="hover:text-gray-400 font-medium transition-colors duration-200"
+            style={{ color: "white" }}
+          >
+            Contacto
           </a>
           <button
             className="px-6 py-2 rounded-full font-semibold transition-all duration-300 ease-in-out"

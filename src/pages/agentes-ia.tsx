@@ -132,20 +132,26 @@ const AgentesIA: React.FC = () => {
 
   return (
     <>
-    <HeaderLanding/>
-      <div className="font-inter antialiased bg-darkBgColor text-gray-100">
+      <HeaderLanding />
+      <div
+        id="inicio"
+        className="font-inter antialiased bg-darkBgColor text-gray-100"
+      >
         {/* Hero Section */}
         <section className="relative h-screen flex items-center justify-center text-center overflow-hidden">
           <div className="absolute inset-0 bg-darkBgColor" />
-          <div className="relative z-10 p-6 max-w-4xl mx-auto">
+          <div className="relative  p-6 max-w-4xl mx-auto">
             <h1 className="text-4xl sm:text-5xl md:text-6xl font-extrabold leading-tight text-white my-4">
               <span className="text-red-600">Orvex:</span> Agentes IA que
               Trabajan por Ti
             </h1>
             <p className="text-lg sm:text-xl md:text-2xl text-gray-300 mb-8 max-w-2xl mx-auto">
               Nuestros agentes de inteligencia artificial se encargan de la
-              gestión de citas, atención al cliente 24/7 y automatización de
-              tareas clave para tu negocio.
+              gestión de citas, atención al cliente 24/7, procesamiento de
+              pagos, envío de recordatorios, lanzamiento de promociones
+              personalizadas y envían recomendaciones automatizadas
+              personalizadas para potenciar tu negocio, automatizando así todas
+              las tareas clave de tu empresa.
             </p>
             <div className="flex flex-col sm:flex-row justify-center items-center gap-4">
               <a
@@ -153,13 +159,7 @@ const AgentesIA: React.FC = () => {
                 className="bg-red-600 hover:bg-red-700 text-white font-bold py-3 px-8 rounded-full shadow-lg transition transform hover:scale-105"
               >
                 Solicita una Demostración Gratuita
-              </a>
-              <a
-                href="#capabilities"
-                className="border-2 border-red-600 text-red-600 hover:bg-red-600 hover:text-white font-bold py-3 px-8 rounded-full transition transform hover:scale-105"
-              >
-                Descubre sus Capacidades
-              </a>
+              </a>         
             </div>
           </div>
         </section>
@@ -247,7 +247,7 @@ const AgentesIA: React.FC = () => {
           </div>
         </section>
 
-        <section className="py-16 sm:py-24 bg-darkBgColor">
+        <section id="agents" className="py-16 sm:py-24 bg-darkBgColor">
           <div className="max-w-6xl mx-auto px-6 text-center">
             <h2 className="text-3xl sm:text-4xl font-bold text-white mb-12">
               Organiza reuniones al instante con{" "}
@@ -366,7 +366,7 @@ const AgentesIA: React.FC = () => {
           </div>
         </section>
 
-        <section className="py-16 sm:py-24 bg-darkBgColor">
+        <section id="integration" className="py-16 sm:py-24 bg-darkBgColor">
           <div className="max-w-6xl mx-auto px-6 text-center">
             <h2 className="text-3xl sm:text-4xl font-bold text-white mb-12">
               Así de Fácil es Integrar{" "}
@@ -392,7 +392,7 @@ const AgentesIA: React.FC = () => {
             </div>
           </div>
         </section>
-        <section className="py-16 sm:py-24 bg-darkBgColor">
+        <section id="benefits" className="py-16 sm:py-24 bg-darkBgColor">
           <div className="max-w-6xl mx-auto px-6 text-center">
             <h2 className="text-3xl sm:text-4xl font-bold text-white mb-12">
               Beneficios Tangibles para Tu Negocio con{" "}
@@ -416,7 +416,7 @@ const AgentesIA: React.FC = () => {
             </div>
           </div>
         </section>
-        <section className="py-16 sm:py-24 bg-darkBgColor">
+        <section id="industry" className="py-16 sm:py-24 bg-darkBgColor">
           <div className="max-w-6xl mx-auto px-6 text-center">
             <h2 className="text-3xl sm:text-4xl font-bold text-white mb-12">
               Orvex: La Solución Perfecta Para{" "}
