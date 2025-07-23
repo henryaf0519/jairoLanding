@@ -3,7 +3,7 @@ import ReactDOM from "react-dom";
 import SignupFormDemo from "./form/form";
 import { Routes, Route, Link, Outlet } from "react-router-dom";
 
-const Header = () => {
+const HeaderLanding = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false); // Estado para el menú móvil
   const toggleMenu = () => {
@@ -180,4 +180,4 @@ const Header = () => {
   );
 };
 
-export default Header;
+export default HeaderLanding;
