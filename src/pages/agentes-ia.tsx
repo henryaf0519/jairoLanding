@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import {
   FaWhatsapp,
   FaCalendarAlt,
@@ -19,8 +19,13 @@ import {
   FaFunnelDollar,
   FaShieldAlt,
 } from "react-icons/fa";
-import HeaderLanding from "../components/headerLanding";
 import emailjs from "@emailjs/browser";
+import {
+  motion,
+  animate,
+  useMotionValue,
+  useMotionValueEvent,
+} from "motion/react";
 
 function Card({
   icon,
@@ -33,7 +38,7 @@ function Card({
 }) {
   return (
     <div className="bg-gray-800 p-6 rounded-xl shadow-lg transform hover:scale-105 transition">
-      <div className="text-red-600 text-4xl mb-4">{icon}</div>
+      <div className="text-primaryColor text-4xl mb-4">{icon}</div>
       <h3 className="text-xl font-semibold text-white mb-2">{title}</h3>
       <p className="text-gray-400 leading-relaxed">{children}</p>
     </div>
@@ -48,6 +53,11 @@ interface FormErrors {
 }
 
 const AgentesIA: React.FC = () => {
+  const fullText = "Agentes IA que Trabajan por Ti";
+  const progress = useMotionValue(0);
+  const [displayedText, setDisplayedText] = useState("");
+  const [typingFinished, setTypingFinished] = useState(false);
+  const containerRef = useRef(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [errors, setErrors] = useState<FormErrors>({});
   const steps = [
@@ -208,7 +218,34 @@ const AgentesIA: React.FC = () => {
         console.log("err: ", err);
       });
   };
+  useEffect(() => {
+    const el = containerRef.current;
+    if (!el) return;
 
+    const observer = new IntersectionObserver(
+      (entries, obs) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            // Arranca la animación al verse en pantalla
+            animate(progress, fullText.length + 1, {
+              duration: fullText.length * 0.08,
+              ease: "linear",
+              onComplete: () => setTypingFinished(true),
+            });
+            obs.unobserve(el); // solo una vez
+          }
+        });
+      },
+      { threshold: 0.5 } // dispara cuando al menos el 50% del elemento es visible
+    );
+
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, [fullText, progress]);
+
+  useMotionValueEvent(progress, "change", (latest) => {
+    setDisplayedText(fullText.slice(0, Math.floor(latest)));
+  });
   return (
     <>
       <div
@@ -219,10 +256,27 @@ const AgentesIA: React.FC = () => {
         <section className="relative h-screen flex items-center justify-center text-center overflow-hidden">
           <div className="absolute inset-0 bg-darkBgColor" />
           <div className="relative  p-6 max-w-4xl mx-auto">
-            <h1 className="text-4xl sm:text-5xl md:text-6xl font-extrabold leading-tight text-white my-4">
-              <span className="text-red-600">Orvex:</span> Agentes IA que
-              Trabajan por Ti
-            </h1>
+            <motion.h1
+              ref={containerRef}
+              className="text-4xl sm:text-5xl md:text-6xl font-extrabold leading-tight text-white my-4"
+            >
+              <span className="text-primaryColor">Orvex:</span> {displayedText}
+              <motion.span
+                className="inline-block ml-1"
+                animate={
+                  typingFinished
+                    ? { opacity: [0, 1, 0] } // un solo parpadeo final
+                    : { opacity: [0, 1] } // parpadeo mientras escribe
+                }
+                transition={
+                  typingFinished
+                    ? { duration: 1.2 }
+                    : { repeat: Infinity, duration: 0.6, ease: "linear" }
+                }
+              >
+                
+              </motion.span>
+            </motion.h1>
             <p className="text-lg sm:text-xl md:text-2xl text-gray-300 mb-8 max-w-2xl mx-auto">
               Nuestros agentes de inteligencia artificial se encargan de la
               gestión de citas, atención al cliente 24/7, procesamiento de
@@ -234,7 +288,7 @@ const AgentesIA: React.FC = () => {
             <div className="flex flex-col sm:flex-row justify-center items-center gap-4">
               <a
                 href="#contact"
-                className="bg-red-600 hover:bg-red-700 text-white font-bold py-3 px-8 rounded-full shadow-lg transition transform hover:scale-105"
+                className="bg-primaryColor hover:bg-red-700 text-white font-bold py-3 px-8 rounded-full shadow-lg transition transform hover:scale-105"
               >
                 Solicita una Demostración Gratuita
               </a>
@@ -248,8 +302,8 @@ const AgentesIA: React.FC = () => {
           <div className="max-w-6xl mx-auto px-6 text-center">
             <h2 className="text-3xl sm:text-4xl font-bold text-white mb-12">
               Las Capacidades de Nuestros{" "}
-              <span className="text-red-600">Agentes IA</span>: Trabajan por Ti,
-              24/7
+              <span className="text-primaryColor">Agentes IA</span>: Trabajan
+              por Ti, 24/7
             </h2>
 
             {/* Bloque de texto completo arriba */}
@@ -460,65 +514,64 @@ const AgentesIA: React.FC = () => {
           </div>
         </section>
 
-         <section className="py-16 sm:py-24 bg-darkBgColor">
-  <div className="max-w-6xl mx-auto px-6 text-center">
-    <h2 className="text-3xl sm:text-4xl font-bold text-white mb-12">
-      Potencia tu negocio con{" "}
-      <span className="text-primaryColor">
-        Notificaciones Inteligentes
-      </span>
-    </h2>
-    <p className="text-lg text-gray-300 mb-10 max-w-3xl mx-auto">
-      Crea y envía recordatorios por correo o WhatsApp, consejos
-      personalizados y promociones alineadas con tu negocio para
-      mantener a tus clientes siempre comprometidos.
-    </p>
+        <section className="py-16 sm:py-24 bg-darkBgColor">
+          <div className="max-w-6xl mx-auto px-6 text-center">
+            <h2 className="text-3xl sm:text-4xl font-bold text-white mb-12">
+              Potencia tu negocio con{" "}
+              <span className="text-primaryColor">
+                Notificaciones Inteligentes
+              </span>
+            </h2>
+            <p className="text-lg text-gray-300 mb-10 max-w-3xl mx-auto">
+              Crea y envía recordatorios por correo o WhatsApp, consejos
+              personalizados y promociones alineadas con tu negocio para
+              mantener a tus clientes siempre comprometidos.
+            </p>
 
-    <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center text-left">
-      {/* Imagen ahora a la izquierda */}
-      <div className="flex justify-center lg:justify-start">
-        <img
-          src="https://placehold.co/600x400/1a1a1a/FF0000?text=Interfaz+Orvex+Pedidos"
-          alt="Interfaz de Orvex para gestión de pedidos"
-          className="rounded-xl shadow-2xl border-2 border-gray-700 max-w-full h-auto"
-        />
-      </div>
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center text-left">
+              {/* Imagen ahora a la izquierda */}
+              <div className="flex justify-center lg:justify-start">
+                <img
+                  src="https://placehold.co/600x400/1a1a1a/FF0000?text=Interfaz+Orvex+Pedidos"
+                  alt="Interfaz de Orvex para gestión de pedidos"
+                  className="rounded-xl shadow-2xl border-2 border-gray-700 max-w-full h-auto"
+                />
+              </div>
 
-      {/* Texto ahora a la derecha */}
-      <div>
-        <h3 className="text-3xl font-bold text-white mb-6">
-          Recordatorios{" "}
-          <span className="text-primaryColor">Inteligentes</span>
-        </h3>
-        <p className="text-lg text-gray-300 mb-8">
-          Mantén a tus clientes al día y maximiza tus ventas con
-          comunicaciones automatizadas.
-        </p>
-        <ul className="space-y-6">
-          {[
-            "Crea y envía recordatorios por correo o WhatsApp.",
-            "Nuestro agente genera y envía consejos personalizados según tu negocio.",
-            "Lanza promociones inteligentes alineadas con el perfil de tus clientes.",
-          ].map((text, idx) => (
-            <li key={idx} className="flex items-start">
-              <FaCheckCircle className="text-primaryColor text-2xl mr-4 mt-1 flex-shrink-0" />
-              <p className="text-lg text-gray-300">{text}</p>
-            </li>
-          ))}
-        </ul>
-        <div className="mt-10">
-          <a
-            href="#contact"
-            className="bg-primaryColor hover:bg-red-700 text-white font-bold py-3 px-8 rounded-full shadow-lg transition duration-300 ease-in-out transform hover:scale-105"
-          >
-            Empezar Ahora
-          </a>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
+              {/* Texto ahora a la derecha */}
+              <div>
+                <h3 className="text-3xl font-bold text-white mb-6">
+                  Recordatorios{" "}
+                  <span className="text-primaryColor">Inteligentes</span>
+                </h3>
+                <p className="text-lg text-gray-300 mb-8">
+                  Mantén a tus clientes al día y maximiza tus ventas con
+                  comunicaciones automatizadas.
+                </p>
+                <ul className="space-y-6">
+                  {[
+                    "Crea y envía recordatorios por correo o WhatsApp.",
+                    "Nuestro agente genera y envía consejos personalizados según tu negocio.",
+                    "Lanza promociones inteligentes alineadas con el perfil de tus clientes.",
+                  ].map((text, idx) => (
+                    <li key={idx} className="flex items-start">
+                      <FaCheckCircle className="text-primaryColor text-2xl mr-4 mt-1 flex-shrink-0" />
+                      <p className="text-lg text-gray-300">{text}</p>
+                    </li>
+                  ))}
+                </ul>
+                <div className="mt-10">
+                  <a
+                    href="#contact"
+                    className="bg-primaryColor hover:bg-red-700 text-white font-bold py-3 px-8 rounded-full shadow-lg transition duration-300 ease-in-out transform hover:scale-105"
+                  >
+                    Empezar Ahora
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
 
         <section id="integration" className="py-16 sm:py-24 bg-darkBgColor">
           <div className="max-w-6xl mx-auto px-6 text-center">
@@ -612,11 +665,10 @@ const AgentesIA: React.FC = () => {
                   id="firstname"
                   name="firstname"
                   placeholder="Tu Nombre Completo"
-                  className={`w-full p-4 rounded-lg bg-gray-700 text-white border transition duration-200 ${
-                    errors.firstname
+                  className={`w-full p-4 rounded-lg bg-gray-700 text-white border transition duration-200 ${errors.firstname
                       ? "border-red-500 focus:border-red-500"
                       : "border-gray-600 focus:border-primaryColor"
-                  }`}
+                    }`}
                   value={formData.firstname}
                   onChange={handleChange}
                 />
@@ -634,11 +686,10 @@ const AgentesIA: React.FC = () => {
                   id="email"
                   name="email"
                   placeholder="Tu Correo Electrónico"
-                  className={`w-full p-4 rounded-lg bg-gray-700 text-white border transition duration-200 ${
-                    errors.email
+                  className={`w-full p-4 rounded-lg bg-gray-700 text-white border transition duration-200 ${errors.email
                       ? "border-red-500 focus:border-red-500"
                       : "border-gray-600 focus:border-primaryColor"
-                  }`}
+                    }`}
                   value={formData.email}
                   onChange={handleChange}
                 />
@@ -654,11 +705,10 @@ const AgentesIA: React.FC = () => {
                   id="number"
                   name="number"
                   placeholder="Tu Número de Teléfono"
-                  className={`w-full p-4 rounded-lg bg-gray-700 text-white border transition duration-200 ${
-                    errors.number
+                  className={`w-full p-4 rounded-lg bg-gray-700 text-white border transition duration-200 ${errors.number
                       ? "border-red-500 focus:border-red-500"
                       : "border-gray-600 focus:border-primaryColor"
-                  }`}
+                    }`}
                   value={formData.number}
                   onChange={handleChange}
                 />
