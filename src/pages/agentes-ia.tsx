@@ -211,7 +211,6 @@ const AgentesIA: React.FC = () => {
 
   return (
     <>
-      <HeaderLanding />
       <div
         id="inicio"
         className="font-inter antialiased bg-darkBgColor text-gray-100"
@@ -385,40 +384,56 @@ const AgentesIA: React.FC = () => {
             </div>
           </div>
         </section>
-
         <section className="py-16 sm:py-24 bg-darkBgColor">
           <div className="max-w-6xl mx-auto px-6 text-center">
             <h2 className="text-3xl sm:text-4xl font-bold text-white mb-12">
-              Potencia tu negocio con{" "}
+              Automatiza tus finanzas con{" "}
               <span className="text-primaryColor">
-                Notificaciones Inteligentes
+                Nuestro Agente IA de Pagos
               </span>
             </h2>
             <p className="text-lg text-gray-300 mb-10 max-w-3xl mx-auto">
-              Crea y envía recordatorios por correo o WhatsApp, consejos
-              personalizados y promociones alineadas con tu negocio para
-              mantener a tus clientes siempre comprometidos.
+              Simplifica la gestión de cobros y facturación. Nuestro agente
+              inteligente realiza y valida pagos, y genera facturas electrónicas
+              que se envían directamente a tus clientes.
             </p>
 
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center text-left">
               {/* Texto y lista de características */}
               <div>
                 <h3 className="text-3xl font-bold text-white mb-6">
-                  Recordatorios{" "}
-                  <span className="text-primaryColor">Inteligentes</span>
+                  Gestión de Pagos{" "}
+                  <span className="text-primaryColor">Inteligente</span>
                 </h3>
                 <p className="text-lg text-gray-300 mb-8">
-                  Mantén a tus clientes al día y maximiza tus ventas con
-                  comunicaciones automatizadas.
+                  Optimiza tu flujo de caja y reduce errores con un sistema de
+                  pagos y facturación completamente automatizado.
                 </p>
                 <ul className="space-y-6">
                   {[
-                    "Crea y envía recordatorios por correo o WhatsApp.",
-                    "Nuestro agente genera y envía consejos personalizados según tu negocio.",
-                    "Lanza promociones inteligentes alineadas con el perfil de tus clientes.",
+                    "Nuestro Agente IA realiza y procesa pagos de manera eficiente.",
+                    "Valida automáticamente cada transacción, detectando inconsistencias.",
+                    "Integración con pasarelas de pago como Wompi para agilizar tus transacciones.",
+                    "Genera facturación electrónica certificada, lista para enviar.",
+                    "Envía las facturas directamente al correo electrónico de tus clientes.",
                   ].map((text, idx) => (
                     <li key={idx} className="flex items-start">
-                      <FaCheckCircle className="text-primaryColor text-2xl mr-4 mt-1 flex-shrink-0" />
+                      {/* Asegúrate de tener el ícono FaCheckCircle importado si usas React con react-icons */}
+                      {/* <FaCheckCircle className="text-primaryColor text-2xl mr-4 mt-1 flex-shrink-0" /> */}
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        className="text-primaryColor text-2xl mr-4 mt-1 flex-shrink-0 h-6 w-6"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke="currentColor"
+                        strokeWidth={2}
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
+                        />
+                      </svg>
                       <p className="text-lg text-gray-300">{text}</p>
                     </li>
                   ))}
@@ -436,14 +451,74 @@ const AgentesIA: React.FC = () => {
               {/* Imagen */}
               <div className="flex justify-center lg:justify-end">
                 <img
-                  src="https://placehold.co/600x400/1a1a1a/FF0000?text=Interfaz+Orvex+Pedidos"
-                  alt="Interfaz de Orvex para gestión de pedidos"
+                  src="https://placehold.co/600x400/1a1a1a/FF0000?text=Interfaz+Agente+IA+Pagos"
+                  alt="Interfaz del agente IA para gestión de pagos y facturación"
                   className="rounded-xl shadow-2xl border-2 border-gray-700 max-w-full h-auto"
                 />
               </div>
             </div>
           </div>
         </section>
+
+         <section className="py-16 sm:py-24 bg-darkBgColor">
+  <div className="max-w-6xl mx-auto px-6 text-center">
+    <h2 className="text-3xl sm:text-4xl font-bold text-white mb-12">
+      Potencia tu negocio con{" "}
+      <span className="text-primaryColor">
+        Notificaciones Inteligentes
+      </span>
+    </h2>
+    <p className="text-lg text-gray-300 mb-10 max-w-3xl mx-auto">
+      Crea y envía recordatorios por correo o WhatsApp, consejos
+      personalizados y promociones alineadas con tu negocio para
+      mantener a tus clientes siempre comprometidos.
+    </p>
+
+    <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center text-left">
+      {/* Imagen ahora a la izquierda */}
+      <div className="flex justify-center lg:justify-start">
+        <img
+          src="https://placehold.co/600x400/1a1a1a/FF0000?text=Interfaz+Orvex+Pedidos"
+          alt="Interfaz de Orvex para gestión de pedidos"
+          className="rounded-xl shadow-2xl border-2 border-gray-700 max-w-full h-auto"
+        />
+      </div>
+
+      {/* Texto ahora a la derecha */}
+      <div>
+        <h3 className="text-3xl font-bold text-white mb-6">
+          Recordatorios{" "}
+          <span className="text-primaryColor">Inteligentes</span>
+        </h3>
+        <p className="text-lg text-gray-300 mb-8">
+          Mantén a tus clientes al día y maximiza tus ventas con
+          comunicaciones automatizadas.
+        </p>
+        <ul className="space-y-6">
+          {[
+            "Crea y envía recordatorios por correo o WhatsApp.",
+            "Nuestro agente genera y envía consejos personalizados según tu negocio.",
+            "Lanza promociones inteligentes alineadas con el perfil de tus clientes.",
+          ].map((text, idx) => (
+            <li key={idx} className="flex items-start">
+              <FaCheckCircle className="text-primaryColor text-2xl mr-4 mt-1 flex-shrink-0" />
+              <p className="text-lg text-gray-300">{text}</p>
+            </li>
+          ))}
+        </ul>
+        <div className="mt-10">
+          <a
+            href="#contact"
+            className="bg-primaryColor hover:bg-red-700 text-white font-bold py-3 px-8 rounded-full shadow-lg transition duration-300 ease-in-out transform hover:scale-105"
+          >
+            Empezar Ahora
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
 
         <section id="integration" className="py-16 sm:py-24 bg-darkBgColor">
           <div className="max-w-6xl mx-auto px-6 text-center">

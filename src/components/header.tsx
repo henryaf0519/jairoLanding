@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import ReactDOM from "react-dom";
 import SignupFormDemo from "./form/form";
-import { Routes, Route, Link, Outlet } from "react-router-dom";
+import {Link } from "react-router-dom";
 
 const Header = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -160,6 +160,13 @@ const Header = () => {
           >
             Testimonios
           </a>
+           <Link
+            to="/agentes-ia"
+            className="hover:text-gray-400 font-medium transition-colors duration-200"
+            style={{ color: "white" }}
+          >
+            Agentes IA
+          </Link>
           <button
             className="px-6 py-2 rounded-full font-semibold transition-all duration-300 ease-in-out"
             style={{
