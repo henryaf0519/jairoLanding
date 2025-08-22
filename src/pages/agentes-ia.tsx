@@ -20,6 +20,7 @@ import {
   useMotionValue,
   useMotionValueEvent,
 } from "motion/react";
+import CalendlyEmbed from "../components/CalendlyEmbed";
 
 interface FormErrors {
   firstname?: string;
@@ -926,103 +927,24 @@ const AgentesIA: React.FC = () => {
         <section id="contact" className="py-16 sm:py-24 bg-black">
           <div className="max-w-3xl mx-auto px-6 text-center">
             <h2 className="text-3xl sm:text-4xl font-bold text-white mb-8">
-              Transforma Tu Negocio Hoy.{" "}
-              <span className="text-primaryColor">Contáctanos.</span>
+              Agenda tu Demostración Gratuita Ahora
             </h2>
             <p className="text-lg text-gray-300 mb-10">
-              ¿Listo para llevar tu eficiencia y atención al cliente al
-              siguiente nivel? Completa el formulario y uno de nuestros expertos
-              se pondrá en contacto contigo.
+              Elige la fecha y hora que mejor te convenga. En menos de 30
+              minutos, descubrirás cómo nuestros agentes de IA pueden
+              transformar tu negocio.
             </p>
-            <form
-              className="bg-gray-900 p-8 rounded-xl shadow-xl"
-              onSubmit={handleSubmit}
-              noValidate
+
+            <div
+              className="bg-darkBgColor rounded-xl shadow-xl overflow-hidden"
+              style={{ height: "700px" }}
             >
-              {/* Nombre */}
-              <div className="mb-6">
-                <input
-                  type="text"
-                  id="firstname"
-                  name="firstname"
-                  placeholder="Tu Nombre Completo"
-                  className={`w-full p-4 rounded-lg bg-gray-700 text-white border transition duration-200 ${
-                    errors.firstname
-                      ? "border-red-500 focus:border-red-500"
-                      : "border-gray-600 focus:border-primaryColor"
-                  }`}
-                  value={formData.firstname}
-                  onChange={handleChange}
-                />
-                {errors.firstname && (
-                  <p className="mt-1 text-red-400 text-sm">
-                    {errors.firstname}
-                  </p>
-                )}
-              </div>
+              {/* VERIFICA ESTA LÍNEA */}
+              <CalendlyEmbed url="https://calendly.com/hentech-ia/30min" />
+            </div>
 
-              {/* Email */}
-              <div className="mb-6">
-                <input
-                  type="email"
-                  id="email"
-                  name="email"
-                  placeholder="Tu Correo Electrónico"
-                  className={`w-full p-4 rounded-lg bg-gray-700 text-white border transition duration-200 ${
-                    errors.email
-                      ? "border-red-500 focus:border-red-500"
-                      : "border-gray-600 focus:border-primaryColor"
-                  }`}
-                  value={formData.email}
-                  onChange={handleChange}
-                />
-                {errors.email && (
-                  <p className="mt-1 text-red-400 text-sm">{errors.email}</p>
-                )}
-              </div>
-
-              {/* Teléfono (opcional) */}
-              <div className="mb-6">
-                <input
-                  type="tel"
-                  id="number"
-                  name="number"
-                  placeholder="Tu Número de Teléfono"
-                  className={`w-full p-4 rounded-lg bg-gray-700 text-white border transition duration-200 ${
-                    errors.number
-                      ? "border-red-500 focus:border-red-500"
-                      : "border-gray-600 focus:border-primaryColor"
-                  }`}
-                  value={formData.number}
-                  onChange={handleChange}
-                />
-                {errors.number && (
-                  <p className="mt-1 text-red-400 text-sm">{errors.number}</p>
-                )}
-              </div>
-
-              {/* Mensaje (opcional) */}
-              <div className="mb-6">
-                <textarea
-                  id="message"
-                  name="message"
-                  placeholder="Cuéntanos más sobre tus necesidades (opcional)"
-                  className="w-full p-4 rounded-lg bg-gray-700 text-white border border-gray-600 focus:outline-none focus:border-primaryColor transition duration-200"
-                  value={formData.message}
-                  onChange={handleChange}
-                />
-              </div>
-
-              {/* Botón de envío */}
-              <button
-                type="submit"
-                className="bg-primaryColor hover:bg-red-700 text-white font-bold py-4 px-10 rounded-full shadow-lg transition duration-300 ease-in-out transform hover:scale-105 w-full"
-              >
-                Enviar Solicitud
-              </button>
-            </form>
             <p className="mt-8 text-sm text-gray-500">
-              Al enviar, aceptas nuestra{" "}
+              Al agendar, aceptas nuestra{" "}
               <span className="text-primaryColor hover:underline">
                 Política de Privacidad
               </span>
