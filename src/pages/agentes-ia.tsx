@@ -21,6 +21,7 @@ import {
   useMotionValueEvent,
 } from "motion/react";
 import CalendlyEmbed from "../components/CalendlyEmbed";
+import CalendlyModal from "../components/CalendlyModal";
 
 interface FormErrors {
   firstname?: string;
@@ -220,12 +221,12 @@ const AgentesIA: React.FC = () => {
               Descubre cómo implementar un Agente de IA que responde, agenda y
               cobra por ti, 24/7.
             </p>
-            <a
-              href="#contact"
+            <button
+              onClick={() => setIsModalOpen(true)} // CAMBIO
               className="bg-primaryColor hover:bg-red-700 text-white font-bold py-3 px-8 rounded-full shadow-lg transition transform hover:scale-105 inline-block"
             >
               Solicita una Demostración Gratuita
-            </a>
+            </button>
           </div>
         </section>
 
@@ -613,12 +614,12 @@ const AgentesIA: React.FC = () => {
               convierte más y te devuelve el control de tu negocio.
             </p>
             <div className="mt-10">
-              <a
-                href="#contact"
+              <button
+                onClick={() => setIsModalOpen(true)} // CAMBIO
                 className="bg-primaryColor hover:bg-red-700 text-white font-bold py-4 px-10 rounded-full shadow-lg transition transform hover:scale-105 inline-block text-xl"
               >
                 Quiero Implementar mi Agente de IA Ahora
-              </a>
+              </button>
             </div>
           </div>
         </section>
@@ -707,12 +708,12 @@ const AgentesIA: React.FC = () => {
                     </li>
                   </ul>
                 </div>
-                <a
-                  href="#contact"
+                <button
+                  onClick={() => setIsModalOpen(true)} // CAMBIO
                   className="mt-8 block w-full text-center bg-gray-700 hover:bg-gray-600 text-white font-bold py-3 px-8 rounded-full transition"
                 >
                   Empezar Ahora
-                </a>
+                </button>
               </div>
 
               {/* Plan ADVANCED (Destacado) */}
@@ -787,12 +788,12 @@ const AgentesIA: React.FC = () => {
                     </li>
                   </ul>
                 </div>
-                <a
-                  href="#contact"
+                <button
+                  onClick={() => setIsModalOpen(true)} // CAMBIO
                   className="mt-8 block w-full text-center bg-primaryColor hover:bg-red-700 text-white font-bold py-3 px-8 rounded-full transition"
                 >
                   Comprar Plan
-                </a>
+                </button>
               </div>
 
               {/* Plan PERSONALIZADO */}
@@ -858,12 +859,12 @@ const AgentesIA: React.FC = () => {
                     </li>
                   </ul>
                 </div>
-                <a
-                  href="#contact"
+                <button
+                  onClick={() => setIsModalOpen(true)} // CAMBIO
                   className="mt-8 block w-full text-center bg-gray-700 hover:bg-gray-600 text-white font-bold py-3 px-8 rounded-full transition"
                 >
                   Contactar Ventas
-                </a>
+                </button>
               </div>
             </div>
           </div>
@@ -953,54 +954,11 @@ const AgentesIA: React.FC = () => {
           </div>
         </section>
       </div>
-      {isModalOpen && (
-        <div className="fixed inset-0 z-[9999] flex items-center justify-center bg-darkBgColor bg-opacity-70 backdrop-blur-sm">
-          <div className="relative w-full max-w-md bg-gray-900 rounded-3xl shadow-2xl border-2 border-primaryColor overflow-hidden animate-fadeIn">
-            {/* Botón de cerrar */}
-            <button
-              onClick={() => setIsModalOpen(false)}
-              className="absolute top-4 right-4 text-gray-400 hover:text-white transition-colors"
-              aria-label="Cerrar modal"
-            ></button>
-
-            {/* Contenido */}
-            <div className="p-8 text-center space-y-4">
-              {/* Icono superior */}
-              <div className="mx-auto w-[41px] h-[40px] flex items-center justify-center rounded-full bg-primaryColor">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  className="h-8 w-8 text-white"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M9 12l2 2l4 -4m5 2a9 9 0 1 1 -18 0a9 9 0 0 1 18 0"
-                  />
-                </svg>
-              </div>
-
-              <h2 className="text-2xl font-bold text-white">
-                ¡Gracias por contactarnos!
-              </h2>
-              <p className="text-gray-300">
-                Nos pondremos en contacto contigo muy pronto para agendar el
-                demo.
-              </p>
-
-              <button
-                onClick={() => setIsModalOpen(false)}
-                className="mt-4 inline-block px-8 py-3 bg-primaryColor hover:bg-red-700 text-white font-semibold rounded-full shadow-lg transition transform hover:scale-105"
-              >
-                Cerrar
-              </button>
-            </div>
-          </div>
-        </div>
-      )}
+      <CalendlyModal
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+        url="https://calendly.com/hentech-ia/30min"
+      />
     </>
   );
 };

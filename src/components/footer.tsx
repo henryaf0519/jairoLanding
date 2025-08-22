@@ -46,7 +46,7 @@ const Footer = () => {
           <div className="flex flex-col items-center md:flex-row md:space-x-6 space-y-4 md:space-y-0">
             {/* Íconos */}
             <div className="flex space-x-4">
-              <a
+              {/* Botón  <a
                 href="https://www.instagram.com"
                 target="_blank"
                 rel="noopener noreferrer"
@@ -58,6 +58,9 @@ const Footer = () => {
                   className="w-6 h-6 object-contain"
                 />
               </a>
+                  */
+            }
+              
               <a
                 href="https://www.instagram.com"
                 target="_blank"
@@ -70,9 +73,10 @@ const Footer = () => {
                   className="w-6 h-6 object-contain"
                 />
               </a>
+           
             </div>
 
-            {/* Botón */}
+            {/* Botón 
             <button
               className="mt-4 md:mt-0 px-6 py-2 rounded-full font-semibold transition-all duration-300 ease-in-out"
               style={{
@@ -84,6 +88,8 @@ const Footer = () => {
             >
               Agendar Demo
             </button>
+            */
+            }
           </div>
         </div>
       </footer>
