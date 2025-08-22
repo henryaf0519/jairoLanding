@@ -1,18 +1,4 @@
 import React, { useState, useEffect, useRef } from "react";
-import {
-  FaCheckCircle,
-  FaStore,
-  FaChartLine,
-  FaClock,
-  FaQuestionCircle,
-  FaFilter,
-  FaTasks,
-  FaCrosshairs,
-  FaDraftingCompass,
-  FaBolt,
-  FaUsers,
-  FaTimesCircle,
-} from "react-icons/fa";
 import emailjs from "@emailjs/browser";
 import {
   motion,
@@ -20,16 +6,149 @@ import {
   useMotionValue,
   useMotionValueEvent,
 } from "motion/react";
+import {
+  CheckCircle,
+  Store,
+  BarChart3,
+  Clock,
+  HelpCircle,
+  Filter,
+  ListTodo,
+  Crosshair,
+  Compass,
+  Zap,
+  Users,
+  XCircle,
+  Minus,
+  Plus,
+} from "lucide-react"; // --- ICONOS UNIFICADOS ---
+
 import CalendlyEmbed from "../components/CalendlyEmbed";
 import CalendlyModal from "../components/CalendlyModal";
 
-interface FormErrors {
-  firstname?: string;
-  email?: string;
-  number?: string;
-  message?: string;
-}
+// --- DATOS CENTRALIZADOS ---
 
+// Datos para las tarjetas de beneficios
+const benefitsData = [
+  {
+    icon: BarChart3,
+    title: "Incremento en Ventas y Conversión",
+    description:
+      "Convierte más conversaciones en ingresos. Tu agente IA está entrenado para guiar a los clientes a través del proceso de compra 24/7.",
+  },
+  {
+    icon: Zap,
+    title: "Eficiencia y Ahorro de Costos",
+    description:
+      "Automatiza respuestas y procesos para que no necesites contratar más personal. Tu equipo se enfoca en tareas de alto valor.",
+  },
+  {
+    icon: Clock,
+    title: "Recupera de 5 a 10 Horas Semanales",
+    description:
+      "Delega las tareas repetitivas a tu agente de IA y libera tiempo valioso para dedicarlo a la estrategia y el crecimiento de tu negocio.",
+  },
+];
+
+// Datos para la sección de Precios
+const pricingPlans = [
+    {
+        name: "Starter",
+        description: "Ideal para pequeños negocios.",
+        price: "$35",
+        priceDetails: "USD/mes",
+        features: [
+            "1 Número WhatsApp API",
+            "5,000 Contactos 1 a 1",
+            "1 Agente de IA",
+            "10 Automatizaciones",
+        ],
+        buttonText: "Empezar Ahora",
+        isPopular: false,
+    },
+    {
+        name: "Advanced",
+        description: "Ideal para negocios con equipos de trabajo que priorizan su atención al cliente por WhatsApp.",
+        price: "$50",
+        priceDetails: "USD/mes",
+        features: [
+            "1 Número WhatsApp API",
+            "3 Agentes de IA",
+            "10,000 Contactos 1 a 1",
+            "Automatizaciones Ilimitadas",
+        ],
+        buttonText: "Comprar Plan",
+        isPopular: true,
+    },
+    {
+        name: "Personalizado",
+        description: "Soluciones personalizadas para tu negocio.",
+        price: "A Convenir",
+        priceDetails: "",
+        features: [
+            "Agentes IA Pro con integraciones avanzadas",
+            "Soporte y consultoría dedicada",
+        ],
+        extraInfo: "Todo lo de Advanced, y además:",
+        buttonText: "Contactar Ventas",
+        isPopular: false,
+    },
+];
+
+
+// Datos para la sección de Preguntas Frecuentes (FAQ)
+const faqData = [
+  {
+    question: "¿Tengo que instalar algo complicado?",
+    answer:
+      "No. Nosotros nos encargamos de todo el proceso técnico. Tú solo necesitas llenar un formulario con la información clave de tu negocio y nosotros hacemos el resto.",
+  },
+  {
+    question: "¿Existe alguna cláusula de permanencia?",
+    answer:
+      "No. Creemos en la flexibilidad. Puedes elegir el plan que mejor se adapte a ti y cambiarlo o cancelarlo cuando lo necesites, sin contratos a largo plazo.",
+  },
+  {
+    question: "¿Qué pasa si no tengo página web o CRM?",
+    answer:
+      "No es un problema. Tu agente de IA puede operar perfectamente a través de WhatsApp y redes sociales. Además, nuestra plataforma incluye un CRM integrado para que gestiones a tus clientes desde el primer día.",
+  },
+  {
+    question: "¿En cuánto tiempo estará funcionando mi agente?",
+    answer:
+      "Nuestro proceso de implementación estándar es de 5 a 7 días hábiles. Así de rápido empezarás a ver los resultados.",
+  },
+  {
+    question: "¿Mis clientes se darán cuenta de que hablan con un robot?",
+    answer:
+      "Precisamente por eso creamos agentes personalizados. Entrenamos a la IA para que hable en el tono y estilo de tu marca. Además, desde nuestra plataforma, tú o tu equipo pueden intervenir en la conversación en cualquier momento para gestionar leads complejos, asegurando una experiencia fluida.",
+  },
+  {
+    question: "¿Esto funciona solo para WhatsApp?",
+    answer:
+      "No, nuestra plataforma es omnicanal. Integramos tu agente en WhatsApp, Instagram, Facebook Messenger y tu sitio web, centralizando todas las conversaciones en una única bandeja de entrada para un control total.",
+  },
+    {
+    question: "¿Qué tan personalizado puede ser el agente?",
+    answer:
+      "Totalmente personalizado. No usamos plantillas genéricas. Construimos un agente de IA a la medida, entrenado para ejecutar los procesos específicos de tu negocio, ya sea vender, dar soporte, calificar o cualquier otra tarea que necesites automatizar.",
+  },
+    {
+    question: "¿Qué tipo de soporte ofrecen una vez que mi agente está funcionando?",
+    answer:
+      "Ofrecemos soporte continuo para asegurar que tu operación funcione sin problemas. Dependiendo de tu plan, esto incluye desde soporte técnico hasta consultoría dedicada para ayudarte a optimizar tus flujos y estrategias.",
+  },
+  {
+    question: "¿Necesito configurar mi número de WhatsApp por mi cuenta?",
+    answer:
+      "Absolutamente nada. Nosotros gestionamos todo el proceso de configuración de la API oficial de WhatsApp a través de la plataforma de Meta. Nos aseguramos de que tu número esté verificado y funcionando sin que tengas que preocuparte por ningún detalle técnico.",
+  },
+];
+
+
+// --- COMPONENTES REUTILIZABLES ---
+
+// Componente para los items del FAQ
 function FAQItem({ question, answer }: { question: string; answer: string }) {
   const [isOpen, setIsOpen] = useState(false);
 
@@ -43,7 +162,7 @@ function FAQItem({ question, answer }: { question: string; answer: string }) {
           {question}
         </h3>
         <span className="text-primaryColor text-2xl transform transition-transform duration-300">
-          {isOpen ? "-" : "+"}
+          {isOpen ? <Minus size={24} /> : <Plus size={24} />}
         </span>
       </button>
       <div
@@ -57,6 +176,18 @@ function FAQItem({ question, answer }: { question: string; answer: string }) {
   );
 }
 
+// Componente para las tarjetas de beneficios
+const BenefitCard = ({ icon: Icon, title, description }: { icon: React.ElementType, title: string, description: string }) => (
+  <div className="flex items-start gap-4 p-6 bg-gray-900 rounded-xl shadow-lg transition-all duration-300 hover:bg-gray-800 hover:shadow-primaryColor/20">
+    <Icon className="text-primaryColor text-3xl flex-shrink-0 mt-1" />
+    <div>
+      <h4 className="font-bold text-white text-xl">{title}</h4>
+      <p className="text-gray-400 mt-1">{description}</p>
+    </div>
+  </div>
+);
+
+
 const AgentesIA: React.FC = () => {
   const fullText = "Agentes IA que Trabajan por Ti";
   const progress = useMotionValue(0);
@@ -64,77 +195,7 @@ const AgentesIA: React.FC = () => {
   const [typingFinished, setTypingFinished] = useState(false);
   const containerRef = useRef(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [errors, setErrors] = useState<FormErrors>({});
-  const [formData, setFormData] = useState({
-    firstname: "",
-    email: "",
-    number: "",
-    message: "",
-  });
-
-  const handleChange = (e: any) => {
-    const { name, value } = e.target;
-    setFormData((prev) => ({ ...prev, [name]: value }));
-    // Al cambiar, limpiamos el error de ese campo
-    setErrors((prev) => ({ ...prev, [name]: "" }));
-  };
-  const validate = (): FormErrors => {
-    const newErrors: FormErrors = {};
-
-    if (!formData.firstname.trim()) {
-      newErrors.firstname = "Este campo es obligatorio";
-    }
-
-    if (!formData.email.trim()) {
-      newErrors.email = "Este campo es obligatorio";
-    } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
-      newErrors.email = "Ingresa un email válido";
-    }
-
-    if (!formData.number.trim()) {
-      newErrors.number = "Este campo es obligatorio";
-    }
-
-    return newErrors;
-  };
-  const handleSubmit = (e: any) => {
-    e.preventDefault();
-    const validationErrors = validate();
-    if (Object.keys(validationErrors).length > 0) {
-      setErrors(validationErrors);
-      return;
-    }
-    sendMessage(formData);
-    setErrors({});
-  };
-
-  const sendMessage = (data: Record<string, string>) => {
-    emailjs
-      .send(
-        "service_w1zagv4",
-        "template_tb05qji",
-        {
-          type: "Cotización",
-          from_name: data.firstname,
-          email: data.email,
-          numberphone: data.number,
-          message: `Deseo agendar un demo de agente IA estos son mis datos ${data.number}, ${data.email} \n Motivo: ${data.message}`,
-        },
-        "prOm35TXg66H46DY2"
-      )
-      .then(() => {
-        setIsModalOpen(true);
-        setFormData({
-          firstname: "",
-          email: "",
-          number: "",
-          message: "",
-        });
-      })
-      .catch((err) => {
-        console.log("err: ", err);
-      });
-  };
+  
   useEffect(() => {
     const el = containerRef.current;
     if (!el) return;
@@ -143,17 +204,16 @@ const AgentesIA: React.FC = () => {
       (entries, obs) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
-            // Arranca la animación al verse en pantalla
             animate(progress, fullText.length + 1, {
               duration: fullText.length * 0.08,
               ease: "linear",
               onComplete: () => setTypingFinished(true),
             });
-            obs.unobserve(el); // solo una vez
+            obs.unobserve(el);
           }
         });
       },
-      { threshold: 0.5 } // dispara cuando al menos el 50% del elemento es visible
+      { threshold: 0.5 }
     );
 
     observer.observe(el);
@@ -163,6 +223,7 @@ const AgentesIA: React.FC = () => {
   useMotionValueEvent(progress, "change", (latest) => {
     setDisplayedText(fullText.slice(0, Math.floor(latest)));
   });
+  
   return (
     <>
       <div
@@ -183,7 +244,7 @@ const AgentesIA: React.FC = () => {
                   <span className="text-primaryColor">Orvex:</span>{" "}
                   {displayedText}
                   <motion.span
-                    className="inline-block ml-1"
+                    className="inline-block w-1 h-12 bg-white ml-1"
                     animate={
                       typingFinished
                         ? { opacity: [0, 1, 0] }
@@ -191,7 +252,7 @@ const AgentesIA: React.FC = () => {
                     }
                     transition={
                       typingFinished
-                        ? { duration: 1.2 }
+                        ? { repeat: Infinity, duration: 1.2 }
                         : { repeat: Infinity, duration: 0.6, ease: "linear" }
                     }
                   />
@@ -206,24 +267,22 @@ const AgentesIA: React.FC = () => {
 
               {/* Columna Derecha: Video Placeholder */}
               <div className="flex items-center justify-center w-full">
-                {/* Reemplaza este div con tu componente de video o un iframe */}
-                <div className="w-full max-w-md aspect-video bg-gray-800 rounded-lg flex items-center justify-center border-2 border-gray-700 shadow-2xl">
+                <div className="w-full max-w-md aspect-video bg-gray-800 rounded-lg flex items-center justify-center border-2 border-gray-700 shadow-2xl animate-pulse">
                   <span className="text-white">Tu Video Aquí</span>
                 </div>
               </div>
             </div>
           </div>
 
-          {/* Botón centrado debajo de las columnas */}
+          {/* Botón centrado */}
           <div className="relative pb-16 pt-8 z-10 text-center">
-            {/* TEXTO AÑADIDO */}
             <p className="text-3xl text-white mb-6 max-w-xl mx-auto">
               Descubre cómo implementar un Agente de IA que responde, agenda y
               cobra por ti, 24/7.
             </p>
             <button
-              onClick={() => setIsModalOpen(true)} // CAMBIO
-              className="bg-primaryColor hover:bg-red-700 text-white font-bold py-3 px-8 rounded-full shadow-lg transition transform hover:scale-105 inline-block"
+              onClick={() => setIsModalOpen(true)}
+              className="bg-primaryColor hover:bg-red-700 text-white font-bold py-3 px-8 rounded-full shadow-lg transition-colors duration-300 transform hover:scale-105"
             >
               Solicita una Demostración Gratuita
             </button>
@@ -239,9 +298,8 @@ const AgentesIA: React.FC = () => {
                 <img
                   src="/assets/chat.png"
                   alt="Agente IA gestionando un chat con un cliente"
-                  className="w-full max-w-md aspect-square object-cover rounded-xl shadow-2xl transition-all duration-300"
+                  className="w-full max-w-md aspect-square object-cover rounded-xl shadow-2xl"
                 />
-                {/* Capa para fusionar con el fondo (MODIFICADA) */}
                 <div className="absolute inset-0 w-full h-full rounded-xl bg-gradient-to-t from-black/80 via-black/40 to-transparent"></div>
               </div>
 
@@ -265,10 +323,10 @@ const AgentesIA: React.FC = () => {
             </div>
           </div>
         </section>
-
+        
+        {/* Benefits Section */}
         <section id="benefits" className="py-16 sm:py-24 bg-darkBgColor">
           <div className="max-w-7xl mx-auto px-6">
-            {/* Título Principal de la Sección */}
             <div className="text-center mb-16">
               <h2 className="text-3xl sm:text-4xl font-bold text-white">
                 Resultados, no solo promesas.
@@ -282,48 +340,14 @@ const AgentesIA: React.FC = () => {
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-start">
               {/* Columna Izquierda: Beneficios Clave */}
               <div className="space-y-8">
-                {/* Card de Beneficio 1: Aumento de Ventas */}
-                <div className="flex items-start gap-4 p-6 bg-gray-900 rounded-xl shadow-lg">
-                  <FaChartLine className="text-primaryColor text-3xl flex-shrink-0 mt-1" />
-                  <div>
-                    <h4 className="font-bold text-white text-xl">
-                      Incremento en Ventas y Conversión
-                    </h4>
-                    <p className="text-gray-400 mt-1">
-                      Convierte más conversaciones en ingresos. Tu agente IA
-                      está entrenado para guiar a los clientes a través del
-                      proceso de compra 24/7.
-                    </p>
-                  </div>
-                </div>
-                {/* Card de Beneficio 2: Eficiencia Operativa */}
-                <div className="flex items-start gap-4 p-6 bg-gray-900 rounded-xl shadow-lg">
-                  <FaBolt className="text-primaryColor text-3xl flex-shrink-0 mt-1" />
-                  <div>
-                    <h4 className="font-bold text-white text-xl">
-                      Eficiencia y Ahorro de Costos
-                    </h4>
-                    <p className="text-gray-400 mt-1">
-                      Automatiza respuestas y procesos para que no necesites
-                      contratar más personal. Tu equipo se enfoca en tareas de
-                      alto valor.
-                    </p>
-                  </div>
-                </div>
-                {/* Card de Beneficio 3: Recuperación de Tiempo */}
-                <div className="flex items-start gap-4 p-6 bg-gray-900 rounded-xl shadow-lg">
-                  <FaClock className="text-primaryColor text-3xl flex-shrink-0 mt-1" />
-                  <div>
-                    <h4 className="font-bold text-white text-xl">
-                      Recupera de 5 a 10 Horas Semanales
-                    </h4>
-                    <p className="text-gray-400 mt-1">
-                      Delega las tareas repetitivas a tu agente de IA y libera
-                      tiempo valioso para dedicarlo a la estrategia y el
-                      crecimiento de tu negocio.
-                    </p>
-                  </div>
-                </div>
+                {benefitsData.map((benefit, index) => (
+                  <BenefitCard
+                    key={index}
+                    icon={benefit.icon}
+                    title={benefit.title}
+                    description={benefit.description}
+                  />
+                ))}
               </div>
 
               {/* Columna Derecha: Plataforma CRM */}
@@ -338,7 +362,7 @@ const AgentesIA: React.FC = () => {
                 </p>
                 <ul className="mt-6 space-y-4">
                   <li className="flex items-start gap-3">
-                    <FaCheckCircle className="text-primaryColor mt-1.5 flex-shrink-0" />
+                    <CheckCircle className="text-primaryColor mt-1.5 flex-shrink-0" />
                     <span className="text-gray-300">
                       <span className="font-semibold text-white">
                         Bandeja Omnicanal:
@@ -347,7 +371,7 @@ const AgentesIA: React.FC = () => {
                     </span>
                   </li>
                   <li className="flex items-start gap-3">
-                    <FaCheckCircle className="text-primaryColor mt-1.5 flex-shrink-0" />
+                    <CheckCircle className="text-primaryColor mt-1.5 flex-shrink-0" />
                     <span className="text-gray-300">
                       <span className="font-semibold text-white">
                         Gestión de Pipeline:
@@ -357,7 +381,7 @@ const AgentesIA: React.FC = () => {
                     </span>
                   </li>
                   <li className="flex items-start gap-3">
-                    <FaCheckCircle className="text-primaryColor mt-1.5 flex-shrink-0" />
+                    <CheckCircle className="text-primaryColor mt-1.5 flex-shrink-0" />
                     <span className="text-gray-300">
                       <span className="font-semibold text-white">
                         Marketing Automatizado:
@@ -376,7 +400,6 @@ const AgentesIA: React.FC = () => {
         </section>
 
         {/* HOW IT WORKS Section */}
-
         <section id="how-it-works" className="py-16 sm:py-24 bg-darkBgColor">
           <div className="max-w-6xl mx-auto px-6 text-center">
             <h2 className="text-3xl sm:text-4xl font-bold text-white mb-4">
@@ -388,59 +411,33 @@ const AgentesIA: React.FC = () => {
               y directo. Solo necesitas llenar un formulario para empezar.
             </p>
 
-            {/* Grid de 4 pasos */}
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
-              {/* Paso 1 */}
               <div className="bg-gray-900 p-6 rounded-xl shadow-lg border border-gray-800">
-                <div className="text-primaryColor text-4xl mb-4">
-                  <FaFilter />
-                </div>
-                <h3 className="text-xl font-semibold text-white">
-                  Filtra Clientes Potenciales
-                </h3>
+                <div className="text-primaryColor text-4xl mb-4"><Filter /></div>
+                <h3 className="text-xl font-semibold text-white">Filtra Clientes Potenciales</h3>
               </div>
-              {/* Paso 2 */}
               <div className="bg-gray-900 p-6 rounded-xl shadow-lg border border-gray-800">
-                <div className="text-primaryColor text-4xl mb-4">
-                  <FaQuestionCircle />
-                </div>
-                <h3 className="text-xl font-semibold text-white">
-                  Responde Preguntas Frecuentes
-                </h3>
+                <div className="text-primaryColor text-4xl mb-4"><HelpCircle /></div>
+                <h3 className="text-xl font-semibold text-white">Responde Preguntas Frecuentes</h3>
               </div>
-              {/* Paso 3 */}
               <div className="bg-gray-900 p-6 rounded-xl shadow-lg border border-gray-800">
-                <div className="text-primaryColor text-4xl mb-4">
-                  <FaTasks />
-                </div>
-                <h3 className="text-xl font-semibold text-white">
-                  Automatiza Tareas Clave
-                </h3>
+                <div className="text-primaryColor text-4xl mb-4"><ListTodo /></div>
+                <h3 className="text-xl font-semibold text-white">Automatiza Tareas Clave</h3>
               </div>
-              {/* Paso 4 (MODIFICADO) */}
               <div className="bg-gray-900 p-6 rounded-xl shadow-lg border border-gray-800">
-                <div className="text-primaryColor text-4xl mb-4">
-                  <FaStore /> {/* Icono cambiado */}
-                </div>
-                <h3 className="text-xl font-semibold text-white">
-                  Presenta tu Catálogo Inteligente {/* Texto cambiado */}
-                </h3>
+                <div className="text-primaryColor text-4xl mb-4"><Store /></div>
+                <h3 className="text-xl font-semibold text-white">Presenta tu Catálogo Inteligente</h3>
               </div>
             </div>
           </div>
         </section>
-
-        {/* CUSTOM AI AGENT PLATFORM Section */}
-        <section
-          id="platform-capabilities"
-          className="py-16 sm:py-24 bg-darkBgColor"
-        >
+        
+        {/* PLATFORM Section */}
+        <section id="platform-capabilities" className="py-16 sm:py-24 bg-darkBgColor">
           <div className="max-w-7xl mx-auto px-6">
-            {/* Título Principal */}
             <div className="text-center mb-16">
               <h2 className="text-3xl sm:text-4xl font-bold text-white">
-                Una Plataforma,{" "}
-                <span className="text-primaryColor">Infinitas Soluciones</span>
+                Una Plataforma, <span className="text-primaryColor">Infinitas Soluciones</span>
               </h2>
               <p className="mt-4 text-lg text-gray-300 max-w-3xl mx-auto">
                 No te entregamos un chatbot genérico. Te damos el poder de
@@ -448,47 +445,28 @@ const AgentesIA: React.FC = () => {
                 venta, soporte y marketing.
               </p>
             </div>
-
-            {/* Grid de 3 Capacidades Fundamentales */}
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-              {/* Pilar 1: Diseño de Flujos Conversacionales */}
-              <div className="bg-gray-900 p-8 rounded-xl shadow-lg border border-gray-800 flex flex-col transform hover:scale-105 transition">
-                <div className="text-primaryColor text-4xl mb-4">
-                  <FaDraftingCompass />
-                </div>
-                <h3 className="text-2xl font-semibold text-white mb-2">
-                  Diseña Experiencias Conversacionales
-                </h3>
+              <div className="bg-gray-900 p-8 rounded-xl shadow-lg border border-gray-800 flex flex-col transform hover:scale-105 transition-transform duration-300">
+                <div className="text-primaryColor text-4xl mb-4"><Compass /></div>
+                <h3 className="text-2xl font-semibold text-white mb-2">Diseña Experiencias Conversacionales</h3>
                 <p className="text-gray-400 leading-relaxed flex-grow">
                   Define visualmente el recorrido perfecto para tus clientes.
                   Crea flujos que califican, educan y guían al usuario con
                   textos, imágenes, videos y cuestionarios interactivos.
                 </p>
               </div>
-
-              {/* Pilar 2: Comunicación Estratégica */}
-              <div className="bg-gray-900 p-8 rounded-xl shadow-lg border border-gray-800 flex flex-col transform hover:scale-105 transition">
-                <div className="text-primaryColor text-4xl mb-4">
-                  <FaCrosshairs />
-                </div>
-                <h3 className="text-2xl font-semibold text-white mb-2">
-                  Comunica con Precisión e Impacto
-                </h3>
+              <div className="bg-gray-900 p-8 rounded-xl shadow-lg border border-gray-800 flex flex-col transform hover:scale-105 transition-transform duration-300">
+                <div className="text-primaryColor text-4xl mb-4"><Crosshair /></div>
+                <h3 className="text-2xl font-semibold text-white mb-2">Comunica con Precisión e Impacto</h3>
                 <p className="text-gray-400 leading-relaxed flex-grow">
                   Segmenta tu audiencia y envía campañas masivas o mensajes
                   ultrapersonalizados. Entrega el mensaje correcto, a la persona
                   correcta, en el momento correcto.
                 </p>
               </div>
-
-              {/* Pilar 3: Automatización de Tareas a Medida */}
-              <div className="bg-gray-900 p-8 rounded-xl shadow-lg border border-gray-800 flex flex-col transform hover:scale-105 transition">
-                <div className="text-primaryColor text-4xl mb-4">
-                  <FaTasks />
-                </div>
-                <h3 className="text-2xl font-semibold text-white mb-2">
-                  Automatiza Tareas a tu Medida
-                </h3>
+              <div className="bg-gray-900 p-8 rounded-xl shadow-lg border border-gray-800 flex flex-col transform hover:scale-105 transition-transform duration-300">
+                <div className="text-primaryColor text-4xl mb-4"><ListTodo /></div>
+                <h3 className="text-2xl font-semibold text-white mb-2">Automatiza Tareas a tu Medida</h3>
                 <p className="text-gray-400 leading-relaxed flex-grow">
                   Entrena a tu agente para que ejecute las tareas clave de tu
                   negocio: tomar pedidos, procesar pagos, agendar citas, dar
@@ -499,92 +477,44 @@ const AgentesIA: React.FC = () => {
           </div>
         </section>
 
-        {/* INVESTMENT & SOCIAL PROOF Section */}
-        <section
-          id="investment-proof"
-          className="py-16 sm:py-24 bg-darkBgColor"
-        >
+        {/* Investment Section */}
+        <section id="investment-proof" className="py-16 sm:py-24 bg-darkBgColor">
           <div className="max-w-7xl mx-auto px-6">
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-12 items-start">
-              {/* Columna Izquierda (más ancha): La Inversión */}
               <div className="lg:col-span-2 bg-gray-900 p-8 rounded-2xl border border-gray-800 shadow-2xl">
-                <h2 className="text-3xl sm:text-4xl font-bold text-white mb-2">
-                  Una Inversión Inteligente, no un Gasto
-                </h2>
+                <h2 className="text-3xl sm:text-4xl font-bold text-white mb-2">Una Inversión Inteligente, no un Gasto</h2>
                 <p className="text-lg text-gray-400 mb-8">
                   Analicemos los números. Un asistente tradicional puede ser un
                   recurso valioso, pero ¿es la opción más eficiente?
                 </p>
-
-                {/* Comparativa */}
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                  {/* Asistente Humano */}
                   <div className="border border-gray-700 p-6 rounded-xl">
-                    <h3 className="text-xl font-semibold text-white">
-                      Asistente Humano
-                    </h3>
-                    <p className="text-4xl font-bold text-gray-500 my-4">
-                      $2.5M+
-                      <span className="text-lg font-normal">/mes</span>
-                    </p>
+                    <h3 className="text-xl font-semibold text-white">Asistente Humano</h3>
+                    <p className="text-4xl font-bold text-gray-500 my-4">$2.5M+<span className="text-lg font-normal">/mes</span></p>
                     <ul className="space-y-2 text-gray-400">
-                      <li className="flex items-center gap-2">
-                        <FaTimesCircle className="text-red-500" /> Horario
-                        limitado
-                      </li>
-                      <li className="flex items-center gap-2">
-                        <FaTimesCircle className="text-red-500" /> Propenso a
-                        errores
-                      </li>
-                      <li className="flex items-center gap-2">
-                        <FaTimesCircle className="text-red-500" /> Necesita días
-                        libres
-                      </li>
+                      <li className="flex items-center gap-2"><XCircle className="text-red-500" /> Horario limitado</li>
+                      <li className="flex items-center gap-2"><XCircle className="text-red-500" /> Propenso a errores</li>
+                      <li className="flex items-center gap-2"><XCircle className="text-red-500" /> Necesita días libres</li>
                     </ul>
                   </div>
-                  {/* Agente IA ORVEX */}
                   <div className="border-2 border-primaryColor p-6 rounded-xl relative overflow-hidden">
-                    <div className="absolute top-0 right-0 bg-primaryColor text-white text-xs font-bold px-3 py-1 rounded-bl-lg">
-                      RECOMENDADO
-                    </div>
-                    <h3 className="text-xl font-semibold text-white">
-                      Agente IA ORVEX
-                    </h3>
-                    <p className="text-4xl font-bold text-white my-4">
-                      Fracción
-                      <span className="text-lg font-normal"> del costo</span>
-                    </p>
+                    <div className="absolute top-0 right-0 bg-primaryColor text-white text-xs font-bold px-3 py-1 rounded-bl-lg">RECOMENDADO</div>
+                    <h3 className="text-xl font-semibold text-white">Agente IA ORVEX</h3>
+                    <p className="text-4xl font-bold text-white my-4">Fracción<span className="text-lg font-normal"> del costo</span></p>
                     <ul className="space-y-2 text-gray-300">
-                      <li className="flex items-center gap-2">
-                        <FaCheckCircle className="text-green-500" /> Trabaja
-                        24/7
-                      </li>
-                      <li className="flex items-center gap-2">
-                        <FaCheckCircle className="text-green-500" /> Precisión
-                        milimétrica
-                      </li>
-                      <li className="flex items-center gap-2">
-                        <FaCheckCircle className="text-green-500" /> Nunca
-                        descansa
-                      </li>
+                      <li className="flex items-center gap-2"><CheckCircle className="text-green-500" /> Trabaja 24/7</li>
+                      <li className="flex items-center gap-2"><CheckCircle className="text-green-500" /> Precisión milimétrica</li>
+                      <li className="flex items-center gap-2"><CheckCircle className="text-green-500" /> Nunca descansa</li>
                     </ul>
                   </div>
                 </div>
-                <p className="mt-8 text-center text-lg text-gray-300 italic">
-                  "Si hoy pierdes al menos una venta a la semana, ya estás
-                  pagando el costo de NO tenerlo."
-                </p>
+                <p className="mt-8 text-center text-lg text-gray-300 italic">"Si hoy pierdes al menos una venta a la semana, ya estás pagando el costo de NO tenerlo."</p>
               </div>
 
-              {/* Columna Derecha (MODIFICADA): Prueba Social */}
               <div className="bg-gray-900 p-8 rounded-2xl border border-gray-800 shadow-2xl h-full flex flex-col">
                 <div>
-                  <div className="text-primaryColor text-4xl mb-4">
-                    <FaUsers />
-                  </div>
-                  <h3 className="text-2xl font-semibold text-white mb-4">
-                    Únete a los Líderes del Mercado
-                  </h3>
+                  <div className="text-primaryColor text-4xl mb-4"><Users /></div>
+                  <h3 className="text-2xl font-semibold text-white mb-4">Únete a los Líderes del Mercado</h3>
                   <p className="text-gray-400 leading-relaxed">
                     Empresas de diversos sectores como tiendas virtuales,
                     agencias de marketing, centros médicos y psicológicos,
@@ -592,18 +522,14 @@ const AgentesIA: React.FC = () => {
                     profesionales de alto rendimiento ya confían en ORVEX.
                   </p>
                 </div>
-                <div className="flex-grow"></div>{" "}
-                {/* Elemento flexible para empujar el texto hacia abajo */}
-                <p className="text-white font-semibold mt-6">
-                  Si ellos ya transformaron su negocio, tú también puedes
-                  hacerlo.
-                </p>
+                <div className="flex-grow"></div>
+                <p className="text-white font-semibold mt-6">Si ellos ya transformaron su negocio, tú también puedes hacerlo.</p>
               </div>
             </div>
           </div>
         </section>
 
-        {/* FINAL CTA Section */}
+        {/* Final CTA Section */}
         <section id="final-cta" className="py-20 sm:py-24 bg-black">
           <div className="max-w-4xl mx-auto px-6 text-center">
             <h2 className="text-3xl sm:text-5xl font-bold text-white leading-tight">
@@ -615,316 +541,96 @@ const AgentesIA: React.FC = () => {
             </p>
             <div className="mt-10">
               <button
-                onClick={() => setIsModalOpen(true)} // CAMBIO
-                className="bg-primaryColor hover:bg-red-700 text-white font-bold py-4 px-10 rounded-full shadow-lg transition transform hover:scale-105 inline-block text-xl"
+                onClick={() => setIsModalOpen(true)}
+                className="bg-primaryColor hover:bg-red-700 text-white font-bold py-4 px-10 rounded-full shadow-lg transition-colors duration-300 transform hover:scale-105 inline-block text-xl"
               >
                 Quiero Implementar mi Agente de IA Ahora
               </button>
             </div>
           </div>
         </section>
-
-        {/* PRICING Section */}
+        
+        {/* --- SECCIÓN DE PRECIOS AÑADIDA --- */}
         <section id="pricing" className="py-16 sm:py-24 bg-darkBgColor">
-          <div className="max-w-7xl mx-auto px-6">
-            {/* Título Principal */}
-            <div className="text-center mb-16">
-              <h2 className="text-3xl sm:text-4xl font-bold text-white">
-                Un Plan para Cada Etapa de tu Negocio
-              </h2>
-              <p className="mt-4 text-lg text-gray-300 max-w-3xl mx-auto">
-                Elige la potencia que necesitas hoy y escala con nosotros
-                mañana. Sin complicaciones.
-              </p>
+            <div className="max-w-7xl mx-auto px-6">
+                <div className="text-center mb-16">
+                    <h2 className="text-3xl sm:text-4xl font-bold text-white">Un Plan para Cada Etapa de tu Negocio</h2>
+                    <p className="mt-4 text-lg text-gray-300 max-w-3xl mx-auto">
+                        Elige la potencia que necesitas hoy y escala con nosotros mañana. Sin complicaciones.
+                    </p>
+                </div>
+
+                <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 items-stretch">
+                    {pricingPlans.map((plan, index) => (
+                        <div key={index} className={`bg-gray-900 p-8 rounded-2xl border h-full flex flex-col shadow-lg 
+                            ${plan.isPopular ? 'border-2 border-primaryColor relative scale-105 shadow-2xl' : 'border-gray-800'}`
+                        }>
+                            {plan.isPopular && (
+                                <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-primaryColor text-white text-sm font-bold px-4 py-1 rounded-full">
+                                    Más Popular
+                                </div>
+                            )}
+                            <h3 className="text-2xl font-semibold text-white">{plan.name}</h3>
+                            <p className="text-primaryColor font-semibold mt-1">{plan.description}</p>
+                            <div className="my-8">
+                                <span className={`font-bold text-white ${plan.priceDetails ? 'text-5xl' : 'text-4xl'}`}>{plan.price}</span>
+                                {plan.priceDetails && <span className="text-lg text-gray-400"> {plan.priceDetails}</span>}
+                            </div>
+                            <div className="flex-grow">
+                                <h4 className="font-bold text-white text-lg mb-4">{plan.extraInfo || "Características Principales:"}</h4>
+                                <ul className="space-y-3 text-gray-300 mb-6">
+                                    {plan.features.map((feature, i) => (
+                                        <li key={i} className="flex items-center gap-3">
+                                            <CheckCircle className="text-green-500 flex-shrink-0" /> {feature}
+                                        </li>
+                                    ))}
+                                </ul>
+                                {plan.name !== "Personalizado" && (
+                                    <>
+                                        <h4 className="font-bold text-white text-lg mb-4 border-t border-gray-700 pt-6">Incluido en todos los planes:</h4>
+                                        <ul className="space-y-3 text-gray-300">
+                                            <li className="flex items-start gap-3">
+                                                <CheckCircle className="text-green-500 mt-1 flex-shrink-0" />
+                                                <div><span className="font-semibold">WhatsApp Business API Gratuita:</span> Te ayudamos con la configuración y la verificación oficial (sello azul).</div>
+                                            </li>
+                                            <li className="flex items-start gap-3">
+                                                <CheckCircle className="text-green-500 mt-1 flex-shrink-0" />
+                                                <div><span className="font-semibold">Bandeja de Entrada Omnicanal:</span> Gestiona WhatsApp, Instagram, Messenger y más en un solo lugar.</div>
+                                            </li>
+                                            <li className="flex items-start gap-3">
+                                                <CheckCircle className="text-green-500 mt-1 flex-shrink-0" />
+                                                <div><span className="font-semibold">Plataforma de Equipo:</span> Asigna conversaciones, crea plantillas y automatiza respuestas.</div>
+                                            </li>
+                                        </ul>
+                                    </>
+                                )}
+                            </div>
+                            <button onClick={() => setIsModalOpen(true)} className={`mt-8 block w-full text-center font-bold py-3 px-8 rounded-full transition-colors duration-300 
+                                ${plan.isPopular ? 'bg-primaryColor hover:bg-red-700 text-white' : 'bg-gray-700 hover:bg-gray-600 text-white'}`}>
+                                {plan.buttonText}
+                            </button>
+                        </div>
+                    ))}
+                </div>
             </div>
-
-            {/* Grid de Precios */}
-            <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 items-stretch">
-              {/* Plan STARTER */}
-              <div className="bg-gray-900 p-8 rounded-2xl border border-gray-800 h-full flex flex-col">
-                <h3 className="text-2xl font-semibold text-white">Starter</h3>
-                <p className="text-primaryColor font-semibold mt-1">
-                  Ideal para pequeños negocios.
-                </p>
-                <div className="my-8">
-                  <span className="text-5xl font-bold text-white">$35</span>
-                  <span className="text-lg text-gray-400"> USD/mes</span>
-                </div>
-                <div className="flex-grow">
-                  <h4 className="font-bold text-white text-lg mb-4">
-                    Características Principales:
-                  </h4>
-                  <ul className="space-y-3 text-gray-300 mb-6">
-                    <li className="flex items-center gap-3">
-                      <FaCheckCircle className="text-green-500" /> 1 Número
-                      WhatsApp API
-                    </li>
-                    <li className="flex items-center gap-3">
-                      <FaCheckCircle className="text-green-500" /> 5,000
-                      Contactos 1 a 1
-                    </li>
-                    <li className="flex items-center gap-3">
-                      <FaCheckCircle className="text-green-500" /> 1 Agente de
-                      IA
-                    </li>
-                    <li className="flex items-center gap-3">
-                      <FaCheckCircle className="text-green-500" /> 10
-                      Automatizaciones
-                    </li>
-                  </ul>
-                  <h4 className="font-bold text-white text-lg mb-4 border-t border-gray-700 pt-6">
-                    Incluido en todos los planes:
-                  </h4>
-                  <ul className="space-y-3 text-gray-300">
-                    <li className="flex items-start gap-3">
-                      <FaCheckCircle className="text-green-500 mt-1" />{" "}
-                      <div>
-                        <span className="font-semibold">
-                          WhatsApp Business API Gratuita:
-                        </span>{" "}
-                        Te ayudamos con la configuración y la verificación
-                        oficial (sello azul).
-                      </div>
-                    </li>
-                    <li className="flex items-start gap-3">
-                      <FaCheckCircle className="text-green-500 mt-1" />{" "}
-                      <div>
-                        <span className="font-semibold">
-                          Bandeja de Entrada Omnicanal:
-                        </span>{" "}
-                        Gestiona WhatsApp, Instagram, Messenger y más en un solo
-                        lugar.
-                      </div>
-                    </li>
-                    <li className="flex items-start gap-3">
-                      <FaCheckCircle className="text-green-500 mt-1" />{" "}
-                      <div>
-                        <span className="font-semibold">
-                          Plataforma de Equipo:
-                        </span>{" "}
-                        Asigna conversaciones, crea plantillas y automatiza
-                        respuestas.
-                      </div>
-                    </li>
-                  </ul>
-                </div>
-                <button
-                  onClick={() => setIsModalOpen(true)} // CAMBIO
-                  className="mt-8 block w-full text-center bg-gray-700 hover:bg-gray-600 text-white font-bold py-3 px-8 rounded-full transition"
-                >
-                  Empezar Ahora
-                </button>
-              </div>
-
-              {/* Plan ADVANCED (Destacado) */}
-              <div className="bg-gray-900 p-8 rounded-2xl border-2 border-primaryColor relative h-full flex flex-col shadow-2xl scale-105">
-                <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-primaryColor text-white text-sm font-bold px-4 py-1 rounded-full">
-                  Más Popular
-                </div>
-                <h3 className="text-2xl font-semibold text-white">Advanced</h3>
-                <p className="text-primaryColor font-semibold mt-1">
-                  Ideal para negocios con equipos de trabajo que priorizan su
-                  atención al cliente por WhatsApp.
-                </p>
-                <div className="my-8">
-                  <span className="text-5xl font-bold text-white">$50</span>
-                  <span className="text-lg text-gray-400"> USD/mes</span>
-                </div>
-                <div className="flex-grow">
-                  <h4 className="font-bold text-white text-lg mb-4">
-                    Características Principales:
-                  </h4>
-                  <ul className="space-y-3 text-gray-300 mb-6">
-                    <li className="flex items-center gap-3">
-                      <FaCheckCircle className="text-green-500" /> 1 Número
-                      WhatsApp API
-                    </li>
-                    <li className="flex items-center gap-3">
-                      <FaCheckCircle className="text-green-500" /> 3 Agentes de
-                      IA
-                    </li>
-                    <li className="flex items-center gap-3">
-                      <FaCheckCircle className="text-green-500" /> 10,000
-                      Contactos 1 a 1
-                    </li>
-                    <li className="flex items-center gap-3">
-                      <FaCheckCircle className="text-green-500" />{" "}
-                      Automatizaciones Ilimitadas
-                    </li>
-                  </ul>
-                  <h4 className="font-bold text-white text-lg mb-4 border-t border-gray-700 pt-6">
-                    Incluido en todos los planes:
-                  </h4>
-                  <ul className="space-y-3 text-gray-300">
-                    <li className="flex items-start gap-3">
-                      <FaCheckCircle className="text-green-500 mt-1" />{" "}
-                      <div>
-                        <span className="font-semibold">
-                          WhatsApp Business API Gratuita:
-                        </span>{" "}
-                        Te ayudamos con la configuración y la verificación
-                        oficial (sello azul).
-                      </div>
-                    </li>
-                    <li className="flex items-start gap-3">
-                      <FaCheckCircle className="text-green-500 mt-1" />{" "}
-                      <div>
-                        <span className="font-semibold">
-                          Bandeja de Entrada Omnicanal:
-                        </span>{" "}
-                        Gestiona WhatsApp, Instagram, Messenger y más en un solo
-                        lugar.
-                      </div>
-                    </li>
-                    <li className="flex items-start gap-3">
-                      <FaCheckCircle className="text-green-500 mt-1" />{" "}
-                      <div>
-                        <span className="font-semibold">
-                          Plataforma de Equipo:
-                        </span>{" "}
-                        Asigna conversaciones, crea plantillas y automatiza
-                        respuestas.
-                      </div>
-                    </li>
-                  </ul>
-                </div>
-                <button
-                  onClick={() => setIsModalOpen(true)} // CAMBIO
-                  className="mt-8 block w-full text-center bg-primaryColor hover:bg-red-700 text-white font-bold py-3 px-8 rounded-full transition"
-                >
-                  Comprar Plan
-                </button>
-              </div>
-
-              {/* Plan PERSONALIZADO */}
-              <div className="bg-gray-900 p-8 rounded-2xl border border-gray-800 h-full flex flex-col">
-                <h3 className="text-2xl font-semibold text-white">
-                  Personalizado
-                </h3>
-                <p className="text-primaryColor font-semibold mt-1">
-                  Soluciones personalizadas para tu negocio.
-                </p>
-                <div className="my-8">
-                  <span className="text-4xl font-bold text-white">
-                    A Convenir
-                  </span>
-                </div>
-                <div className="flex-grow">
-                  <h4 className="font-bold text-white text-lg mb-4">
-                    Todo lo de Advanced, y además:
-                  </h4>
-                  <ul className="space-y-3 text-gray-300 mb-6">
-                    <li className="flex items-center gap-3">
-                      <FaCheckCircle className="text-green-500" /> Agentes IA
-                      Pro con integraciones avanzadas
-                    </li>
-                    <li className="flex items-center gap-3">
-                      <FaCheckCircle className="text-green-500" /> Soporte y
-                      consultoría dedicada
-                    </li>
-                  </ul>
-                  <h4 className="font-bold text-white text-lg mb-4 border-t border-gray-700 pt-6">
-                    Incluido en todos los planes:
-                  </h4>
-                  <ul className="space-y-3 text-gray-300">
-                    <li className="flex items-start gap-3">
-                      <FaCheckCircle className="text-green-500 mt-1" />{" "}
-                      <div>
-                        <span className="font-semibold">
-                          WhatsApp Business API Gratuita:
-                        </span>{" "}
-                        Te ayudamos con la configuración y la verificación
-                        oficial (sello azul).
-                      </div>
-                    </li>
-                    <li className="flex items-start gap-3">
-                      <FaCheckCircle className="text-green-500 mt-1" />{" "}
-                      <div>
-                        <span className="font-semibold">
-                          Bandeja de Entrada Omnicanal:
-                        </span>{" "}
-                        Gestiona WhatsApp, Instagram, Messenger y más en un solo
-                        lugar.
-                      </div>
-                    </li>
-                    <li className="flex items-start gap-3">
-                      <FaCheckCircle className="text-green-500 mt-1" />{" "}
-                      <div>
-                        <span className="font-semibold">
-                          Plataforma de Equipo:
-                        </span>{" "}
-                        Asigna conversaciones, crea plantillas y automatiza
-                        respuestas.
-                      </div>
-                    </li>
-                  </ul>
-                </div>
-                <button
-                  onClick={() => setIsModalOpen(true)} // CAMBIO
-                  className="mt-8 block w-full text-center bg-gray-700 hover:bg-gray-600 text-white font-bold py-3 px-8 rounded-full transition"
-                >
-                  Contactar Ventas
-                </button>
-              </div>
-            </div>
-          </div>
         </section>
 
         {/* FAQ Section */}
         <section id="faq" className="py-16 sm:py-24 bg-darkBgColor">
-          <div className="max-w-4xl mx-auto px-6">
-            {/* Título Principal */}
-            <div className="text-center mb-12">
-              <h2 className="text-3xl sm:text-4xl font-bold text-white">
-                Preguntas Frecuentes
-              </h2>
-              <p className="mt-4 text-lg text-gray-300">
-                Resolvemos tus dudas para que tomes la mejor decisión.
-              </p>
+            <div className="max-w-4xl mx-auto px-6">
+                <div className="text-center mb-12">
+                    <h2 className="text-3xl sm:text-4xl font-bold text-white">Preguntas Frecuentes</h2>
+                    <p className="mt-4 text-lg text-gray-300">Resolvemos tus dudas para que tomes la mejor decisión.</p>
+                </div>
+                <div>
+                    {faqData.map((faq, index) => (
+                        <FAQItem key={index} question={faq.question} answer={faq.answer} />
+                    ))}
+                </div>
             </div>
-
-            {/* Lista de Preguntas */}
-            <div>
-              <FAQItem
-                question="¿Tengo que instalar algo complicado?"
-                answer="No. Nosotros nos encargamos de todo el proceso técnico. Tú solo necesitas llenar un formulario con la información clave de tu negocio y nosotros hacemos el resto."
-              />
-              <FAQItem
-                question="¿Existe alguna cláusula de permanencia?"
-                answer="No. Creemos en la flexibilidad. Puedes elegir el plan que mejor se adapte a ti y cambiarlo o cancelarlo cuando lo necesites, sin contratos a largo plazo."
-              />
-              <FAQItem
-                question="¿Qué pasa si no tengo página web o CRM?"
-                answer="No es un problema. Tu agente de IA puede operar perfectamente a través de WhatsApp y redes sociales. Además, nuestra plataforma incluye un CRM integrado para que gestiones a tus clientes desde el primer día."
-              />
-              <FAQItem
-                question="¿En cuánto tiempo estará funcionando mi agente?"
-                answer="Nuestro proceso de implementación estándar es de 5 a 7 días hábiles. Así de rápido empezarás a ver los resultados."
-              />
-              <FAQItem
-                question="¿Mis clientes se darán cuenta de que hablan con un robot?"
-                answer="Precisamente por eso creamos agentes personalizados. Entrenamos a la IA para que hable en el tono y estilo de tu marca. Además, desde nuestra plataforma, tú o tu equipo pueden intervenir en la conversación en cualquier momento para gestionar leads complejos, asegurando una experiencia fluida."
-              />
-              <FAQItem
-                question="¿Esto funciona solo para WhatsApp?"
-                answer="No, nuestra plataforma es omnicanal. Integramos tu agente en WhatsApp, Instagram, Facebook Messenger y tu sitio web, centralizando todas las conversaciones en una única bandeja de entrada para un control total."
-              />
-              <FAQItem
-                question="¿Qué tan personalizado puede ser el agente?"
-                answer="Totalmente personalizado. No usamos plantillas genéricas. Construimos un agente de IA a la medida, entrenado para ejecutar los procesos específicos de tu negocio, ya sea vender, dar soporte, calificar o cualquier otra tarea que necesites automatizar."
-              />
-              <FAQItem
-                question="¿Qué tipo de soporte ofrecen una vez que mi agente está funcionando?"
-                answer="Ofrecemos soporte continuo para asegurar que tu operación funcione sin problemas. Dependiendo de tu plan, esto incluye desde soporte técnico hasta consultoría dedicada para ayudarte a optimizar tus flujos y estrategias."
-              />
-              <FAQItem
-                question="¿Necesito configurar mi número de WhatsApp por mi cuenta?"
-                answer="Absolutamente nada. Nosotros gestionamos todo el proceso de configuración de la API oficial de WhatsApp a través de la plataforma de Meta. Nos aseguramos de que tu número esté verificado y funcionando sin que tengas que preocuparte por ningún detalle técnico."
-              />
-            </div>
-          </div>
         </section>
 
+        {/* Contact Section */}
         <section id="contact" className="py-16 sm:py-24 bg-black">
           <div className="max-w-3xl mx-auto px-6 text-center">
             <h2 className="text-3xl sm:text-4xl font-bold text-white mb-8">
@@ -940,19 +646,19 @@ const AgentesIA: React.FC = () => {
               className="bg-darkBgColor rounded-xl shadow-xl overflow-hidden"
               style={{ height: "700px" }}
             >
-              {/* VERIFICA ESTA LÍNEA */}
               <CalendlyEmbed url="https://calendly.com/hentech-ia/30min" />
             </div>
 
             <p className="mt-8 text-sm text-gray-500">
               Al agendar, aceptas nuestra{" "}
-              <span className="text-primaryColor hover:underline">
+              <span className="text-primaryColor hover:underline cursor-pointer">
                 Política de Privacidad
               </span>
               .
             </p>
           </div>
         </section>
+
       </div>
       <CalendlyModal
         isOpen={isModalOpen}
