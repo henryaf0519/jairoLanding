@@ -1,23 +1,17 @@
 import React, { useState, useEffect, useRef } from "react";
 import {
-  FaWhatsapp,
-  FaCalendarAlt,
-  FaCalendarCheck,
-  FaDatabase,
   FaCheckCircle,
-  FaBrain,
-  FaHospital,
-  FaUserTie,
   FaStore,
-  FaLightbulb,
-  FaCreditCard,
-  FaBell,
   FaChartLine,
   FaClock,
-  FaDollarSign,
-  FaHandshake,
-  FaFunnelDollar,
-  FaShieldAlt,
+  FaQuestionCircle,
+  FaFilter,
+  FaTasks,
+  FaCrosshairs,
+  FaDraftingCompass,
+  FaBolt,
+  FaUsers,
+  FaTimesCircle,
 } from "react-icons/fa";
 import emailjs from "@emailjs/browser";
 import {
@@ -27,29 +21,38 @@ import {
   useMotionValueEvent,
 } from "motion/react";
 
-function Card({
-  icon,
-  title,
-  children,
-}: {
-  icon: React.ReactNode;
-  title: string;
-  children: React.ReactNode;
-}) {
-  return (
-    <div className="bg-gray-800 p-6 rounded-xl shadow-lg transform hover:scale-105 transition">
-      <div className="text-primaryColor text-4xl mb-4">{icon}</div>
-      <h3 className="text-xl font-semibold text-white mb-2">{title}</h3>
-      <p className="text-gray-400 leading-relaxed">{children}</p>
-    </div>
-  );
-}
-
 interface FormErrors {
   firstname?: string;
   email?: string;
   number?: string;
   message?: string;
+}
+
+function FAQItem({ question, answer }: { question: string; answer: string }) {
+  const [isOpen, setIsOpen] = useState(false);
+
+  return (
+    <div className="border-b border-gray-700 py-6">
+      <button
+        onClick={() => setIsOpen(!isOpen)}
+        className="w-full flex justify-between items-center text-left"
+      >
+        <h3 className="text-lg sm:text-xl font-semibold text-white">
+          {question}
+        </h3>
+        <span className="text-primaryColor text-2xl transform transition-transform duration-300">
+          {isOpen ? "-" : "+"}
+        </span>
+      </button>
+      <div
+        className={`overflow-hidden transition-all duration-300 ease-in-out ${
+          isOpen ? "max-h-96 mt-4" : "max-h-0"
+        }`}
+      >
+        <p className="text-gray-400 leading-relaxed">{answer}</p>
+      </div>
+    </div>
+  );
 }
 
 const AgentesIA: React.FC = () => {
@@ -60,101 +63,13 @@ const AgentesIA: React.FC = () => {
   const containerRef = useRef(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [errors, setErrors] = useState<FormErrors>({});
-  const steps = [
-    {
-      id: 1,
-      title: "Define tus Necesidades",
-      description:
-        "Cuéntanos qué procesos quieres automatizar y qué objetivos buscas alcanzar.",
-    },
-    {
-      id: 2,
-      title: "Configuración Personalizada",
-      description:
-        "Diseñamos y entrenamos tu agente IA a la medida, adaptándolo a tu marca y necesidades.",
-    },
-    {
-      id: 3,
-      title: "Implementación Rápida",
-      description:
-        "Integramos tu agente en tu sitio web y WhatsApp en cuestión de días.",
-    },
-    {
-      id: 4,
-      title: "Resultados Instantáneos",
-      description:
-        "Observa cómo Orvex transforma tu operación y la experiencia de tus clientes.",
-    },
-  ];
-  const benefits = [
-    {
-      id: 1,
-      icon: (
-        <FaChartLine className="text-primaryColor text-3xl flex-shrink-0 mt-1" />
-      ),
-      title: "Aumento de la Eficiencia",
-      description:
-        "Libera a tu equipo de tareas repetitivas, permitiéndoles enfocarse en actividades de mayor valor.",
-    },
-    {
-      id: 2,
-      icon: (
-        <FaClock className="text-primaryColor text-3xl flex-shrink-0 mt-1" />
-      ),
-      title: "Disponibilidad Continua",
-      description:
-        "Ofrece atención al cliente 24/7, sin interrupciones, mejorando la satisfacción.",
-    },
-    {
-      id: 3,
-      icon: (
-        <FaDollarSign className="text-primaryColor text-3xl flex-shrink-0 mt-1" />
-      ),
-      title: "Reducción de Costos",
-      description:
-        "Minimiza errores y optimiza la asignación de recursos, impactando positivamente tus finanzas.",
-    },
-    {
-      id: 4,
-      icon: (
-        <FaHandshake className="text-primaryColor text-3xl flex-shrink-0 mt-1" />
-      ),
-      title: "Mejora la Experiencia del Cliente",
-      description:
-        "Ofrece respuestas rápidas y personalizadas, construyendo lealtad y confianza.",
-    },
-    {
-      id: 5,
-      icon: (
-        <FaFunnelDollar className="text-primaryColor text-3xl flex-shrink-0 mt-1" />
-      ),
-      title: "Incremento de Ventas y Leads",
-      description:
-        "No pierdas oportunidades por falta de atención; convierte más visitantes en clientes.",
-    },
-    {
-      id: 6,
-      icon: (
-        <FaShieldAlt className="text-primaryColor text-3xl flex-shrink-0 mt-1" />
-      ),
-      title: "Seguridad y Fiabilidad",
-      description:
-        "Nuestros sistemas están diseñados para operar con la máxima seguridad y consistencia.",
-    },
-  ];
-  const industries = [
-    { icon: FaHospital, label: "Centros Médicos" },
-    { icon: FaBrain, label: "Clínicas Psicológicas" },
-    { icon: FaUserTie, label: "Consultorios" },
-    { icon: FaStore, label: "E-commerce" },
-    { icon: FaLightbulb, label: "Servicios de Asesoría" },
-  ];
   const [formData, setFormData] = useState({
     firstname: "",
     email: "",
     number: "",
     message: "",
   });
+
   const handleChange = (e: any) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
@@ -253,395 +168,761 @@ const AgentesIA: React.FC = () => {
         className="font-inter antialiased bg-darkBgColor text-gray-100"
       >
         {/* Hero Section */}
-        <section className="relative h-screen flex items-center justify-center text-center overflow-hidden">
+        <section className="relative min-h-screen flex flex-col items-center justify-center text-center lg:text-left overflow-hidden px-6">
           <div className="absolute inset-0 bg-darkBgColor" />
-          <div className="relative  p-6 max-w-4xl mx-auto">
-            <motion.h1
-              ref={containerRef}
-              className="text-4xl sm:text-5xl md:text-6xl font-extrabold leading-tight text-white my-4"
-            >
-              <span className="text-primaryColor">Orvex:</span> {displayedText}
-              <motion.span
-                className="inline-block ml-1"
-                animate={
-                  typingFinished
-                    ? { opacity: [0, 1, 0] } // un solo parpadeo final
-                    : { opacity: [0, 1] } // parpadeo mientras escribe
-                }
-                transition={
-                  typingFinished
-                    ? { duration: 1.2 }
-                    : { repeat: Infinity, duration: 0.6, ease: "linear" }
-                }
-              >
-                
-              </motion.span>
-            </motion.h1>
-            <p className="text-lg sm:text-xl md:text-2xl text-gray-300 mb-8 max-w-2xl mx-auto">
-              Nuestros agentes de inteligencia artificial se encargan de la
-              gestión de citas, atención al cliente 24/7, procesamiento de
-              pagos, envío de recordatorios, lanzamiento de promociones
-              personalizadas y envían recomendaciones automatizadas
-              personalizadas para potenciar tu negocio, automatizando así todas
-              las tareas clave de tu empresa.
+          <div className="relative container mx-auto w-full max-w-7xl flex-grow flex items-center justify-center">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center w-full">
+              {/* Columna Izquierda: Texto */}
+              <div className="flex flex-col items-center lg:items-start">
+                <motion.h1
+                  ref={containerRef}
+                  className="text-4xl sm:text-5xl md:text-6xl font-extrabold leading-tight text-white my-4"
+                >
+                  <span className="text-primaryColor">Orvex:</span>{" "}
+                  {displayedText}
+                  <motion.span
+                    className="inline-block ml-1"
+                    animate={
+                      typingFinished
+                        ? { opacity: [0, 1, 0] }
+                        : { opacity: [0, 1] }
+                    }
+                    transition={
+                      typingFinished
+                        ? { duration: 1.2 }
+                        : { repeat: Infinity, duration: 0.6, ease: "linear" }
+                    }
+                  />
+                </motion.h1>
+                <p className="text-lg sm:text-xl md:text-2xl text-gray-300 mb-8 max-w-2xl mx-auto lg:mx-0">
+                  En los próximos 7 días, tu negocio puede dejar de perder
+                  dinero por citas canceladas y empezar a cobrar por
+                  adelantado... sin contratar personal, sin aprender tecnología
+                  y sin perder más tiempo en WhatsApp.
+                </p>
+              </div>
+
+              {/* Columna Derecha: Video Placeholder */}
+              <div className="flex items-center justify-center w-full">
+                {/* Reemplaza este div con tu componente de video o un iframe */}
+                <div className="w-full max-w-md aspect-video bg-gray-800 rounded-lg flex items-center justify-center border-2 border-gray-700 shadow-2xl">
+                  <span className="text-white">Tu Video Aquí</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Botón centrado debajo de las columnas */}
+          <div className="relative pb-16 pt-8 z-10 text-center">
+            {/* TEXTO AÑADIDO */}
+            <p className="text-3xl text-white mb-6 max-w-xl mx-auto">
+              Descubre cómo implementar un Agente de IA que responde, agenda y
+              cobra por ti, 24/7.
             </p>
-            <div className="flex flex-col sm:flex-row justify-center items-center gap-4">
+            <a
+              href="#contact"
+              className="bg-primaryColor hover:bg-red-700 text-white font-bold py-3 px-8 rounded-full shadow-lg transition transform hover:scale-105 inline-block"
+            >
+              Solicita una Demostración Gratuita
+            </a>
+          </div>
+        </section>
+
+        {/* Problem Section */}
+        <section className="py-16 sm:py-24 bg-darkBgColor">
+          <div className="max-w-7xl mx-auto px-6">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+              {/* Columna Izquierda: Imagen */}
+              <div className="relative flex justify-center group">
+                <img
+                  src="/assets/chat.png"
+                  alt="Agente IA gestionando un chat con un cliente"
+                  className="w-full max-w-md aspect-square object-cover rounded-xl shadow-2xl transition-all duration-300"
+                />
+                {/* Capa para fusionar con el fondo (MODIFICADA) */}
+                <div className="absolute inset-0 w-full h-full rounded-xl bg-gradient-to-t from-black/80 via-black/40 to-transparent"></div>
+              </div>
+
+              {/* Columna Derecha: Texto */}
+              <div className="text-center lg:text-left">
+                <h2 className="text-3xl sm:text-4xl font-bold text-white leading-tight">
+                  ¿Tu día a día se siente como una carrera{" "}
+                  <span className="text-primaryColor">contra el tiempo?</span>
+                </h2>
+                <p className="mt-6 text-lg sm:text-xl text-gray-300 leading-relaxed">
+                  ¿Te cancelan citas a último minuto? ¿Respondes las mismas
+                  preguntas en WhatsApp a las 11 de la noche? Cada semana, esta
+                  rutina te cuesta dinero, tiempo y, lo más valioso, tu
+                  tranquilidad.
+                </p>
+                <p className="mt-4 text-lg sm:text-xl text-white font-semibold">
+                  El problema no es tu dedicación. Es depender de herramientas
+                  que ya no dan abasto.
+                </p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section id="benefits" className="py-16 sm:py-24 bg-darkBgColor">
+          <div className="max-w-7xl mx-auto px-6">
+            {/* Título Principal de la Sección */}
+            <div className="text-center mb-16">
+              <h2 className="text-3xl sm:text-4xl font-bold text-white">
+                Resultados, no solo promesas.
+              </h2>
+              <p className="mt-4 text-lg text-primaryColor font-semibold max-w-3xl mx-auto">
+                Esto es lo que ORVEX consigue para tu negocio desde la primera
+                semana.
+              </p>
+            </div>
+
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-start">
+              {/* Columna Izquierda: Beneficios Clave */}
+              <div className="space-y-8">
+                {/* Card de Beneficio 1: Aumento de Ventas */}
+                <div className="flex items-start gap-4 p-6 bg-gray-900 rounded-xl shadow-lg">
+                  <FaChartLine className="text-primaryColor text-3xl flex-shrink-0 mt-1" />
+                  <div>
+                    <h4 className="font-bold text-white text-xl">
+                      Incremento en Ventas y Conversión
+                    </h4>
+                    <p className="text-gray-400 mt-1">
+                      Convierte más conversaciones en ingresos. Tu agente IA
+                      está entrenado para guiar a los clientes a través del
+                      proceso de compra 24/7.
+                    </p>
+                  </div>
+                </div>
+                {/* Card de Beneficio 2: Eficiencia Operativa */}
+                <div className="flex items-start gap-4 p-6 bg-gray-900 rounded-xl shadow-lg">
+                  <FaBolt className="text-primaryColor text-3xl flex-shrink-0 mt-1" />
+                  <div>
+                    <h4 className="font-bold text-white text-xl">
+                      Eficiencia y Ahorro de Costos
+                    </h4>
+                    <p className="text-gray-400 mt-1">
+                      Automatiza respuestas y procesos para que no necesites
+                      contratar más personal. Tu equipo se enfoca en tareas de
+                      alto valor.
+                    </p>
+                  </div>
+                </div>
+                {/* Card de Beneficio 3: Recuperación de Tiempo */}
+                <div className="flex items-start gap-4 p-6 bg-gray-900 rounded-xl shadow-lg">
+                  <FaClock className="text-primaryColor text-3xl flex-shrink-0 mt-1" />
+                  <div>
+                    <h4 className="font-bold text-white text-xl">
+                      Recupera de 5 a 10 Horas Semanales
+                    </h4>
+                    <p className="text-gray-400 mt-1">
+                      Delega las tareas repetitivas a tu agente de IA y libera
+                      tiempo valioso para dedicarlo a la estrategia y el
+                      crecimiento de tu negocio.
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              {/* Columna Derecha: Plataforma CRM */}
+              <div className="bg-gray-900 p-8 rounded-2xl border border-gray-700 shadow-2xl">
+                <h3 className="text-2xl sm:text-3xl font-semibold text-white mb-6">
+                  Tu <span className="text-primaryColor">Ecosistema</span> de
+                  Crecimiento
+                </h3>
+                <p className="text-lg text-gray-300 leading-relaxed">
+                  ORVEX no es solo un agente de IA; es una plataforma de gestión
+                  integral diseñada para convertir conversaciones en clientes.
+                </p>
+                <ul className="mt-6 space-y-4">
+                  <li className="flex items-start gap-3">
+                    <FaCheckCircle className="text-primaryColor mt-1.5 flex-shrink-0" />
+                    <span className="text-gray-300">
+                      <span className="font-semibold text-white">
+                        Bandeja Omnicanal:
+                      </span>{" "}
+                      Unifica WhatsApp, web y redes sociales en un solo lugar.
+                    </span>
+                  </li>
+                  <li className="flex items-start gap-3">
+                    <FaCheckCircle className="text-primaryColor mt-1.5 flex-shrink-0" />
+                    <span className="text-gray-300">
+                      <span className="font-semibold text-white">
+                        Gestión de Pipeline:
+                      </span>{" "}
+                      Visualiza y gestiona cada lead, desde el primer contacto
+                      hasta el cierre de la venta.
+                    </span>
+                  </li>
+                  <li className="flex items-start gap-3">
+                    <FaCheckCircle className="text-primaryColor mt-1.5 flex-shrink-0" />
+                    <span className="text-gray-300">
+                      <span className="font-semibold text-white">
+                        Marketing Automatizado:
+                      </span>{" "}
+                      Envía promociones, recordatorios y contenido de valor para
+                      nutrir a tus clientes sin esfuerzo.
+                    </span>
+                  </li>
+                </ul>
+                <p className="mt-6 text-lg text-white font-medium">
+                  Toma el control total de la experiencia de tu cliente.
+                </p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* HOW IT WORKS Section */}
+
+        <section id="how-it-works" className="py-16 sm:py-24 bg-darkBgColor">
+          <div className="max-w-6xl mx-auto px-6 text-center">
+            <h2 className="text-3xl sm:text-4xl font-bold text-white mb-4">
+              Tu Agente de IA, listo en{" "}
+              <span className="text-primaryColor">Menos de 7 Días</span>
+            </h2>
+            <p className="text-lg text-gray-300 mb-16 max-w-3xl mx-auto">
+              Implementamos tu Agente Digital 24/7 a través de un proceso simple
+              y directo. Solo necesitas llenar un formulario para empezar.
+            </p>
+
+            {/* Grid de 4 pasos */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+              {/* Paso 1 */}
+              <div className="bg-gray-900 p-6 rounded-xl shadow-lg border border-gray-800">
+                <div className="text-primaryColor text-4xl mb-4">
+                  <FaFilter />
+                </div>
+                <h3 className="text-xl font-semibold text-white">
+                  Filtra Clientes Potenciales
+                </h3>
+              </div>
+              {/* Paso 2 */}
+              <div className="bg-gray-900 p-6 rounded-xl shadow-lg border border-gray-800">
+                <div className="text-primaryColor text-4xl mb-4">
+                  <FaQuestionCircle />
+                </div>
+                <h3 className="text-xl font-semibold text-white">
+                  Responde Preguntas Frecuentes
+                </h3>
+              </div>
+              {/* Paso 3 */}
+              <div className="bg-gray-900 p-6 rounded-xl shadow-lg border border-gray-800">
+                <div className="text-primaryColor text-4xl mb-4">
+                  <FaTasks />
+                </div>
+                <h3 className="text-xl font-semibold text-white">
+                  Automatiza Tareas Clave
+                </h3>
+              </div>
+              {/* Paso 4 (MODIFICADO) */}
+              <div className="bg-gray-900 p-6 rounded-xl shadow-lg border border-gray-800">
+                <div className="text-primaryColor text-4xl mb-4">
+                  <FaStore /> {/* Icono cambiado */}
+                </div>
+                <h3 className="text-xl font-semibold text-white">
+                  Presenta tu Catálogo Inteligente {/* Texto cambiado */}
+                </h3>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* CUSTOM AI AGENT PLATFORM Section */}
+        <section
+          id="platform-capabilities"
+          className="py-16 sm:py-24 bg-darkBgColor"
+        >
+          <div className="max-w-7xl mx-auto px-6">
+            {/* Título Principal */}
+            <div className="text-center mb-16">
+              <h2 className="text-3xl sm:text-4xl font-bold text-white">
+                Una Plataforma,{" "}
+                <span className="text-primaryColor">Infinitas Soluciones</span>
+              </h2>
+              <p className="mt-4 text-lg text-gray-300 max-w-3xl mx-auto">
+                No te entregamos un chatbot genérico. Te damos el poder de
+                construir un agente de IA a la medida exacta de tus procesos de
+                venta, soporte y marketing.
+              </p>
+            </div>
+
+            {/* Grid de 3 Capacidades Fundamentales */}
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+              {/* Pilar 1: Diseño de Flujos Conversacionales */}
+              <div className="bg-gray-900 p-8 rounded-xl shadow-lg border border-gray-800 flex flex-col transform hover:scale-105 transition">
+                <div className="text-primaryColor text-4xl mb-4">
+                  <FaDraftingCompass />
+                </div>
+                <h3 className="text-2xl font-semibold text-white mb-2">
+                  Diseña Experiencias Conversacionales
+                </h3>
+                <p className="text-gray-400 leading-relaxed flex-grow">
+                  Define visualmente el recorrido perfecto para tus clientes.
+                  Crea flujos que califican, educan y guían al usuario con
+                  textos, imágenes, videos y cuestionarios interactivos.
+                </p>
+              </div>
+
+              {/* Pilar 2: Comunicación Estratégica */}
+              <div className="bg-gray-900 p-8 rounded-xl shadow-lg border border-gray-800 flex flex-col transform hover:scale-105 transition">
+                <div className="text-primaryColor text-4xl mb-4">
+                  <FaCrosshairs />
+                </div>
+                <h3 className="text-2xl font-semibold text-white mb-2">
+                  Comunica con Precisión e Impacto
+                </h3>
+                <p className="text-gray-400 leading-relaxed flex-grow">
+                  Segmenta tu audiencia y envía campañas masivas o mensajes
+                  ultrapersonalizados. Entrega el mensaje correcto, a la persona
+                  correcta, en el momento correcto.
+                </p>
+              </div>
+
+              {/* Pilar 3: Automatización de Tareas a Medida */}
+              <div className="bg-gray-900 p-8 rounded-xl shadow-lg border border-gray-800 flex flex-col transform hover:scale-105 transition">
+                <div className="text-primaryColor text-4xl mb-4">
+                  <FaTasks />
+                </div>
+                <h3 className="text-2xl font-semibold text-white mb-2">
+                  Automatiza Tareas a tu Medida
+                </h3>
+                <p className="text-gray-400 leading-relaxed flex-grow">
+                  Entrena a tu agente para que ejecute las tareas clave de tu
+                  negocio: tomar pedidos, procesar pagos, agendar citas, dar
+                  soporte y mucho más. Tú defines las reglas.
+                </p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* INVESTMENT & SOCIAL PROOF Section */}
+        <section
+          id="investment-proof"
+          className="py-16 sm:py-24 bg-darkBgColor"
+        >
+          <div className="max-w-7xl mx-auto px-6">
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-12 items-start">
+              {/* Columna Izquierda (más ancha): La Inversión */}
+              <div className="lg:col-span-2 bg-gray-900 p-8 rounded-2xl border border-gray-800 shadow-2xl">
+                <h2 className="text-3xl sm:text-4xl font-bold text-white mb-2">
+                  Una Inversión Inteligente, no un Gasto
+                </h2>
+                <p className="text-lg text-gray-400 mb-8">
+                  Analicemos los números. Un asistente tradicional puede ser un
+                  recurso valioso, pero ¿es la opción más eficiente?
+                </p>
+
+                {/* Comparativa */}
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                  {/* Asistente Humano */}
+                  <div className="border border-gray-700 p-6 rounded-xl">
+                    <h3 className="text-xl font-semibold text-white">
+                      Asistente Humano
+                    </h3>
+                    <p className="text-4xl font-bold text-gray-500 my-4">
+                      $2.5M+
+                      <span className="text-lg font-normal">/mes</span>
+                    </p>
+                    <ul className="space-y-2 text-gray-400">
+                      <li className="flex items-center gap-2">
+                        <FaTimesCircle className="text-red-500" /> Horario
+                        limitado
+                      </li>
+                      <li className="flex items-center gap-2">
+                        <FaTimesCircle className="text-red-500" /> Propenso a
+                        errores
+                      </li>
+                      <li className="flex items-center gap-2">
+                        <FaTimesCircle className="text-red-500" /> Necesita días
+                        libres
+                      </li>
+                    </ul>
+                  </div>
+                  {/* Agente IA ORVEX */}
+                  <div className="border-2 border-primaryColor p-6 rounded-xl relative overflow-hidden">
+                    <div className="absolute top-0 right-0 bg-primaryColor text-white text-xs font-bold px-3 py-1 rounded-bl-lg">
+                      RECOMENDADO
+                    </div>
+                    <h3 className="text-xl font-semibold text-white">
+                      Agente IA ORVEX
+                    </h3>
+                    <p className="text-4xl font-bold text-white my-4">
+                      Fracción
+                      <span className="text-lg font-normal"> del costo</span>
+                    </p>
+                    <ul className="space-y-2 text-gray-300">
+                      <li className="flex items-center gap-2">
+                        <FaCheckCircle className="text-green-500" /> Trabaja
+                        24/7
+                      </li>
+                      <li className="flex items-center gap-2">
+                        <FaCheckCircle className="text-green-500" /> Precisión
+                        milimétrica
+                      </li>
+                      <li className="flex items-center gap-2">
+                        <FaCheckCircle className="text-green-500" /> Nunca
+                        descansa
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+                <p className="mt-8 text-center text-lg text-gray-300 italic">
+                  "Si hoy pierdes al menos una venta a la semana, ya estás
+                  pagando el costo de NO tenerlo."
+                </p>
+              </div>
+
+              {/* Columna Derecha (MODIFICADA): Prueba Social */}
+              <div className="bg-gray-900 p-8 rounded-2xl border border-gray-800 shadow-2xl h-full flex flex-col">
+                <div>
+                  <div className="text-primaryColor text-4xl mb-4">
+                    <FaUsers />
+                  </div>
+                  <h3 className="text-2xl font-semibold text-white mb-4">
+                    Únete a los Líderes del Mercado
+                  </h3>
+                  <p className="text-gray-400 leading-relaxed">
+                    Empresas de diversos sectores como tiendas virtuales,
+                    agencias de marketing, centros médicos y psicológicos,
+                    clínicas estéticas, inmobiliarias, restaurantes y
+                    profesionales de alto rendimiento ya confían en ORVEX.
+                  </p>
+                </div>
+                <div className="flex-grow"></div>{" "}
+                {/* Elemento flexible para empujar el texto hacia abajo */}
+                <p className="text-white font-semibold mt-6">
+                  Si ellos ya transformaron su negocio, tú también puedes
+                  hacerlo.
+                </p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* FINAL CTA Section */}
+        <section id="final-cta" className="py-20 sm:py-24 bg-black">
+          <div className="max-w-4xl mx-auto px-6 text-center">
+            <h2 className="text-3xl sm:text-5xl font-bold text-white leading-tight">
+              ¿Listo para Dejar de Perder Clientes y Tiempo?
+            </h2>
+            <p className="mt-4 text-lg sm:text-xl text-gray-300 max-w-2xl mx-auto">
+              Es hora de implementar la solución de IA que trabaja por ti 24/7,
+              convierte más y te devuelve el control de tu negocio.
+            </p>
+            <div className="mt-10">
               <a
                 href="#contact"
-                className="bg-primaryColor hover:bg-red-700 text-white font-bold py-3 px-8 rounded-full shadow-lg transition transform hover:scale-105"
+                className="bg-primaryColor hover:bg-red-700 text-white font-bold py-4 px-10 rounded-full shadow-lg transition transform hover:scale-105 inline-block text-xl"
               >
-                Solicita una Demostración Gratuita
+                Quiero Implementar mi Agente de IA Ahora
               </a>
             </div>
           </div>
         </section>
 
-        {/* Capabilities Section */}
-
-        <section id="capabilities" className="py-16 sm:py-24 bg-darkBgColor">
-          <div className="max-w-6xl mx-auto px-6 text-center">
-            <h2 className="text-3xl sm:text-4xl font-bold text-white mb-12">
-              Las Capacidades de Nuestros{" "}
-              <span className="text-primaryColor">Agentes IA</span>: Trabajan
-              por Ti, 24/7
-            </h2>
-
-            {/* Bloque de texto completo arriba */}
-            <div className="max-w-3xl mx-auto space-y-6 mb-16">
-              <p className="text-lg text-gray-300 leading-relaxed">
-                Descubre cómo los agentes de inteligencia artificial de Orvex
-                transforman la operativa diaria de tu negocio, liberándote para
-                lo que realmente importa.
-              </p>
-              <p className="text-lg text-gray-300 leading-relaxed">
-                Desde la primera interacción hasta la gestión de datos, Orvex
-                asegura que cada proceso sea fluido y sin errores.
+        {/* PRICING Section */}
+        <section id="pricing" className="py-16 sm:py-24 bg-darkBgColor">
+          <div className="max-w-7xl mx-auto px-6">
+            {/* Título Principal */}
+            <div className="text-center mb-16">
+              <h2 className="text-3xl sm:text-4xl font-bold text-white">
+                Un Plan para Cada Etapa de tu Negocio
+              </h2>
+              <p className="mt-4 text-lg text-gray-300 max-w-3xl mx-auto">
+                Elige la potencia que necesitas hoy y escala con nosotros
+                mañana. Sin complicaciones.
               </p>
             </div>
 
-            {/* Grid de cards debajo */}
-            <div
-              className="
-                grid    
-                grid-cols-1
-                sm:grid-cols-2
-                lg:grid-cols-3
-                gap-8
-            "
-            >
-              <Card
-                icon={<FaWhatsapp size={28} />}
-                title="Responden en WhatsApp y Web"
-              >
-                Interactúan con tus clientes de forma natural en cualquier
-                momento.
-              </Card>
-
-              <Card
-                icon={<FaCalendarAlt size={28} />}
-                title="Crean Citas y Gestionan Disponibilidad"
-              >
-                Automatizan todo el ciclo de citas y recordatorios.
-              </Card>
-
-              <Card
-                icon={<FaDatabase size={28} />}
-                title="Guardar Clientes en Base de Datos"
-              >
-                Capturan, organizan y guardan información de tus clientes.
-              </Card>
-
-              <Card
-                icon={<FaCalendarCheck size={28} />}
-                title="Crear Eventos en Google Calendar"
-              >
-                Sincronizan y actualizan tu agenda en tiempo real.
-              </Card>
-
-              <Card
-                icon={<FaCreditCard size={28} />}
-                title="Procesamiento de Pagos Seguro"
-              >
-                Realiza cobros usando pasarelas como Wompi, Stripe o PayU,
-                garantizando transacciones seguras y una experiencia
-                profesional.
-              </Card>
-
-              <Card
-                icon={<FaBell size={28} />}
-                title="Recordatorios, Consejos y Promociones"
-              >
-                Nuestro agente envía recordatorios de citas, consejos útiles y
-                promociones personalizadas para mantener a tus clientes siempre
-                comprometidos.
-              </Card>
-            </div>
-          </div>
-        </section>
-
-        <section id="agents" className="py-16 sm:py-24 bg-darkBgColor">
-          <div className="max-w-6xl mx-auto px-6 text-center">
-            <h2 className="text-3xl sm:text-4xl font-bold text-white mb-12">
-              Organiza reuniones al instante con{" "}
-              <span className="text-primaryColor">tu Agente de IA</span> y
-              concéntrate en tus tareas
-            </h2>
-            <p className="text-lg text-gray-300 mb-10 max-w-3xl mx-auto">
-              Concéntrate en tus tareas clave mientras nuestro agente de IA
-              atiende automáticamente las consultas de tus clientes, agenda
-              citas y crea eventos directamente en tu calendario.
-            </p>
-
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center text-left">
-              {/* Imagen o video */}
-              <div className="flex justify-center lg:justify-end">
-                <img
-                  src="https://placehold.co/600x400/1a1a1a/FF0000?text=Interfaz+Orvex+Reuniones"
-                  alt="Interfaz de Orvex para organizar reuniones"
-                  className="rounded-xl shadow-2xl border-2 border-gray-700 max-w-full h-auto"
-                />
-              </div>
-
-              {/* Lista de características */}
-              <div>
-                <h3 className="text-3xl font-bold text-white mb-6">
-                  Tu <span className="text-primaryColor">Agente de IA</span> al
-                  servicio
-                </h3>
-                <p className="text-lg text-gray-300 mb-8">
-                  Deja que la tecnología haga el trabajo repetitivo mientras tú
-                  mantienes el foco en lo que realmente importa.
+            {/* Grid de Precios */}
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 items-stretch">
+              {/* Plan STARTER */}
+              <div className="bg-gray-900 p-8 rounded-2xl border border-gray-800 h-full flex flex-col">
+                <h3 className="text-2xl font-semibold text-white">Starter</h3>
+                <p className="text-primaryColor font-semibold mt-1">
+                  Ideal para pequeños negocios.
                 </p>
-
-                <ul className="space-y-6">
-                  {[
-                    "Atiende automáticamente las consultas de tus clientes.",
-                    "Agenda y confirma citas sin complicaciones.",
-                    "Crea eventos en tu calendario al instante.",
-                  ].map((text, idx) => (
-                    <li key={idx} className="flex items-start">
-                      <FaCheckCircle className="text-primaryColor text-2xl mr-4 mt-1 flex-shrink-0" />
-                      <p className="text-lg text-gray-300">{text}</p>
-                    </li>
-                  ))}
-                </ul>
-
-                <div className="mt-10">
-                  <a
-                    href="#contact"
-                    className="bg-primaryColor hover:bg-red-700 text-white font-bold py-3 px-8 rounded-full shadow-lg transition duration-300 ease-in-out transform hover:scale-105 inline-block"
-                  >
-                    Empezar Ahora
-                  </a>
+                <div className="my-8">
+                  <span className="text-5xl font-bold text-white">$35</span>
+                  <span className="text-lg text-gray-400"> USD/mes</span>
                 </div>
+                <div className="flex-grow">
+                  <h4 className="font-bold text-white text-lg mb-4">
+                    Características Principales:
+                  </h4>
+                  <ul className="space-y-3 text-gray-300 mb-6">
+                    <li className="flex items-center gap-3">
+                      <FaCheckCircle className="text-green-500" /> 1 Número
+                      WhatsApp API
+                    </li>
+                    <li className="flex items-center gap-3">
+                      <FaCheckCircle className="text-green-500" /> 5,000
+                      Contactos 1 a 1
+                    </li>
+                    <li className="flex items-center gap-3">
+                      <FaCheckCircle className="text-green-500" /> 1 Agente de
+                      IA
+                    </li>
+                    <li className="flex items-center gap-3">
+                      <FaCheckCircle className="text-green-500" /> 10
+                      Automatizaciones
+                    </li>
+                  </ul>
+                  <h4 className="font-bold text-white text-lg mb-4 border-t border-gray-700 pt-6">
+                    Incluido en todos los planes:
+                  </h4>
+                  <ul className="space-y-3 text-gray-300">
+                    <li className="flex items-start gap-3">
+                      <FaCheckCircle className="text-green-500 mt-1" />{" "}
+                      <div>
+                        <span className="font-semibold">
+                          WhatsApp Business API Gratuita:
+                        </span>{" "}
+                        Te ayudamos con la configuración y la verificación
+                        oficial (sello azul).
+                      </div>
+                    </li>
+                    <li className="flex items-start gap-3">
+                      <FaCheckCircle className="text-green-500 mt-1" />{" "}
+                      <div>
+                        <span className="font-semibold">
+                          Bandeja de Entrada Omnicanal:
+                        </span>{" "}
+                        Gestiona WhatsApp, Instagram, Messenger y más en un solo
+                        lugar.
+                      </div>
+                    </li>
+                    <li className="flex items-start gap-3">
+                      <FaCheckCircle className="text-green-500 mt-1" />{" "}
+                      <div>
+                        <span className="font-semibold">
+                          Plataforma de Equipo:
+                        </span>{" "}
+                        Asigna conversaciones, crea plantillas y automatiza
+                        respuestas.
+                      </div>
+                    </li>
+                  </ul>
+                </div>
+                <a
+                  href="#contact"
+                  className="mt-8 block w-full text-center bg-gray-700 hover:bg-gray-600 text-white font-bold py-3 px-8 rounded-full transition"
+                >
+                  Empezar Ahora
+                </a>
               </div>
-            </div>
-          </div>
-        </section>
-        <section className="py-16 sm:py-24 bg-darkBgColor">
-          <div className="max-w-6xl mx-auto px-6 text-center">
-            <h2 className="text-3xl sm:text-4xl font-bold text-white mb-12">
-              Automatiza tus finanzas con{" "}
-              <span className="text-primaryColor">
-                Nuestro Agente IA de Pagos
-              </span>
-            </h2>
-            <p className="text-lg text-gray-300 mb-10 max-w-3xl mx-auto">
-              Simplifica la gestión de cobros y facturación. Nuestro agente
-              inteligente realiza y valida pagos, y genera facturas electrónicas
-              que se envían directamente a tus clientes.
-            </p>
 
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center text-left">
-              {/* Texto y lista de características */}
-              <div>
-                <h3 className="text-3xl font-bold text-white mb-6">
-                  Gestión de Pagos{" "}
-                  <span className="text-primaryColor">Inteligente</span>
-                </h3>
-                <p className="text-lg text-gray-300 mb-8">
-                  Optimiza tu flujo de caja y reduce errores con un sistema de
-                  pagos y facturación completamente automatizado.
+              {/* Plan ADVANCED (Destacado) */}
+              <div className="bg-gray-900 p-8 rounded-2xl border-2 border-primaryColor relative h-full flex flex-col shadow-2xl scale-105">
+                <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-primaryColor text-white text-sm font-bold px-4 py-1 rounded-full">
+                  Más Popular
+                </div>
+                <h3 className="text-2xl font-semibold text-white">Advanced</h3>
+                <p className="text-primaryColor font-semibold mt-1">
+                  Ideal para negocios con equipos de trabajo que priorizan su
+                  atención al cliente por WhatsApp.
                 </p>
-                <ul className="space-y-6">
-                  {[
-                    "Nuestro Agente IA realiza y procesa pagos de manera eficiente.",
-                    "Valida automáticamente cada transacción, detectando inconsistencias.",
-                    "Integración con pasarelas de pago como Wompi para agilizar tus transacciones.",
-                    "Genera facturación electrónica certificada, lista para enviar.",
-                    "Envía las facturas directamente al correo electrónico de tus clientes.",
-                  ].map((text, idx) => (
-                    <li key={idx} className="flex items-start">
-                      {/* Asegúrate de tener el ícono FaCheckCircle importado si usas React con react-icons */}
-                      {/* <FaCheckCircle className="text-primaryColor text-2xl mr-4 mt-1 flex-shrink-0" /> */}
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        className="text-primaryColor text-2xl mr-4 mt-1 flex-shrink-0 h-6 w-6"
-                        fill="none"
-                        viewBox="0 0 24 24"
-                        stroke="currentColor"
-                        strokeWidth={2}
-                      >
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
-                        />
-                      </svg>
-                      <p className="text-lg text-gray-300">{text}</p>
-                    </li>
-                  ))}
-                </ul>
-                <div className="mt-10">
-                  <a
-                    href="#contact"
-                    className="bg-primaryColor hover:bg-red-700 text-white font-bold py-3 px-8 rounded-full shadow-lg transition duration-300 ease-in-out transform hover:scale-105"
-                  >
-                    Empezar Ahora
-                  </a>
+                <div className="my-8">
+                  <span className="text-5xl font-bold text-white">$50</span>
+                  <span className="text-lg text-gray-400"> USD/mes</span>
                 </div>
+                <div className="flex-grow">
+                  <h4 className="font-bold text-white text-lg mb-4">
+                    Características Principales:
+                  </h4>
+                  <ul className="space-y-3 text-gray-300 mb-6">
+                    <li className="flex items-center gap-3">
+                      <FaCheckCircle className="text-green-500" /> 1 Número
+                      WhatsApp API
+                    </li>
+                    <li className="flex items-center gap-3">
+                      <FaCheckCircle className="text-green-500" /> 3 Agentes de
+                      IA
+                    </li>
+                    <li className="flex items-center gap-3">
+                      <FaCheckCircle className="text-green-500" /> 10,000
+                      Contactos 1 a 1
+                    </li>
+                    <li className="flex items-center gap-3">
+                      <FaCheckCircle className="text-green-500" />{" "}
+                      Automatizaciones Ilimitadas
+                    </li>
+                  </ul>
+                  <h4 className="font-bold text-white text-lg mb-4 border-t border-gray-700 pt-6">
+                    Incluido en todos los planes:
+                  </h4>
+                  <ul className="space-y-3 text-gray-300">
+                    <li className="flex items-start gap-3">
+                      <FaCheckCircle className="text-green-500 mt-1" />{" "}
+                      <div>
+                        <span className="font-semibold">
+                          WhatsApp Business API Gratuita:
+                        </span>{" "}
+                        Te ayudamos con la configuración y la verificación
+                        oficial (sello azul).
+                      </div>
+                    </li>
+                    <li className="flex items-start gap-3">
+                      <FaCheckCircle className="text-green-500 mt-1" />{" "}
+                      <div>
+                        <span className="font-semibold">
+                          Bandeja de Entrada Omnicanal:
+                        </span>{" "}
+                        Gestiona WhatsApp, Instagram, Messenger y más en un solo
+                        lugar.
+                      </div>
+                    </li>
+                    <li className="flex items-start gap-3">
+                      <FaCheckCircle className="text-green-500 mt-1" />{" "}
+                      <div>
+                        <span className="font-semibold">
+                          Plataforma de Equipo:
+                        </span>{" "}
+                        Asigna conversaciones, crea plantillas y automatiza
+                        respuestas.
+                      </div>
+                    </li>
+                  </ul>
+                </div>
+                <a
+                  href="#contact"
+                  className="mt-8 block w-full text-center bg-primaryColor hover:bg-red-700 text-white font-bold py-3 px-8 rounded-full transition"
+                >
+                  Comprar Plan
+                </a>
               </div>
 
-              {/* Imagen */}
-              <div className="flex justify-center lg:justify-end">
-                <img
-                  src="https://placehold.co/600x400/1a1a1a/FF0000?text=Interfaz+Agente+IA+Pagos"
-                  alt="Interfaz del agente IA para gestión de pagos y facturación"
-                  className="rounded-xl shadow-2xl border-2 border-gray-700 max-w-full h-auto"
-                />
-              </div>
-            </div>
-          </div>
-        </section>
-
-        <section className="py-16 sm:py-24 bg-darkBgColor">
-          <div className="max-w-6xl mx-auto px-6 text-center">
-            <h2 className="text-3xl sm:text-4xl font-bold text-white mb-12">
-              Potencia tu negocio con{" "}
-              <span className="text-primaryColor">
-                Notificaciones Inteligentes
-              </span>
-            </h2>
-            <p className="text-lg text-gray-300 mb-10 max-w-3xl mx-auto">
-              Crea y envía recordatorios por correo o WhatsApp, consejos
-              personalizados y promociones alineadas con tu negocio para
-              mantener a tus clientes siempre comprometidos.
-            </p>
-
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center text-left">
-              {/* Imagen ahora a la izquierda */}
-              <div className="flex justify-center lg:justify-start">
-                <img
-                  src="https://placehold.co/600x400/1a1a1a/FF0000?text=Interfaz+Orvex+Pedidos"
-                  alt="Interfaz de Orvex para gestión de pedidos"
-                  className="rounded-xl shadow-2xl border-2 border-gray-700 max-w-full h-auto"
-                />
-              </div>
-
-              {/* Texto ahora a la derecha */}
-              <div>
-                <h3 className="text-3xl font-bold text-white mb-6">
-                  Recordatorios{" "}
-                  <span className="text-primaryColor">Inteligentes</span>
+              {/* Plan PERSONALIZADO */}
+              <div className="bg-gray-900 p-8 rounded-2xl border border-gray-800 h-full flex flex-col">
+                <h3 className="text-2xl font-semibold text-white">
+                  Personalizado
                 </h3>
-                <p className="text-lg text-gray-300 mb-8">
-                  Mantén a tus clientes al día y maximiza tus ventas con
-                  comunicaciones automatizadas.
+                <p className="text-primaryColor font-semibold mt-1">
+                  Soluciones personalizadas para tu negocio.
                 </p>
-                <ul className="space-y-6">
-                  {[
-                    "Crea y envía recordatorios por correo o WhatsApp.",
-                    "Nuestro agente genera y envía consejos personalizados según tu negocio.",
-                    "Lanza promociones inteligentes alineadas con el perfil de tus clientes.",
-                  ].map((text, idx) => (
-                    <li key={idx} className="flex items-start">
-                      <FaCheckCircle className="text-primaryColor text-2xl mr-4 mt-1 flex-shrink-0" />
-                      <p className="text-lg text-gray-300">{text}</p>
-                    </li>
-                  ))}
-                </ul>
-                <div className="mt-10">
-                  <a
-                    href="#contact"
-                    className="bg-primaryColor hover:bg-red-700 text-white font-bold py-3 px-8 rounded-full shadow-lg transition duration-300 ease-in-out transform hover:scale-105"
-                  >
-                    Empezar Ahora
-                  </a>
+                <div className="my-8">
+                  <span className="text-4xl font-bold text-white">
+                    A Convenir
+                  </span>
                 </div>
+                <div className="flex-grow">
+                  <h4 className="font-bold text-white text-lg mb-4">
+                    Todo lo de Advanced, y además:
+                  </h4>
+                  <ul className="space-y-3 text-gray-300 mb-6">
+                    <li className="flex items-center gap-3">
+                      <FaCheckCircle className="text-green-500" /> Agentes IA
+                      Pro con integraciones avanzadas
+                    </li>
+                    <li className="flex items-center gap-3">
+                      <FaCheckCircle className="text-green-500" /> Soporte y
+                      consultoría dedicada
+                    </li>
+                  </ul>
+                  <h4 className="font-bold text-white text-lg mb-4 border-t border-gray-700 pt-6">
+                    Incluido en todos los planes:
+                  </h4>
+                  <ul className="space-y-3 text-gray-300">
+                    <li className="flex items-start gap-3">
+                      <FaCheckCircle className="text-green-500 mt-1" />{" "}
+                      <div>
+                        <span className="font-semibold">
+                          WhatsApp Business API Gratuita:
+                        </span>{" "}
+                        Te ayudamos con la configuración y la verificación
+                        oficial (sello azul).
+                      </div>
+                    </li>
+                    <li className="flex items-start gap-3">
+                      <FaCheckCircle className="text-green-500 mt-1" />{" "}
+                      <div>
+                        <span className="font-semibold">
+                          Bandeja de Entrada Omnicanal:
+                        </span>{" "}
+                        Gestiona WhatsApp, Instagram, Messenger y más en un solo
+                        lugar.
+                      </div>
+                    </li>
+                    <li className="flex items-start gap-3">
+                      <FaCheckCircle className="text-green-500 mt-1" />{" "}
+                      <div>
+                        <span className="font-semibold">
+                          Plataforma de Equipo:
+                        </span>{" "}
+                        Asigna conversaciones, crea plantillas y automatiza
+                        respuestas.
+                      </div>
+                    </li>
+                  </ul>
+                </div>
+                <a
+                  href="#contact"
+                  className="mt-8 block w-full text-center bg-gray-700 hover:bg-gray-600 text-white font-bold py-3 px-8 rounded-full transition"
+                >
+                  Contactar Ventas
+                </a>
               </div>
             </div>
           </div>
         </section>
 
-        <section id="integration" className="py-16 sm:py-24 bg-darkBgColor">
-          <div className="max-w-6xl mx-auto px-6 text-center">
-            <h2 className="text-3xl sm:text-4xl font-bold text-white mb-12">
-              Así de Fácil es Integrar{" "}
-              <span className="text-primaryColor">Orvex</span> en Tu Negocio
-            </h2>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-              {steps.map((step) => (
-                <div
-                  key={step.id}
-                  className="flex flex-col items-center p-6 bg-gray-900 rounded-xl shadow-lg transform hover:scale-105 transition duration-300 ease-in-out"
-                >
-                  <div className="bg-primaryColor text-white text-3xl font-bold w-16 h-16 flex items-center justify-center rounded-full mb-4">
-                    {step.id}
-                  </div>
-                  <h3 className="text-xl font-semibold text-white mb-2">
-                    {step.title}
-                  </h3>
-                  <p className="text-gray-400 text-center">
-                    {step.description}
-                  </p>
-                </div>
-              ))}
+        {/* FAQ Section */}
+        <section id="faq" className="py-16 sm:py-24 bg-darkBgColor">
+          <div className="max-w-4xl mx-auto px-6">
+            {/* Título Principal */}
+            <div className="text-center mb-12">
+              <h2 className="text-3xl sm:text-4xl font-bold text-white">
+                Preguntas Frecuentes
+              </h2>
+              <p className="mt-4 text-lg text-gray-300">
+                Resolvemos tus dudas para que tomes la mejor decisión.
+              </p>
+            </div>
+
+            {/* Lista de Preguntas */}
+            <div>
+              <FAQItem
+                question="¿Tengo que instalar algo complicado?"
+                answer="No. Nosotros nos encargamos de todo el proceso técnico. Tú solo necesitas llenar un formulario con la información clave de tu negocio y nosotros hacemos el resto."
+              />
+              <FAQItem
+                question="¿Existe alguna cláusula de permanencia?"
+                answer="No. Creemos en la flexibilidad. Puedes elegir el plan que mejor se adapte a ti y cambiarlo o cancelarlo cuando lo necesites, sin contratos a largo plazo."
+              />
+              <FAQItem
+                question="¿Qué pasa si no tengo página web o CRM?"
+                answer="No es un problema. Tu agente de IA puede operar perfectamente a través de WhatsApp y redes sociales. Además, nuestra plataforma incluye un CRM integrado para que gestiones a tus clientes desde el primer día."
+              />
+              <FAQItem
+                question="¿En cuánto tiempo estará funcionando mi agente?"
+                answer="Nuestro proceso de implementación estándar es de 5 a 7 días hábiles. Así de rápido empezarás a ver los resultados."
+              />
+              <FAQItem
+                question="¿Mis clientes se darán cuenta de que hablan con un robot?"
+                answer="Precisamente por eso creamos agentes personalizados. Entrenamos a la IA para que hable en el tono y estilo de tu marca. Además, desde nuestra plataforma, tú o tu equipo pueden intervenir en la conversación en cualquier momento para gestionar leads complejos, asegurando una experiencia fluida."
+              />
+              <FAQItem
+                question="¿Esto funciona solo para WhatsApp?"
+                answer="No, nuestra plataforma es omnicanal. Integramos tu agente en WhatsApp, Instagram, Facebook Messenger y tu sitio web, centralizando todas las conversaciones en una única bandeja de entrada para un control total."
+              />
+              <FAQItem
+                question="¿Qué tan personalizado puede ser el agente?"
+                answer="Totalmente personalizado. No usamos plantillas genéricas. Construimos un agente de IA a la medida, entrenado para ejecutar los procesos específicos de tu negocio, ya sea vender, dar soporte, calificar o cualquier otra tarea que necesites automatizar."
+              />
+              <FAQItem
+                question="¿Qué tipo de soporte ofrecen una vez que mi agente está funcionando?"
+                answer="Ofrecemos soporte continuo para asegurar que tu operación funcione sin problemas. Dependiendo de tu plan, esto incluye desde soporte técnico hasta consultoría dedicada para ayudarte a optimizar tus flujos y estrategias."
+              />
+              <FAQItem
+                question="¿Necesito configurar mi número de WhatsApp por mi cuenta?"
+                answer="Absolutamente nada. Nosotros gestionamos todo el proceso de configuración de la API oficial de WhatsApp a través de la plataforma de Meta. Nos aseguramos de que tu número esté verificado y funcionando sin que tengas que preocuparte por ningún detalle técnico."
+              />
             </div>
           </div>
         </section>
-        <section id="benefits" className="py-16 sm:py-24 bg-darkBgColor">
-          <div className="max-w-6xl mx-auto px-6 text-center">
-            <h2 className="text-3xl sm:text-4xl font-bold text-white mb-12">
-              Beneficios Tangibles para Tu Negocio con{" "}
-              <span className="text-primaryColor">Orvex</span>
-            </h2>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-              {benefits.map((b) => (
-                <div
-                  key={b.id}
-                  className="bg-gray-800 p-6 rounded-xl shadow-lg flex items-start space-x-4 transform hover:scale-105 transition duration-300 ease-in-out"
-                >
-                  {b.icon}
-                  <div>
-                    <h3 className="text-xl font-semibold text-white mb-2">
-                      {b.title}
-                    </h3>
-                    <p className="text-gray-400">{b.description}</p>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-        </section>
-        <section id="industry" className="py-16 sm:py-24 bg-darkBgColor">
-          <div className="max-w-6xl mx-auto px-6 text-center">
-            <h2 className="text-3xl sm:text-4xl font-bold text-white mb-12">
-              Orvex: La Solución Perfecta Para{" "}
-              <span className="text-primaryColor">Diversas Industrias</span>
-            </h2>
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-8">
-              {industries.map(({ icon: Icon, label }, idx) => (
-                <div
-                  key={idx}
-                  className="flex flex-col items-center p-4 bg-gray-900 rounded-xl shadow-lg transform hover:scale-105 transition duration-300 ease-in-out"
-                >
-                  <Icon className="text-primaryColor text-5xl mb-3" />
-                  <p className="text-white text-lg font-semibold">{label}</p>
-                </div>
-              ))}
-            </div>
-          </div>
-        </section>
+
         <section id="contact" className="py-16 sm:py-24 bg-black">
           <div className="max-w-3xl mx-auto px-6 text-center">
             <h2 className="text-3xl sm:text-4xl font-bold text-white mb-8">
@@ -665,10 +946,11 @@ const AgentesIA: React.FC = () => {
                   id="firstname"
                   name="firstname"
                   placeholder="Tu Nombre Completo"
-                  className={`w-full p-4 rounded-lg bg-gray-700 text-white border transition duration-200 ${errors.firstname
+                  className={`w-full p-4 rounded-lg bg-gray-700 text-white border transition duration-200 ${
+                    errors.firstname
                       ? "border-red-500 focus:border-red-500"
                       : "border-gray-600 focus:border-primaryColor"
-                    }`}
+                  }`}
                   value={formData.firstname}
                   onChange={handleChange}
                 />
@@ -686,10 +968,11 @@ const AgentesIA: React.FC = () => {
                   id="email"
                   name="email"
                   placeholder="Tu Correo Electrónico"
-                  className={`w-full p-4 rounded-lg bg-gray-700 text-white border transition duration-200 ${errors.email
+                  className={`w-full p-4 rounded-lg bg-gray-700 text-white border transition duration-200 ${
+                    errors.email
                       ? "border-red-500 focus:border-red-500"
                       : "border-gray-600 focus:border-primaryColor"
-                    }`}
+                  }`}
                   value={formData.email}
                   onChange={handleChange}
                 />
@@ -705,10 +988,11 @@ const AgentesIA: React.FC = () => {
                   id="number"
                   name="number"
                   placeholder="Tu Número de Teléfono"
-                  className={`w-full p-4 rounded-lg bg-gray-700 text-white border transition duration-200 ${errors.number
+                  className={`w-full p-4 rounded-lg bg-gray-700 text-white border transition duration-200 ${
+                    errors.number
                       ? "border-red-500 focus:border-red-500"
                       : "border-gray-600 focus:border-primaryColor"
-                    }`}
+                  }`}
                   value={formData.number}
                   onChange={handleChange}
                 />
