@@ -1,12 +1,12 @@
 import { useState } from "react";
 import ReactDOM from "react-dom";
-import InstagramIcon from "/assets/Iwhite.svg";
+//import InstagramIcon from "/assets/Iwhite.svg";
 import Whastsapp from "/assets/ww.svg";
 import SignupFormDemo from "./form/form";
 
 const Footer = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const primaryColor = "#FF0000"; // Rojo de Orvex
+  //const primaryColor = "#FF0000"; // Rojo de Orvex
 
   // Modal JSX
   const modal = (
