@@ -566,6 +566,9 @@ const AgentesIA: React.FC = () => {
 
         {/* Transformation Timeline Section  */}
 
+        {/* Transformation Timeline Section - CON LAYOUT MÓVIL CORREGIDO */}
+        {/* Transformation Timeline Section - VERSIÓN FINAL REFINADA */}
+        {/* Transformation Timeline Section - CON IMÁGENES MÓVILES MÁS GRANDES */}
         <section
           id="transformacion"
           className="py-16 sm:py-24 bg-black relative"
@@ -599,8 +602,16 @@ const AgentesIA: React.FC = () => {
                 {/* Beneficio 1: Automatización */}
                 <div className="relative grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
                   <div className="hidden lg:block absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-5 h-5 bg-primaryColor rounded-full border-4 border-black ring-4 ring-primaryColor/50"></div>
+                  {/* Columna de Imagen */}
+                  <div className="lg:order-last">
+                    <img
+                      src="/assets/automatizacion.png"
+                      alt="Dashboard de automatización"
+                      className="rounded-lg shadow-md border border-gray-800 w-full h-auto object-contain lg:aspect-video"
+                    />
+                  </div>
                   {/* Columna de Texto */}
-                  <div>
+                  <div className="text-center lg:text-left">
                     <h3 className="text-3xl font-semibold text-white">
                       Automatización sin complicaciones
                     </h3>
@@ -610,20 +621,14 @@ const AgentesIA: React.FC = () => {
                       completamente configurado, para que empieces a
                       aprovecharlo desde el primer día sin perder tiempo.
                     </p>
-                    <button
-                      onClick={() => setIsModalOpen(true)}
-                      className="mt-8 bg-primaryColor text-white font-bold py-3 px-6 rounded-full shadow-lg transition-all duration-300 transform hover:scale-105 hover:shadow-primaryColor/50"
-                    >
-                      Automatizar mi Negocio Ahora
-                    </button>
-                  </div>
-                  {/* Columna de Imagen */}
-                  <div>
-                    <img
-                      src="/assets/automatizacion.png"
-                      alt="Dashboard de automatización"
-                      className="rounded-2xl w-full h-auto object-contain aspect-video"
-                    />
+                    <div className="mt-8 flex justify-center lg:justify-start">
+                      <button
+                        onClick={() => setIsModalOpen(true)}
+                        className="bg-primaryColor text-white font-bold py-3 px-6 rounded-full shadow-lg transition-all duration-300 transform hover:scale-105 hover:shadow-primaryColor/50"
+                      >
+                        Automatizar mi Negocio Ahora
+                      </button>
+                    </div>
                   </div>
                 </div>
 
@@ -631,15 +636,15 @@ const AgentesIA: React.FC = () => {
                 <div className="relative grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
                   <div className="hidden lg:block absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-5 h-5 bg-primaryColor rounded-full border-4 border-black ring-4 ring-primaryColor/50"></div>
                   {/* Columna de Imagen */}
-                  <div className="lg:order-first">
+                  <div>
                     <img
                       src="/assets/calendar.png"
                       alt="Calendario con citas pagadas"
-                      className="rounded-2xl w-full h-auto object-contain aspect-video"
+                      className="rounded-lg shadow-md border border-gray-800 w-full h-auto object-contain lg:aspect-video"
                     />
                   </div>
                   {/* Columna de Texto */}
-                  <div className="lg:pl-12">
+                  <div className="text-center lg:text-left lg:pl-12">
                     <h3 className="text-3xl font-semibold text-white">
                       Agenda Llena + Cobro Asegurado
                     </h3>
@@ -648,20 +653,30 @@ const AgentesIA: React.FC = () => {
                       solo agendas a quienes pagan y van en serio. Más ventas
                       cerradas, menos tiempo perdido.
                     </p>
-                    <button
-                      onClick={() => setIsModalOpen(true)}
-                      className="mt-8 bg-primaryColor text-white font-bold py-3 px-6 rounded-full shadow-lg transition-all duration-300 transform hover:scale-105 hover:shadow-primaryColor/50"
-                    >
-                      Asegurar mis Cobros
-                    </button>
+                    <div className="mt-8 flex justify-center lg:justify-start">
+                      <button
+                        onClick={() => setIsModalOpen(true)}
+                        className="bg-primaryColor text-white font-bold py-3 px-6 rounded-full shadow-lg transition-all duration-300 transform hover:scale-105 hover:shadow-primaryColor/50"
+                      >
+                        Asegurar mis Cobros
+                      </button>
+                    </div>
                   </div>
                 </div>
 
                 {/* Beneficio 3: Escalabilidad */}
                 <div className="relative grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
                   <div className="hidden lg:block absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-5 h-5 bg-primaryColor rounded-full border-4 border-black ring-4 ring-primaryColor/50"></div>
+                  {/* Columna de Imagen */}
+                  <div className="lg:order-last">
+                    <img
+                      src="/assets/business.png"
+                      alt="Gráfico de crecimiento 24/7"
+                      className="rounded-lg shadow-md border border-gray-800 w-full h-auto object-contain lg:aspect-video"
+                    />
+                  </div>
                   {/* Columna de Texto */}
-                  <div>
+                  <div className="text-center lg:text-left">
                     <h3 className="text-3xl font-semibold text-white">
                       Tu Negocio Activo las 24 Horas, Sin Contratar Personal
                     </h3>
@@ -670,35 +685,30 @@ const AgentesIA: React.FC = () => {
                       agenda citas y atrae nuevos clientes a cualquier hora, sin
                       nómina ni limitaciones de horario.
                     </p>
-                    <button
-                      onClick={() => setIsModalOpen(true)}
-                      className="mt-8 bg-primaryColor text-white font-bold py-3 px-6 rounded-full shadow-lg transition-all duration-300 transform hover:scale-105 hover:shadow-primaryColor/50"
-                    >
-                      Activar mi Agente 24/7
-                    </button>
-                  </div>
-                  {/* Columna de Imagen */}
-                  <div>
-                    <img
-                      src="/assets/business.png"
-                      alt="Gráfico de crecimiento 24/7"
-                      className="rounded-2xl w-full h-auto object-contain aspect-video"
-                    />
+                    <div className="mt-8 flex justify-center lg:justify-start">
+                      <button
+                        onClick={() => setIsModalOpen(true)}
+                        className="bg-primaryColor text-white font-bold py-3 px-6 rounded-full shadow-lg transition-all duration-300 transform hover:scale-105 hover:shadow-primaryColor/50"
+                      >
+                        Activar mi Agente 24/7
+                      </button>
+                    </div>
                   </div>
                 </div>
 
+                {/* Beneficio 4: Ventas */}
                 <div className="relative grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
                   <div className="hidden lg:block absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-5 h-5 bg-primaryColor rounded-full border-4 border-black ring-4 ring-primaryColor/50"></div>
                   {/* Columna de Imagen */}
-                  <div className="lg:order-first">
+                  <div>
                     <img
                       src="/assets/sales.png"
-                      alt="Calendario con citas pagadas"
-                      className="rounded-2xl w-full h-auto object-contain aspect-video"
+                      alt="Impulso de ventas con IA"
+                      className="rounded-lg shadow-md border border-gray-800 w-full h-auto object-contain lg:aspect-video"
                     />
                   </div>
                   {/* Columna de Texto */}
-                  <div className="lg:pl-12">
+                  <div className="text-center lg:text-left lg:pl-12">
                     <h3 className="text-3xl font-semibold text-white">
                       Tu Mejor Vendedor, Siempre Activo
                     </h3>
@@ -707,12 +717,14 @@ const AgentesIA: React.FC = () => {
                       impulsa tus ventas y mantiene a tus clientes pensando en
                       tu negocio, incluso mientras duermes.
                     </p>
-                    <button
-                      onClick={() => setIsModalOpen(true)}
-                      className="mt-8 bg-primaryColor text-white font-bold py-3 px-6 rounded-full shadow-lg transition-all duration-300 transform hover:scale-105 hover:shadow-primaryColor/50"
-                    >
-                      Impulsar mi negocio
-                    </button>
+                    <div className="mt-8 flex justify-center lg:justify-start">
+                      <button
+                        onClick={() => setIsModalOpen(true)}
+                        className="bg-primaryColor text-white font-bold py-3 px-6 rounded-full shadow-lg transition-all duration-300 transform hover:scale-105 hover:shadow-primaryColor/50"
+                      >
+                        Impulsar mi negocio
+                      </button>
+                    </div>
                   </div>
                 </div>
               </div>
