@@ -26,7 +26,7 @@ const Footer = () => {
           &times;
         </button>
 
-        <SignupFormDemo  closeModal={() => setIsModalOpen(false)}/>
+
       </div>
     </div>
   );

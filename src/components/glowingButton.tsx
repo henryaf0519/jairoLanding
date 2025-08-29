@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import ReactDOM from "react-dom";
-import SignupFormDemo from "./form/form";
 
 const GlowingButton: React.FC = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -18,7 +17,7 @@ const GlowingButton: React.FC = () => {
           &times;
         </button>
 
-        <SignupFormDemo closeModal={() => setIsModalOpen(false)}/>
+
       </div>
     </div>
     );
