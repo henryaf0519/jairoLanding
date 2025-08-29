@@ -20,6 +20,7 @@ import {
 import WistiaPlayer from "../components/WistiaPlayer";
 import CalendlyEmbed from "../components/CalendlyEmbed";
 import CalendlyModal from "../components/CalendlyModal";
+import { FaWhatsapp } from "react-icons/fa";
 
 
 const benefitsData = [
@@ -141,7 +142,7 @@ const BenefitCard = ({
 
 const Landing: React.FC = () => {
   const fullText =
-    " Automatiza tu Agenda y Multiplica tus Citas sin Contratar Personal.";
+    "ESCALAMOS LAS VENTAS DE TU TIENDA ONLINE";
   const progress = useMotionValue(0);
   const [displayedText, setDisplayedText] = useState("");
   const [typingFinished, setTypingFinished] = useState(false);
@@ -183,56 +184,64 @@ const Landing: React.FC = () => {
         className="font-inter antialiased bg-darkBgColor text-gray-100"
       >
         {/* Hero Section */}
-        {/* Hero Section - OPCIÓN B: ALTO IMPACTO */}
-        {/* Hero Section - VIDEO COMPLETO Y TEXTO VISIBLE */}
-        <section
-          id="inicio"
-          className="relative min-h-screen flex flex-col items-center justify-center gap-8 px-6 py-20 text-center bg-darkBgColor"
-        >
-          {/* 1. Contenido de Texto (Parte Superior) - AHORA SIN EL BOTÓN */}
-          <div className="relative z-10 w-full max-w-5xl">
-            <motion.h1
-              ref={containerRef}
-              className="text-4xl sm:text-5xl md:text-5xl font-extrabold leading-tight text-white my-4"
-            >
-              <span className="text-primaryColor">Orvex:</span> {displayedText}
-              <motion.span
-                className="inline-block w-1 h-12 bg-white ml-1"
-                animate={
-                  typingFinished ? { opacity: [0, 1, 0] } : { opacity: [0, 1] }
-                }
-                transition={
-                  typingFinished
-                    ? { repeat: Infinity, duration: 1.2 }
-                    : { repeat: Infinity, duration: 0.6, ease: "linear" }
-                }
-              />
-            </motion.h1>
-            <p className="text-lg sm:text-xl text-gray-300 mb-8 max-w-3xl mx-auto">
-              En los próximos 7 días, tu negocio puede dejar de perder dinero
-              por citas canceladas y empezar a cobrar por adelantado... sin
-              contratar personal, sin aprender tecnología y sin perder más
-              tiempo en WhatsApp, web o donde lo necesites.
-            </p>
-          </div>
+  <section
+    id="inicio"
+    className="relative min-h-screen flex items-center justify-center bg-blueColor [clip-path:ellipse(150%_100%_at_50%_100%)]"
+  >
+    <div className="container mx-auto px-6 pt-20 pb-32 md:pb-40"> {/* Aumentamos el padding inferior */}
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+        {/* Columna Izquierda: Texto y CTA */}
+        <div className="flex flex-col justify-center text-center md:text-left">
+          <motion.h1
+            ref={containerRef}
+            className="text-4xl sm:text-5xl lg:text-6xl font-extrabold leading-tight text-white h-48 md:h-64"
+          >
+            {displayedText}
+            <motion.span
+              className="inline-block w-1 h-12 md:h-16 bg-white ml-2"
+              animate={typingFinished ? { opacity: [0, 1, 0] } : { opacity: 1 }}
+              transition={typingFinished ? { repeat: Infinity, duration: 1.2 } : { duration: 0 }}
+            />
+          </motion.h1>
 
-          {/* 2. Contenido de Video (Parte Intermedia) */}
-          <div className="relative z-10 w-full max-w-5xl mx-auto">
-            <div className="aspect-video bg-black rounded-lg overflow-hidden border-2 border-gray-800 shadow-2xl">
-              <WistiaPlayer mediaId="b0dckf0a2r" className="w-full h-full" />
-            </div>
-          </div>
+          {/* Párrafo con colores actualizados */}
+          <p className="text-xl sm:text-2xl mt-4 text-gray-300">
+            Desde <span className="font-bold text-goldAccent">$100 millones</span> por mes a <span className="font-bold text-goldAccent">+$500 millones</span> por mes
+          </p>
 
-          {/* 3. BOTÓN (Parte Inferior) - MOVIDO AQUÍ */}
-          <div className="relative z-10 w-full mt-8">
-            <button
-              onClick={() => setIsModalOpen(true)}
-              className="bg-primaryColor hover:bg-red-700 text-white font-bold py-3 px-8 text-base md:py-4 md:px-10 md:text-lg rounded-full shadow-lg transition-colors duration-300 transform hover:scale-105"
+          {/* Botón Profesional con bordes redondeados */}
+          <div className="mt-10 flex justify-center md:justify-start">
+            <a
+              href="https://wa.me/TUNUMERO" // <-- REEMPLAZA CON EL NÚMERO REAL
+              target="_blank"
+              rel="noopener noreferrer"
+              className="relative inline-flex items-center justify-center p-0.5 group"
             >
-              Solicita una Demostración Gratuita
-            </button>
+              <div className="absolute inset-0 bg-gradient-to-r from-yellow-400 to-goldAccent rounded-full blur opacity-75 group-hover:opacity-100 transition duration-1000 group-hover:duration-200 animate-tilt"></div>
+              <span className="relative bg-black hover:bg-gray-900 transition-colors duration-300 rounded-full px-8 py-4 text-lg font-bold text-white flex items-center">
+                <FaWhatsapp className="mr-3 text-2xl" />
+                Enviar mensaje a WhatsApp
+              </span>
+            </a>
           </div>
-        </section>
+        </div>
+
+        {/* Columna Derecha: Video */}
+        <div className="flex items-center justify-center">
+          <div className="w-full aspect-video bg-gray-900 rounded-lg shadow-2xl overflow-hidden">
+            <iframe
+              className="w-full h-full"
+              src="https://www.youtube.com/embed/dQw4w9WgXcQ" // <-- REEMPLAZA CON EL VIDEO REAL
+              title="Video de Inforce"
+              frameBorder="0"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+              allowFullScreen
+            ></iframe>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
 
         {/* Problem Section */}
         <section className="py-16 sm:py-24 bg-darkBgColor">

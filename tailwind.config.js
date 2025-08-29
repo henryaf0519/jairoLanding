@@ -12,7 +12,8 @@ export default {
       colors: {
         primaryColor: "#FF0000",
         darkBgColor: "#ffffff",
-        redColor: "#FF0000",
+        blueColor: "#05131d",
+        goldAccent: "#d5ab50",
         neonRed: "#FF073A",
         grayColor:"#2a2627",
         background: "hsl(var(--background))",
