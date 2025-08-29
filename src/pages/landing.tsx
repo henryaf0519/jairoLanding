@@ -16,12 +16,13 @@ import {
   Plus,
   CalendarCheck,
   TrendingUp,
+  Target,
 } from "lucide-react";
 import WistiaPlayer from "../components/WistiaPlayer";
 import CalendlyEmbed from "../components/CalendlyEmbed";
 import CalendlyModal from "../components/CalendlyModal";
 import { FaWhatsapp } from "react-icons/fa";
-
+import AnimatedStatCard from "../components/AnimatedStatCard";
 
 const benefitsData = [
   {
@@ -43,7 +44,6 @@ const benefitsData = [
       "Delega las tareas repetitivas a tu agente de IA y libera tiempo valioso para dedicarlo a la estrategia y el crecimiento de tu negocio.",
   },
 ];
-
 
 const faqData = [
   {
@@ -141,8 +141,7 @@ const BenefitCard = ({
 );
 
 const Landing: React.FC = () => {
-  const fullText =
-    "ESCALAMOS LAS VENTAS DE TU TIENDA ONLINE";
+  const fullText = "ESCALAMOS LAS VENTAS DE TU TIENDA ONLINE";
   const progress = useMotionValue(0);
   const [displayedText, setDisplayedText] = useState("");
   const [typingFinished, setTypingFinished] = useState(false);
@@ -181,98 +180,130 @@ const Landing: React.FC = () => {
     <>
       <div
         id="inicio"
-        className="font-inter antialiased bg-darkBgColor text-gray-100"
+        className="font-inter antialiased bg-darkBgWhite text-gray-100"
       >
         {/* Hero Section */}
-  <section
-    id="inicio"
-    className="relative min-h-screen flex items-center justify-center bg-blueColor [clip-path:ellipse(150%_100%_at_50%_100%)]"
-  >
-    <div className="container mx-auto px-6 pt-20 pb-32 md:pb-40"> {/* Aumentamos el padding inferior */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
-        {/* Columna Izquierda: Texto y CTA */}
-        <div className="flex flex-col justify-center text-center md:text-left">
-          <motion.h1
-            ref={containerRef}
-            className="text-4xl sm:text-5xl lg:text-6xl font-extrabold leading-tight text-white h-48 md:h-64"
-          >
-            {displayedText}
-            <motion.span
-              className="inline-block w-1 h-12 md:h-16 bg-white ml-2"
-              animate={typingFinished ? { opacity: [0, 1, 0] } : { opacity: 1 }}
-              transition={typingFinished ? { repeat: Infinity, duration: 1.2 } : { duration: 0 }}
-            />
-          </motion.h1>
+        <section
+          id="inicio"
+          className="relative min-h-screen flex items-center justify-center bg-blueColor"
+        >
+          <div className="container mx-auto px-6 pt-20 pb-32 md:pb-40">
+            {" "}
+            {/* Aumentamos el padding inferior */}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+              {/* Columna Izquierda: Texto y CTA */}
+              <div className="flex flex-col justify-center text-center md:text-left">
+                {/* Contenedor para el logo y el título */}
+                <div className="flex flex-col items-center justify-center md:items-start gap-y-4 mb-4">
+                  <img
+                    src="/assets/logo.png" // Reemplaza esto con la ruta a tu nuevo logo de Paradigma
+                    alt="Logo de Paradigma Agency"
+                    className="h-16 md:h-15 object-contain"
+                  />
 
-          {/* Párrafo con colores actualizados */}
-          <p className="text-xl sm:text-2xl mt-4 text-gray-300">
-            Desde <span className="font-bold text-goldAccent">$100 millones</span> por mes a <span className="font-bold text-goldAccent">+$500 millones</span> por mes
-          </p>
+                  <motion.h1
+                    ref={containerRef}
+                    className="text-4xl sm:text-5xl lg:text-6xl font-extrabold leading-tight text-white h-48 md:h-64"
+                  >
+                    {displayedText}
+                    <motion.span
+                      className="inline-block w-1 h-12 md:h-16 bg-white ml-2"
+                      animate={
+                        typingFinished ? { opacity: [0, 1, 0] } : { opacity: 1 }
+                      }
+                      transition={
+                        typingFinished
+                          ? { repeat: Infinity, duration: 1.2 }
+                          : { duration: 0 }
+                      }
+                    />
+                  </motion.h1>
+                </div>
 
-          {/* Botón Profesional con bordes redondeados */}
-          <div className="mt-10 flex justify-center md:justify-start">
-            <a
-              href="https://wa.me/TUNUMERO" // <-- REEMPLAZA CON EL NÚMERO REAL
-              target="_blank"
-              rel="noopener noreferrer"
-              className="relative inline-flex items-center justify-center p-0.5 group"
-            >
-              <div className="absolute inset-0 bg-gradient-to-r from-yellow-400 to-goldAccent rounded-full blur opacity-75 group-hover:opacity-100 transition duration-1000 group-hover:duration-200 animate-tilt"></div>
-              <span className="relative bg-black hover:bg-gray-900 transition-colors duration-300 rounded-full px-8 py-4 text-lg font-bold text-white flex items-center">
-                <FaWhatsapp className="mr-3 text-2xl" />
-                Enviar mensaje a WhatsApp
-              </span>
-            </a>
-          </div>
-        </div>
+                {/* Párrafo con los NUEVOS colores */}
+                <p className="text-xl sm:text-2xl mt-4 text-gray-300">
+                  Desde{" "}
+                  <span className="font-bold text-paradigmaRed">
+                    $100 millones
+                  </span>{" "}
+                  por mes a{" "}
+                  <span className="font-bold text-paradigmaRed">
+                    +$500 millones
+                  </span>{" "}
+                  por mes
+                </p>
 
-        {/* Columna Derecha: Video */}
-        <div className="flex items-center justify-center">
-          <div className="w-full aspect-video bg-gray-900 rounded-lg shadow-2xl overflow-hidden">
-            <iframe
-              className="w-full h-full"
-              src="https://www.youtube.com/embed/dQw4w9WgXcQ" // <-- REEMPLAZA CON EL VIDEO REAL
-              title="Video de Inforce"
-              frameBorder="0"
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-              allowFullScreen
-            ></iframe>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-        {/* Problem Section */}
-        <section className="py-16 sm:py-24 bg-darkBgColor">
-          <div className="max-w-7xl mx-auto px-6">
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-              {/* Columna Izquierda: Imagen */}
-              <div className="relative flex justify-center group">
-                <img
-                  src="/assets/chat.png"
-                  alt="Agente IA gestionando un chat con un cliente"
-                  className="w-full max-w-md aspect-square object-cover rounded-xl shadow-2xl"
-                />
-                <div className="absolute inset-0 w-full h-full rounded-xl bg-gradient-to-t from-black/80 via-black/40 to-transparent"></div>
+                {/* Botón con el NUEVO gradiente */}
+                <div className="mt-10 flex justify-center md:justify-start">
+                  <a
+                    href="https://wa.me/TUNUMERO"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="relative inline-flex items-center justify-center p-0.5 group"
+                  >
+                    <div className="absolute inset-0 bg-gradient-to-r from-paradigmaRed to-paradigmaMagenta rounded-full blur opacity-75 group-hover:opacity-100 transition duration-1000 group-hover:duration-200 animate-tilt"></div>
+                    <span className="relative bg-black hover:bg-gray-900 transition-colors duration-300 rounded-full px-8 py-4 text-lg font-bold text-white flex items-center">
+                      <FaWhatsapp className="mr-3 text-2xl" />
+                      Enviar mensaje a WhatsApp
+                    </span>
+                  </a>
+                </div>
               </div>
 
-              {/* Columna Derecha: Texto */}
-              <div className="text-center lg:text-left">
-                <h2 className="text-3xl sm:text-4xl font-bold text-white leading-tight">
-                  ¿Tu día a día se siente como una carrera{" "}
-                  <span className="text-primaryColor">contra el tiempo?</span>
+              {/* Columna Derecha: Video */}
+              <div className="flex items-center justify-center">
+                <div className="w-full aspect-video bg-gray-900 rounded-lg shadow-2xl overflow-hidden">
+                  <iframe
+                    className="w-full h-full"
+                    src="https://www.youtube.com/embed/dQw4w9WgXcQ" // <-- REEMPLAZA CON EL VIDEO REAL
+                    title="Video de Inforce"
+                    frameBorder="0"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                    allowFullScreen
+                  ></iframe>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Problem Section */}
+        <section className="py-16 sm:py-24 bg-white">
+          <div className="max-w-7xl mx-auto px-6">
+            <div className="grid grid-cols-1 lg:grid-cols-5 gap-16 items-center">
+              {/* --- Columna Izquierda: Título y Descripción --- */}
+              <div className="lg:col-span-3 text-center lg:text-left">
+                <h2 className="text-4xl md:text-5xl font-bold leading-tight tracking-tight text-gray-900">
+                  Con nuestro sistema te llevaremos a superar los{" "}
+                  <span className="text-paradigmaRed">+$500 millones/mes</span>
                 </h2>
-                <p className="mt-6 text-lg sm:text-xl text-gray-300 leading-relaxed">
-                  ¿Te cancelan citas a último minuto? ¿Respondes las mismas
-                  preguntas en WhatsApp a las 11 de la noche? Cada semana, esta
-                  rutina te cuesta dinero, tiempo y, lo más valioso, tu
-                  tranquilidad.
+                <p className="mt-6 text-lg text-gray-600 leading-relaxed max-w-2xl mx-auto lg:mx-0">
+                  Si vendes <strong className="text-gray-900">$100M</strong> por
+                  mes, tienes un producto validado. Con nuestra estrategia
+                  crearemos{" "}
+                  <strong className="text-paradigmaRed">
+                    120 anuncios ganadores
+                  </strong>{" "}
+                  el primer mes que lograrán llevarte a los{" "}
+                  <strong className="text-gray-900">$500M</strong>.
                 </p>
-                <p className="mt-4 text-lg sm:text-xl text-white font-semibold">
-                  El problema no es tu dedicación. Es depender de herramientas
-                  que ya no dan abasto.
-                </p>
+              </div>
+
+              {/* --- Columna Derecha: Tarjetas de Estadísticas --- */}
+              <div className="lg:col-span-2 flex flex-col sm:flex-row lg:flex-col justify-center items-center gap-8">
+                <AnimatedStatCard
+                  label="Empresas Escaladas"
+                  targetValue={37}
+                  icon={TrendingUp}
+                />
+
+                <AnimatedStatCard
+                  label="Roas Promedio"
+                  targetValue={8.8}
+                  decimalPlaces={1}
+                  prefix="X"
+                  icon={Target}
+                />
               </div>
             </div>
           </div>
