@@ -24,24 +24,30 @@ import CalendlyModal from "../components/CalendlyModal";
 import { FaWhatsapp } from "react-icons/fa";
 import AnimatedStatCard from "../components/AnimatedStatCard";
 
-const benefitsData = [
+const resultsData = [
   {
-    icon: BarChart3,
-    title: "Incremento en Ventas y Conversión",
-    description:
-      "Convierte más conversaciones en ingresos. Tu agente IA está entrenado para guiar a los clientes a través del proceso de compra 24/7.",
+    id: 1,
+    timeframe: "Resultados en 1 mes",
+    description: "Pasamos de $90 millones a",
+    highlight: "$530 millones",
+    chartImage1: "/assets/sales.png", // <-- REEMPLAZA CON TU IMAGEN DE GRÁFICO
+    chartImage2: "/assets/business.png", // <-- REEMPLAZA CON TU IMAGEN DE GRÁFICO
   },
   {
-    icon: Zap,
-    title: "Eficiencia y Ahorro de Costos",
-    description:
-      "Automatiza respuestas y procesos para que no necesites contratar más personal. Tu equipo se enfoca en tareas de alto valor.",
+    id: 2,
+    timeframe: "Resultados en 3 meses",
+    description: "Pasamos de $90 millones a",
+    highlight: "$840 millones",
+    chartImage1: "/assets/calendar.png", // <-- REEMPLAZA CON TU IMAGEN DE GRÁFICO
+    chartImage2: "/assets/automatizacion.png", // <-- REEMPLAZA CON TU IMAGEN DE GRÁFICO
   },
   {
-    icon: Clock,
-    title: "Recupera de 5 a 10 Horas Semanales",
-    description:
-      "Delega las tareas repetitivas a tu agente de IA y libera tiempo valioso para dedicarlo a la estrategia y el crecimiento de tu negocio.",
+    id: 3,
+    timeframe: "Resultados en 4 meses",
+    description: "Pasamos de $90 millones a",
+    highlight: "$1.200 millones",
+    chartImage1: "/assets/orvexchat.png", // <-- REEMPLAZA CON TU IMAGEN DE GRÁFICO
+    chartImage2: "/assets/chat.png", // <-- REEMPLAZA CON TU IMAGEN DE GRÁFICO
   },
 ];
 
@@ -235,10 +241,8 @@ const Landing: React.FC = () => {
 
                 {/* Botón con el NUEVO gradiente */}
                 <div className="mt-10 flex justify-center md:justify-start">
-                  <a
-                    href="https://wa.me/TUNUMERO"
-                    target="_blank"
-                    rel="noopener noreferrer"
+                  <button
+                    onClick={() => setIsModalOpen(true)}
                     className="relative inline-flex items-center justify-center p-0.5 group"
                   >
                     <div className="absolute inset-0 bg-gradient-to-r from-paradigmaRed to-paradigmaMagenta rounded-full blur opacity-75 group-hover:opacity-100 transition duration-1000 group-hover:duration-200 animate-tilt"></div>
@@ -246,7 +250,7 @@ const Landing: React.FC = () => {
                       <FaWhatsapp className="mr-3 text-2xl" />
                       Enviar mensaje a WhatsApp
                     </span>
-                  </a>
+                  </button>
                 </div>
               </div>
 
@@ -308,6 +312,65 @@ const Landing: React.FC = () => {
             </div>
           </div>
         </section>
+
+       {/* ================================================================== */}
+{/* INICIA LA NUEVA SECCIÓN DE RESULTADOS (DISEÑO PROFESIONAL)        */}
+{/* ================================================================== */}
+<section className="py-16 sm:py-24 bg-darkBgColor">
+  <div className="max-w-7xl mx-auto px-6 space-y-24">
+    {resultsData.map((result, index) => (
+      <motion.div
+        key={result.id}
+        className="relative grid grid-cols-1 lg:grid-cols-2 gap-16 items-center bg-gray-900/50 backdrop-blur-sm border border-white/10 p-8 rounded-3xl"
+        initial={{ opacity: 0, y: 60 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, amount: 0.3 }}
+        transition={{ duration: 0.8, ease: "easeOut" }}
+      >
+        {/* === Efecto de Brillo Decorativo === */}
+        <div className={`absolute top-1/2 -translate-y-1/2 ${index % 2 !== 0 ? 'right-0 translate-x-1/2' : 'left-0 -translate-x-1/2'} w-1/2 h-full bg-paradigmaRed/10 rounded-full blur-3xl -z-10`} />
+
+        {/* --- Columna de Texto --- */}
+        <div className={`text-center lg:text-left ${index % 2 !== 0 ? 'lg:order-last' : ''}`}>
+          <h3 className="text-4xl md:text-5xl font-bold text-white leading-tight">
+            {result.timeframe}
+          </h3>
+          <p className="mt-4 text-xl text-gray-300">
+            {result.description}{' '}
+            <span className="font-bold bg-gradient-to-r from-paradigmaRed to-paradigmaMagenta bg-clip-text text-transparent">
+              {result.highlight}
+            </span>
+          </p>
+        </div>
+
+        {/* --- Columna de Gráficos con Composición Dinámica --- */}
+        <div className="relative h-60 flex items-center justify-center">
+          <motion.img
+            src={result.chartImage1}
+            alt={`Gráfico 1 para ${result.timeframe}`}
+            className="absolute w-2/3 rounded-lg shadow-2xl border-2 border-gray-800"
+            initial={{ opacity: 0, x: -20, rotate: -15 }}
+            whileInView={{ opacity: 1, x: 0, rotate: -8 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8, delay: 0.3, ease: "easeOut" }}
+          />
+          <motion.img
+            src={result.chartImage2}
+            alt={`Gráfico 2 para ${result.timeframe}`}
+            className="absolute w-2/3 rounded-lg shadow-2xl border-2 border-gray-700 bg-gray-900 p-1"
+            initial={{ opacity: 0, x: 20, rotate: 15 }}
+            whileInView={{ opacity: 1, x: 0, rotate: 8 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8, delay: 0.3, ease: "easeOut" }}
+          />
+        </div>
+      </motion.div>
+    ))}
+  </div>
+</section>
+{/* ================================================================== */}
+{/* TERMINA LA NUEVA SECCIÓN DE RESULTADOS                          */}
+{/* ================================================================== */}
 
         {/* Benefits Section */}
         <section id="benefits" className="py-16 sm:py-24 bg-darkBgColor">
@@ -637,7 +700,7 @@ const Landing: React.FC = () => {
         </section>
 
         {/* Benefits Section */}
-        <section id="benefits" className="py-16 sm:py-24 bg-darkBgColor">
+        <section id="benefits" className="py-16 sm:py-24 bg-blueColor">
           <div className="max-w-7xl mx-auto px-6">
             <div className="text-center mb-16">
               <h2 className="text-3xl sm:text-4xl font-bold text-white">
@@ -652,14 +715,7 @@ const Landing: React.FC = () => {
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-start">
               {/* Columna Izquierda: Beneficios Clave */}
               <div className="space-y-8">
-                {benefitsData.map((benefit, index) => (
-                  <BenefitCard
-                    key={index}
-                    icon={benefit.icon}
-                    title={benefit.title}
-                    description={benefit.description}
-                  />
-                ))}
+                
               </div>
 
               {/* Columna Derecha: Plataforma CRM */}

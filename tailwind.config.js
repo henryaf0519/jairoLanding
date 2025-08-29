@@ -11,8 +11,9 @@ export default {
     extend: {
       colors: {
         primaryColor: "#FF0000",
-        darkBgWhite: "#ffffff",
+        BgWhite: "#ffffff",
         blueColor: "#05131d",
+        darkBgColor: "#05131d",
         paradigmaRed: "#F91B3C",
         paradigmaMagenta: "#B92E82",
         goldAccent: "#d5ab50",
