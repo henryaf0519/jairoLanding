@@ -7,19 +7,14 @@ import {
 } from "motion/react";
 import {
   CheckCircle,
-  BarChart3,
-  Clock,
-  Zap,
-  Users,
-  XCircle,
-  Minus,
-  Plus,
-  CalendarCheck,
   TrendingUp,
   Target,
+  Rocket,
+  DollarSign,
+  Link,
+  BadgeCheck,
 } from "lucide-react";
 import WistiaPlayer from "../components/WistiaPlayer";
-import CalendlyEmbed from "../components/CalendlyEmbed";
 import CalendlyModal from "../components/CalendlyModal";
 import { FaWhatsapp } from "react-icons/fa";
 import AnimatedStatCard from "../components/AnimatedStatCard";
@@ -28,123 +23,20 @@ const resultsData = [
   {
     id: 1,
     timeframe: "Resultados en 1 mes",
-    description: "Pasamos de $90 millones a",
-    highlight: "$530 millones",
-    chartImage1: "/assets/sales.png", // <-- REEMPLAZA CON TU IMAGEN DE GRÁFICO
-    chartImage2: "/assets/business.png", // <-- REEMPLAZA CON TU IMAGEN DE GRÁFICO
+    description: "Logramos reducir el costo por agenda en un",
+    highlight: "80%",
+    chartImage1: "/assets/imagen1.webp",
+    chartImage2: "/assets/imagen2.webp",
   },
   {
     id: 2,
     timeframe: "Resultados en 3 meses",
-    description: "Pasamos de $90 millones a",
-    highlight: "$840 millones",
-    chartImage1: "/assets/calendar.png", // <-- REEMPLAZA CON TU IMAGEN DE GRÁFICO
-    chartImage2: "/assets/automatizacion.png", // <-- REEMPLAZA CON TU IMAGEN DE GRÁFICO
-  },
-  {
-    id: 3,
-    timeframe: "Resultados en 4 meses",
-    description: "Pasamos de $90 millones a",
-    highlight: "$1.200 millones",
-    chartImage1: "/assets/orvexchat.png", // <-- REEMPLAZA CON TU IMAGEN DE GRÁFICO
-    chartImage2: "/assets/chat.png", // <-- REEMPLAZA CON TU IMAGEN DE GRÁFICO
-  },
+    description: "Pasamos de tener 25 ventas al doble del producto a tener",
+    highlight: "+90 en una sola semana reduciendo x5 los costos.",
+    chartImage1: "/assets/imagen3.webp", // <-- REEMPLAZA CON TU IMAGEN DE GRÁFICO
+    chartImage2: "/assets/imagen4.webp", // <-- REEMPLAZA CON TU IMAGEN DE GRÁFICO
+  }
 ];
-
-const faqData = [
-  {
-    question: "¿Tengo que instalar algo complicado?",
-    answer:
-      "No. Nosotros nos encargamos de todo el proceso técnico. Tú solo necesitas llenar un formulario con la información clave de tu negocio y nosotros hacemos el resto.",
-  },
-  {
-    question: "¿Existe alguna cláusula de permanencia?",
-    answer:
-      "No. Creemos en la flexibilidad. Puedes elegir el plan que mejor se adapte a ti y cambiarlo o cancelarlo cuando lo necesites, sin contratos a largo plazo.",
-  },
-  {
-    question: "¿Qué pasa si no tengo página web o CRM?",
-    answer:
-      "No es un problema. Tu agente de IA puede operar perfectamente a través de WhatsApp y redes sociales. Además, nuestra plataforma incluye un CRM integrado para que gestiones a tus clientes desde el primer día.",
-  },
-  {
-    question: "¿En cuánto tiempo estará funcionando mi agente?",
-    answer:
-      "Nuestro proceso de implementación estándar es de 5 a 7 días hábiles. Así de rápido empezarás a ver los resultados.",
-  },
-  {
-    question: "¿Mis clientes se darán cuenta de que hablan con un robot?",
-    answer:
-      "Precisamente por eso creamos agentes personalizados. Entrenamos a la IA para que hable en el tono y estilo de tu marca. Además, desde nuestra plataforma, tú o tu equipo pueden intervenir en la conversación en cualquier momento para gestionar leads complejos, asegurando una experiencia fluida.",
-  },
-  {
-    question: "¿Esto funciona solo para WhatsApp?",
-    answer:
-      "No, nuestra plataforma es omnicanal. Integramos tu agente en WhatsApp, Instagram, Facebook Messenger y tu sitio web, centralizando todas las conversaciones en una única bandeja de entrada para un control total.",
-  },
-  {
-    question: "¿Qué tan personalizado puede ser el agente?",
-    answer:
-      "Totalmente personalizado. No usamos plantillas genéricas. Construimos un agente de IA a la medida, entrenado para ejecutar los procesos específicos de tu negocio, ya sea vender, dar soporte, calificar o cualquier otra tarea que necesites automatizar.",
-  },
-  {
-    question:
-      "¿Qué tipo de soporte ofrecen una vez que mi agente está funcionando?",
-    answer:
-      "Ofrecemos soporte continuo para asegurar que tu operación funcione sin problemas. Dependiendo de tu plan, esto incluye desde soporte técnico hasta consultoría dedicada para ayudarte a optimizar tus flujos y estrategias.",
-  },
-  {
-    question: "¿Necesito configurar mi número de WhatsApp por mi cuenta?",
-    answer:
-      "Absolutamente nada. Nosotros gestionamos todo el proceso de configuración de la API oficial de WhatsApp a través de la plataforma de Meta. Nos aseguramos de que tu número esté verificado y funcionando sin que tengas que preocuparte por ningún detalle técnico.",
-  },
-];
-
-function FAQItem({ question, answer }: { question: string; answer: string }) {
-  const [isOpen, setIsOpen] = useState(false);
-
-  return (
-    <div className="border-b border-gray-700 py-6">
-      <button
-        onClick={() => setIsOpen(!isOpen)}
-        className="w-full flex justify-between items-center text-left"
-      >
-        <h3 className="text-lg sm:text-xl font-semibold text-white">
-          {question}
-        </h3>
-        <span className="text-primaryColor text-2xl transform transition-transform duration-300">
-          {isOpen ? <Minus size={24} /> : <Plus size={24} />}
-        </span>
-      </button>
-      <div
-        className={`overflow-hidden transition-all duration-300 ease-in-out ${
-          isOpen ? "max-h-96 mt-4" : "max-h-0"
-        }`}
-      >
-        <p className="text-gray-400 leading-relaxed">{answer}</p>
-      </div>
-    </div>
-  );
-}
-
-// Componente para las tarjetas de beneficios
-const BenefitCard = ({
-  icon: Icon,
-  title,
-  description,
-}: {
-  icon: React.ElementType;
-  title: string;
-  description: string;
-}) => (
-  <div className="flex items-start gap-4 p-6 bg-gray-900 rounded-xl shadow-lg transition-all duration-300 hover:bg-gray-800 hover:shadow-primaryColor/20">
-    <Icon className="text-primaryColor text-3xl flex-shrink-0 mt-1" />
-    <div>
-      <h4 className="font-bold text-white text-xl">{title}</h4>
-      <p className="text-gray-400 mt-1">{description}</p>
-    </div>
-  </div>
-);
 
 const Landing: React.FC = () => {
   const fullText = "ESCALAMOS LAS VENTAS DE TU TIENDA ONLINE";
@@ -278,15 +170,15 @@ const Landing: React.FC = () => {
               {/* --- Columna Izquierda: Título y Descripción --- */}
               <div className="lg:col-span-3 text-center lg:text-left">
                 <h2 className="text-4xl md:text-5xl font-bold leading-tight tracking-tight text-gray-900">
-                  Con nuestro sistema te llevaremos a superar los{" "}
-                  <span className="text-paradigmaRed">+$500 millones/mes</span>
+                  Con nuestro método superarás los{" "}
+                  <span className="text-paradigmaRed">+$10k USD/mes</span>
                 </h2>
                 <p className="mt-6 text-lg text-gray-600 leading-relaxed max-w-2xl mx-auto lg:mx-0">
-                  Si vendes <strong className="text-gray-900">$100M</strong> por
-                  mes, tienes un producto validado. Con nuestra estrategia
-                  crearemos{" "}
+                  Si inviertes más de  <strong className="text-gray-900">$500 USD/mes</strong> en pauta
+                  publicitaria, con nuestra <strong className="text-gray-900">estrategia de tiple calificación </strong>
+                  multiplicarás tus agendas calificadas x3, x5 y hasta x10 {" "}
                   <strong className="text-paradigmaRed">
-                    120 anuncios ganadores
+                    con el mismo presupuesto.
                   </strong>{" "}
                   el primer mes que lograrán llevarte a los{" "}
                   <strong className="text-gray-900">$500M</strong>.
@@ -296,13 +188,15 @@ const Landing: React.FC = () => {
               {/* --- Columna Derecha: Tarjetas de Estadísticas --- */}
               <div className="lg:col-span-2 flex flex-col sm:flex-row lg:flex-col justify-center items-center gap-8">
                 <AnimatedStatCard
-                  label="Empresas Escaladas"
-                  targetValue={37}
+                  label="Ingresos Promedio"
+                  targetValue={12}
                   icon={TrendingUp}
+                  prefix="$ "
+                  suffix="K/Mes"
                 />
 
                 <AnimatedStatCard
-                  label="Roas Promedio"
+                  label="Horas Ahorradas"
                   targetValue={8.8}
                   decimalPlaces={1}
                   prefix="X"
@@ -313,743 +207,321 @@ const Landing: React.FC = () => {
           </div>
         </section>
 
-       {/* ================================================================== */}
-{/* INICIA LA NUEVA SECCIÓN DE RESULTADOS (DISEÑO PROFESIONAL)        */}
+        {/* ================================================================== */}
+        {/* INICIA LA SECCIÓN DE RESULTADOS (CORREGIDA PARA MÓVILES)          */}
+        {/* ================================================================== */}
+        <section className="py-16 sm:py-24 bg-darkBgColor overflow-hidden">
+          {" "}
+          {/* <-- AÑADE overflow-hidden AQUÍ */}
+          <div className="max-w-7xl mx-auto px-6 space-y-24">
+            {resultsData.map((result, index) => (
+              <motion.div
+                key={result.id}
+                className="relative grid grid-cols-1 lg:grid-cols-2 gap-16 items-center bg-gray-900/50 backdrop-blur-sm border border-white/10 p-8 rounded-3xl"
+                initial={{ opacity: 0, y: 60 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, amount: 0.3 }}
+                transition={{ duration: 0.8, ease: "easeOut" }}
+              >
+                {/* === Efecto de Brillo Decorativo === */}
+                <div
+                  className={`absolute top-1/2 -translate-y-1/2 ${
+                    index % 2 !== 0
+                      ? "right-0 translate-x-1/2"
+                      : "left-0 -translate-x-1/2"
+                  } w-1/2 h-full bg-paradigmaRed/10 rounded-full blur-3xl -z-10`}
+                />
+
+                {/* --- Columna de Texto --- */}
+                <div
+                  className={`text-center lg:text-left ${
+                    index % 2 !== 0 ? "lg:order-last" : ""
+                  }`}
+                >
+                  <h3 className="text-4xl md:text-5xl font-bold text-white leading-tight">
+                    {result.timeframe}
+                  </h3>
+                  <p className="mt-4 text-xl text-gray-300">
+                    {result.description}{" "}
+                    <span className="font-bold bg-gradient-to-r from-paradigmaRed to-paradigmaMagenta bg-clip-text text-transparent">
+                      {result.highlight}
+                    </span>
+                  </p>
+                </div>
+
+                {/* --- Columna de Gráficos con Composición Separada --- */}
+                <div className="flex items-center justify-center gap-4">
+                  <motion.img
+                    src={result.chartImage1}
+                    alt={`Gráfico 1 para ${result.timeframe}`}
+                    className="w-1/2 rounded-lg shadow-2xl border-2 border-gray-800"
+                    initial={{ opacity: 0, x: -30, rotate: -10 }}
+                    whileInView={{ opacity: 1, x: 0, rotate: -3 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.8, delay: 0.2, ease: "easeOut" }}
+                  />
+                  <motion.img
+                    src={result.chartImage2}
+                    alt={`Gráfico 2 para ${result.timeframe}`}
+                    className="w-1/2 rounded-lg shadow-2xl border-2 border-gray-700 bg-gray-900 p-1"
+                    initial={{ opacity: 0, x: 30, rotate: 10 }}
+                    whileInView={{ opacity: 1, x: 0, rotate: 3 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.8, delay: 0.2, ease: "easeOut" }}
+                  />
+                </div>
+              </motion.div>
+            ))}
+          </div>
+        </section>
+
+        {/* ================================================================== */}
+{/* INICIA LA NUEVA SECCIÓN "EL PROCESO" (VIDEO MÁS GRANDE)          */}
 {/* ================================================================== */}
-<section className="py-16 sm:py-24 bg-darkBgColor">
-  <div className="max-w-7xl mx-auto px-6 space-y-24">
-    {resultsData.map((result, index) => (
+<section className="relative py-24 sm:py-32 bg-darkBgColor overflow-hidden">
+  {/* === Efecto de Brillo de Fondo === */}
+  <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-1/2 h-full max-w-4xl bg-paradigmaRed/10 rounded-full blur-3xl -z-0" />
+
+  <div className="relative z-10 max-w-7xl mx-auto px-6">
+    <div className="grid grid-cols-1 lg:grid-cols-5 gap-16 items-center">
+      
+      {/* --- Columna de Texto (ocupa 2 de 5 columnas) --- */}
       <motion.div
-        key={result.id}
-        className="relative grid grid-cols-1 lg:grid-cols-2 gap-16 items-center bg-gray-900/50 backdrop-blur-sm border border-white/10 p-8 rounded-3xl"
-        initial={{ opacity: 0, y: 60 }}
-        whileInView={{ opacity: 1, y: 0 }}
+        className="lg:col-span-2 text-center lg:text-left"
+        initial={{ opacity: 0, x: -50 }}
+        whileInView={{ opacity: 1, x: 0 }}
         viewport={{ once: true, amount: 0.3 }}
         transition={{ duration: 0.8, ease: "easeOut" }}
       >
-        {/* === Efecto de Brillo Decorativo === */}
-        <div className={`absolute top-1/2 -translate-y-1/2 ${index % 2 !== 0 ? 'right-0 translate-x-1/2' : 'left-0 -translate-x-1/2'} w-1/2 h-full bg-paradigmaRed/10 rounded-full blur-3xl -z-10`} />
+        <p className="font-semibold text-paradigmaRed tracking-wider">CÓMO LO HACEMOS</p>
+        <h2 className="mt-2 text-4xl md:text-5xl font-bold text-white">
+          El Proceso Probado que Escala Expertos 
+        </h2>
+        <p className="mt-4 text-lg text-gray-400">
+          No dejamos nada al azar. Nuestro método está diseñado para que expertos digitales como tú consigan más agendas calificadas, menor desgaste de tiempo y un crecimiento predecible en menos de 90 días. 
+        </p>
+        
+        <ul className="mt-8 space-y-4 text-left">
+          <li className="flex items-start gap-3">
+            <CheckCircle className="text-paradigmaRed w-6 h-6 mt-1 flex-shrink-0" />
+            <span className="text-gray-300"><strong className="text-white">Diagnóstico Estratégico:</strong> Definimos la base de tu negocio, entendemos tu propuesta única y diseñamos una estrategia tan potente que genera en tus prospectos el miedo a perder la oportunidad de trabajar contigo. </span>
+          </li>
+          <li className="flex items-start gap-3">
+            <CheckCircle className="text-paradigmaRed w-6 h-6 mt-1 flex-shrink-0" />
+            <span className="text-gray-300"><strong className="text-white">Sistema de Triple Calificación:</strong> Implementamos filtros automáticos que ahorran horas de llamadas improductivas, asegurando que sólo lleguen a tu calendario prospectos listos para invertir en tu formación. </span>
+          </li>
+          <li className="flex items-start gap-3">
+            <CheckCircle className="text-paradigmaRed w-6 h-6 mt-1 flex-shrink-0" />
+            <span className="text-gray-300"><strong className="text-white">Optimización del Algoritmo: </strong> Descontaminamos y optimizamos tu cuenta publicitaria para que cada dólar invertido multiplique tus agendas x3, x5 e incluso x10 sin disparar los costos. </span>
+          </li>
+        </ul>
 
-        {/* --- Columna de Texto --- */}
-        <div className={`text-center lg:text-left ${index % 2 !== 0 ? 'lg:order-last' : ''}`}>
-          <h3 className="text-4xl md:text-5xl font-bold text-white leading-tight">
-            {result.timeframe}
-          </h3>
-          <p className="mt-4 text-xl text-gray-300">
-            {result.description}{' '}
-            <span className="font-bold bg-gradient-to-r from-paradigmaRed to-paradigmaMagenta bg-clip-text text-transparent">
-              {result.highlight}
+        <div className="mt-10">
+          <a
+            href="https://wa.me/TUNUMERO" // <-- REEMPLAZA CON TU NÚMERO
+            target="_blank"
+            rel="noopener noreferrer"
+            className="relative inline-flex items-center justify-center p-0.5 group"
+          >
+            <div className="absolute inset-0 bg-gradient-to-r from-paradigmaRed to-paradigmaMagenta rounded-full blur opacity-75 group-hover:opacity-100 transition duration-1000 group-hover:duration-200"></div>
+            <span className="relative bg-black hover:bg-gray-900 transition-colors duration-300 rounded-full px-8 py-4 text-lg font-bold text-white flex items-center">
+              Quiero Escalar Mi Negocio como Experto 
             </span>
-          </p>
-        </div>
-
-        {/* --- Columna de Gráficos con Composición Dinámica --- */}
-        <div className="relative h-60 flex items-center justify-center">
-          <motion.img
-            src={result.chartImage1}
-            alt={`Gráfico 1 para ${result.timeframe}`}
-            className="absolute w-2/3 rounded-lg shadow-2xl border-2 border-gray-800"
-            initial={{ opacity: 0, x: -20, rotate: -15 }}
-            whileInView={{ opacity: 1, x: 0, rotate: -8 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.8, delay: 0.3, ease: "easeOut" }}
-          />
-          <motion.img
-            src={result.chartImage2}
-            alt={`Gráfico 2 para ${result.timeframe}`}
-            className="absolute w-2/3 rounded-lg shadow-2xl border-2 border-gray-700 bg-gray-900 p-1"
-            initial={{ opacity: 0, x: 20, rotate: 15 }}
-            whileInView={{ opacity: 1, x: 0, rotate: 8 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.8, delay: 0.3, ease: "easeOut" }}
-          />
+          </a>
         </div>
       </motion.div>
-    ))}
+
+      {/* --- Columna de Video (ocupa 3 de 5 columnas) --- */}
+      <motion.div
+        className="lg:col-span-3 relative flex items-center justify-center"
+        initial={{ opacity: 0, scale: 0.9 }}
+        whileInView={{ opacity: 1, scale: 1 }}
+        viewport={{ once: true, amount: 0.3 }}
+        transition={{ duration: 0.8, ease: "easeOut" }}
+      >
+        <div className="relative p-1 bg-gradient-to-br from-white/10 to-transparent rounded-2xl shadow-2xl w-full">
+          <div className="w-full aspect-video bg-black rounded-xl overflow-hidden">
+            <WistiaPlayer
+              mediaId="b0dckf0a2r"
+              className="w-full h-full"
+            />
+          </div>
+        </div>
+      </motion.div>
+
+    </div>
   </div>
 </section>
-{/* ================================================================== */}
-{/* TERMINA LA NUEVA SECCIÓN DE RESULTADOS                          */}
-{/* ================================================================== */}
+        
 
-        {/* Benefits Section */}
-        <section id="benefits" className="py-16 sm:py-24 bg-darkBgColor">
+        {/* ================================================================== */}
+        {/* INICIA LA SECCIÓN "¿QUIÉN SOY?"                                    */}
+        {/* ================================================================== */}
+        <section className="py-24 sm:py-32 bg-white">
           <div className="max-w-7xl mx-auto px-6">
-            {/* Títulos */}
-            <div className="text-center mb-16">
-              <h2 className="text-3xl sm:text-5xl font-bold text-white leading-tight">
-                ¿Qué lograrás con{" "}
-                <span className="text-primaryColor">ORVEX</span>?
-              </h2>
-              <p className="mt-4 text-lg text-gray-400 max-w-3xl mx-auto">
-                Transforma tu negocio con un sistema inteligente que trabaja
-                para ti.
-              </p>
-            </div>
-
-            {/* Grid de 3 Columnas */}
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-10 md:gap-16">
-              {/* Columna 1: Automatización */}
-              <div className="text-center flex flex-col items-center">
-                <div className="p-5 bg-gray-900 rounded-full border-2 border-primaryColor/30 mb-6 transition-all duration-300 hover:border-primaryColor">
-                  <Zap size={32} className="text-primaryColor" />
-                </div>
-                <h3 className="text-2xl font-semibold text-white mb-3">
-                  Automatización 24/7
-                </h3>
-                <p className="text-gray-400 leading-relaxed">
-                  Recupera de 5 a 10 horas semanales delegando las respuestas
-                  repetitivas a un agente que nunca descansa. Tu IA gestionará
-                  consultas en WhatsApp, web y redes para que tú te dediques a
-                  crecer.
-                </p>
-              </div>
-
-              {/* Columna 2: Conversión */}
-              <div className="text-center flex flex-col items-center">
-                <div className="p-5 bg-gray-900 rounded-full border-2 border-primaryColor/30 mb-6 transition-all duration-300 hover:border-primaryColor">
-                  <CalendarCheck size={32} className="text-primaryColor" />
-                </div>
-                <h3 className="text-2xl font-semibold text-white mb-3">
-                  Conversión Inteligente
-                </h3>
-                <p className="text-gray-400 leading-relaxed">
-                  Llena tu agenda con citas confirmadas y pagadas por
-                  adelantado. Nuestro sistema asegura cada reserva con un pago,
-                  eliminando las ausencias y garantizando tu flujo de caja.
-                </p>
-              </div>
-
-              {/* Columna 3: Escalabilidad */}
-              <div className="text-center flex flex-col items-center">
-                <div className="p-5 bg-gray-900 rounded-full border-2 border-primaryColor/30 mb-6 transition-all duration-300 hover:border-primaryColor">
-                  <TrendingUp size={32} className="text-primaryColor" />
-                </div>
-                <h3 className="text-2xl font-semibold text-white mb-3">
-                  Escalabilidad Simple
-                </h3>
-                <p className="text-gray-400 leading-relaxed">
-                  Crece sin aumentar tus costos fijos. Implementa tecnología de
-                  punta sin necesidad de contratar más personal ni de tener
-                  conocimientos técnicos. Nosotros nos encargamos de todo.
-                </p>
-              </div>
-            </div>
-
-            {/* Banner Inferior */}
-            <div className="max-w-4xl mx-auto mt-20 bg-gray-900/50 border border-primaryColor/30 rounded-lg p-5 text-center">
-              <p className="text-lg font-semibold text-white">
-                ✨ Y lo mejor de todo: lo conseguirás con un{" "}
-                <span className="text-primaryColor">
-                  sistema claro y probado
-                </span>
-                , funcionando para ti en menos de 7 días.
-              </p>
-            </div>
-          </div>
-        </section>
-
-        {/* How You'll Achieve It Section */}
-        <section id="how-to" className="py-16 sm:py-24 bg-darkBgColor">
-          <div className="max-w-7xl mx-auto px-6">
-            <div className="relative bg-gray-900 rounded-2xl shadow-2xl overflow-hidden">
-              <div className="grid grid-cols-1 lg:grid-cols-2">
-                {/* Columna Izquierda: Panel de Texto */}
-                <div className="relative z-10 p-8 sm:p-12 flex flex-col justify-center">
-                  <div>
-                    <h2 className="text-3xl sm:text-4xl font-bold text-white leading-tight">
-                      ¿Cómo lo Vas a Lograr?
-                    </h2>
-                    <p className="mt-2 text-lg text-primaryColor font-semibold">
-                      Con tu propio Agente Digital de IA 24/7
-                    </p>
-                    <p className="mt-4 text-gray-400">
-                      Implementamos un sistema inteligente que se encarga de las
-                      tareas repetitivas para que tú te enfoques en lo que
-                      realmente importa:
-                    </p>
-                  </div>
-
-                  <ul className="space-y-4 mt-8">
-                    <li className="flex items-center gap-3">
-                      <CheckCircle
-                        size={20}
-                        className="text-green-500 flex-shrink-0"
-                      />
-                      <span className="text-lg text-gray-300">
-                        Filtra clientes y responde preguntas frecuentes.
-                      </span>
-                    </li>
-                    <li className="flex items-center gap-3">
-                      <CheckCircle
-                        size={20}
-                        className="text-green-500 flex-shrink-0"
-                      />
-                      <span className="text-lg text-gray-300">
-                        Agenda citas y cobra por adelantado.
-                      </span>
-                    </li>
-                    <li className="flex items-center gap-3">
-                      <CheckCircle
-                        size={20}
-                        className="text-green-500 flex-shrink-0"
-                      />
-                      <span className="text-lg text-gray-300">
-                        Evita cancelaciones y asegura tu agenda.
-                      </span>
-                    </li>
-                    <li className="flex items-center gap-3">
-                      <CheckCircle
-                        size={20}
-                        className="text-green-500 flex-shrink-0"
-                      />
-                      <span className="text-lg text-gray-300">
-                        Listo para ti en menos de 7 días.
-                      </span>
-                    </li>
-                  </ul>
-
-                  <div className="mt-10">
-                    <button
-                      onClick={() => setIsModalOpen(true)}
-                      className="bg-white text-black font-bold py-3 px-8 rounded-full shadow-lg transition-transform duration-300 transform hover:scale-105"
-                    >
-                      Quiero mi Agente Ahora
-                    </button>
-                  </div>
-                </div>
-
-                {/* Columna Derecha: Imagen */}
-                {/* En pantallas grandes (lg), esta imagen se posicionará de forma absoluta para crear el efecto de superposición */}
-                <div className="hidden lg:block lg:relative">
-                  <img
-                    src="/assets/orvexchat.png" // RECOMENDACIÓN: Usa aquí una imagen profesional de tu equipo o de una persona sonriendo.
-                    alt="Un equipo profesional colaborando gracias a la eficiencia de Orvex"
-                    className="absolute inset-0 w-full h-full object-cover"
-                  />
-                  {/* Capa de degradado para fusionar la imagen con el fondo */}
-                  <div className="absolute inset-0 bg-gradient-to-l from-transparent via-gray-900/50 to-gray-900"></div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        {/* Transformation Timeline Section  */}
-        <section
-          id="transformacion"
-          className="py-16 sm:py-24 bg-black relative"
-        >
-          <div className="absolute inset-0 overflow-hidden">
-            {/* Elementos de fondo decorativos (Efecto Aurora) */}
-            <div className="absolute top-0 left-0 w-96 h-96 bg-primaryColor/10 rounded-full blur-3xl opacity-50 -translate-x-1/2 -translate-y-1/2"></div>
-            <div className="absolute bottom-0 right-0 w-96 h-96 bg-primaryColor/10 rounded-full blur-3xl opacity-50 translate-x-1/2 translate-y-1/2"></div>
-          </div>
-
-          <div className="max-w-7xl mx-auto px-6 relative z-10">
-            {/* Título de la Sección */}
-            <div className="text-center mb-24">
-              <h2 className="text-3xl sm:text-5xl font-bold text-white leading-tight">
-                La Nueva Era de tu{" "}
-                <span className="text-primaryColor">Operación</span>
-              </h2>
-              <p className="mt-4 text-lg text-gray-400 max-w-3xl mx-auto">
-                Implementamos un sistema inteligente que se encarga del trabajo
-                pesado para que tú te dediques a lo que nadie más puede hacer:
-                hacer crecer tu negocio.
-              </p>
-            </div>
-
-            {/* Contenedor de la Línea de Tiempo */}
-            <div className="relative">
-              {/* Línea Vertical Central (visible en pantallas grandes) */}
-              <div className="hidden lg:block absolute top-12 bottom-12 left-1/2 w-0.5 bg-gray-800"></div>
-
-              <div className="space-y-24">
-                {/* Beneficio 1: Automatización */}
-                <div className="relative grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-                  <div className="hidden lg:block absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-5 h-5 bg-primaryColor rounded-full border-4 border-black ring-4 ring-primaryColor/50"></div>
-                  {/* Columna de Imagen */}
-                  <div className="lg:order-last">
-                    <img
-                      src="/assets/automatizacion.png"
-                      alt="Dashboard de automatización"
-                      className="rounded-lg shadow-md border border-gray-800 w-full h-auto object-contain lg:aspect-video"
-                    />
-                  </div>
-                  {/* Columna de Texto */}
-                  <div className="text-center lg:text-left">
-                    <h3 className="text-3xl font-semibold text-white">
-                      Automatización sin complicaciones
-                    </h3>
-                    <p className="mt-4 text-lg text-gray-400 leading-relaxed">
-                      Olvídate de lo técnico y de contratar asistentes
-                      adicionales. Te entregamos un sistema listo para usar,
-                      completamente configurado, para que empieces a
-                      aprovecharlo desde el primer día sin perder tiempo.
-                    </p>
-                    <div className="mt-8 flex justify-center lg:justify-start">
-                      <button
-                        onClick={() => setIsModalOpen(true)}
-                        className="bg-primaryColor text-white font-bold py-3 px-6 rounded-full shadow-lg transition-all duration-300 transform hover:scale-105 hover:shadow-primaryColor/50"
-                      >
-                        Automatizar mi Negocio Ahora
-                      </button>
-                    </div>
-                  </div>
-                </div>
-
-                {/* Beneficio 2: Conversión */}
-                <div className="relative grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-                  <div className="hidden lg:block absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-5 h-5 bg-primaryColor rounded-full border-4 border-black ring-4 ring-primaryColor/50"></div>
-                  {/* Columna de Imagen */}
-                  <div>
-                    <img
-                      src="/assets/calendar.png"
-                      alt="Calendario con citas pagadas"
-                      className="rounded-lg shadow-md border border-gray-800 w-full h-auto object-contain lg:aspect-video"
-                    />
-                  </div>
-                  {/* Columna de Texto */}
-                  <div className="text-center lg:text-left lg:pl-12">
-                    <h3 className="text-3xl font-semibold text-white">
-                      Agenda Llena + Cobro Asegurado
-                    </h3>
-                    <p className="mt-4 text-lg text-gray-400 leading-relaxed">
-                      Se acabaron los ‘te confirmo después’. Con nuestro agente,
-                      solo agendas a quienes pagan y van en serio. Más ventas
-                      cerradas, menos tiempo perdido.
-                    </p>
-                    <div className="mt-8 flex justify-center lg:justify-start">
-                      <button
-                        onClick={() => setIsModalOpen(true)}
-                        className="bg-primaryColor text-white font-bold py-3 px-6 rounded-full shadow-lg transition-all duration-300 transform hover:scale-105 hover:shadow-primaryColor/50"
-                      >
-                        Asegurar mis Cobros
-                      </button>
-                    </div>
-                  </div>
-                </div>
-
-                {/* Beneficio 3: Escalabilidad */}
-                <div className="relative grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-                  <div className="hidden lg:block absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-5 h-5 bg-primaryColor rounded-full border-4 border-black ring-4 ring-primaryColor/50"></div>
-                  {/* Columna de Imagen */}
-                  <div className="lg:order-last">
-                    <img
-                      src="/assets/business.png"
-                      alt="Gráfico de crecimiento 24/7"
-                      className="rounded-lg shadow-md border border-gray-800 w-full h-auto object-contain lg:aspect-video"
-                    />
-                  </div>
-                  {/* Columna de Texto */}
-                  <div className="text-center lg:text-left">
-                    <h3 className="text-3xl font-semibold text-white">
-                      Tu Negocio Activo las 24 Horas, Sin Contratar Personal
-                    </h3>
-                    <p className="mt-4 text-lg text-gray-400 leading-relaxed">
-                      Tu agente trabaja de forma continua: responde preguntas,
-                      agenda citas y atrae nuevos clientes a cualquier hora, sin
-                      nómina ni limitaciones de horario.
-                    </p>
-                    <div className="mt-8 flex justify-center lg:justify-start">
-                      <button
-                        onClick={() => setIsModalOpen(true)}
-                        className="bg-primaryColor text-white font-bold py-3 px-6 rounded-full shadow-lg transition-all duration-300 transform hover:scale-105 hover:shadow-primaryColor/50"
-                      >
-                        Activar mi Agente 24/7
-                      </button>
-                    </div>
-                  </div>
-                </div>
-
-                {/* Beneficio 4: Ventas */}
-                <div className="relative grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-                  <div className="hidden lg:block absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-5 h-5 bg-primaryColor rounded-full border-4 border-black ring-4 ring-primaryColor/50"></div>
-                  {/* Columna de Imagen */}
-                  <div>
-                    <img
-                      src="/assets/sales.png"
-                      alt="Impulso de ventas con IA"
-                      className="rounded-lg shadow-md border border-gray-800 w-full h-auto object-contain lg:aspect-video"
-                    />
-                  </div>
-                  {/* Columna de Texto */}
-                  <div className="text-center lg:text-left lg:pl-12">
-                    <h3 className="text-3xl font-semibold text-white">
-                      Tu Mejor Vendedor, Siempre Activo
-                    </h3>
-                    <p className="mt-4 text-lg text-gray-400 leading-relaxed">
-                      Un agente que nunca se detiene: comparte promociones,
-                      impulsa tus ventas y mantiene a tus clientes pensando en
-                      tu negocio, incluso mientras duermes.
-                    </p>
-                    <div className="mt-8 flex justify-center lg:justify-start">
-                      <button
-                        onClick={() => setIsModalOpen(true)}
-                        className="bg-primaryColor text-white font-bold py-3 px-6 rounded-full shadow-lg transition-all duration-300 transform hover:scale-105 hover:shadow-primaryColor/50"
-                      >
-                        Impulsar mi negocio
-                      </button>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        {/* Benefits Section */}
-        <section id="benefits" className="py-16 sm:py-24 bg-blueColor">
-          <div className="max-w-7xl mx-auto px-6">
-            <div className="text-center mb-16">
-              <h2 className="text-3xl sm:text-4xl font-bold text-white">
-                Resultados, no solo promesas.
-              </h2>
-              <p className="mt-4 text-lg text-primaryColor font-semibold max-w-3xl mx-auto">
-                Esto es lo que ORVEX consigue para tu negocio desde la primera
-                semana.
-              </p>
-            </div>
-
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-start">
-              {/* Columna Izquierda: Beneficios Clave */}
-              <div className="space-y-8">
-                
-              </div>
-
-              {/* Columna Derecha: Plataforma CRM */}
-              <div className="bg-gray-900 p-8 rounded-2xl border border-gray-700 shadow-2xl">
-                <h3 className="text-2xl sm:text-3xl font-semibold text-white mb-6">
-                  Tu <span className="text-primaryColor">Ecosistema</span> de
-                  Crecimiento
-                </h3>
-                <p className="text-lg text-gray-300 leading-relaxed">
-                  ORVEX no es solo un agente de IA; es una plataforma de gestión
-                  integral diseñada para convertir conversaciones en clientes.
-                </p>
-                <ul className="mt-6 space-y-4">
-                  <li className="flex items-start gap-3">
-                    <CheckCircle className="text-primaryColor mt-1.5 flex-shrink-0" />
-                    <span className="text-gray-300">
-                      <span className="font-semibold text-white">
-                        Bandeja Omnicanal:
-                      </span>{" "}
-                      Unifica WhatsApp, web y redes sociales en un solo lugar.
-                    </span>
-                  </li>
-                  <li className="flex items-start gap-3">
-                    <CheckCircle className="text-primaryColor mt-1.5 flex-shrink-0" />
-                    <span className="text-gray-300">
-                      <span className="font-semibold text-white">
-                        Gestión de Pipeline:
-                      </span>{" "}
-                      Visualiza y gestiona cada lead, desde el primer contacto
-                      hasta el cierre de la venta.
-                    </span>
-                  </li>
-                  <li className="flex items-start gap-3">
-                    <CheckCircle className="text-primaryColor mt-1.5 flex-shrink-0" />
-                    <span className="text-gray-300">
-                      <span className="font-semibold text-white">
-                        Marketing Automatizado:
-                      </span>{" "}
-                      Envía promociones, recordatorios y contenido de valor para
-                      nutrir a tus clientes sin esfuerzo.
-                    </span>
-                  </li>
-                </ul>
-                <p className="mt-6 text-lg text-white font-medium">
-                  Toma el control total de la experiencia de tu cliente.
-                </p>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        {/* Investment Section */}
-        <section
-          id="investment-proof"
-          className="py-16 sm:py-24 bg-darkBgColor"
-        >
-          <div className="max-w-7xl mx-auto px-6">
-            <div className="grid grid-cols-1 lg:grid-cols-3 gap-12 items-start">
-              <div className="lg:col-span-2 bg-gray-900 p-8 rounded-2xl border border-gray-800 shadow-2xl">
-                <h2 className="text-3xl sm:text-4xl font-bold text-white mb-2">
-                  Una Inversión Inteligente, no un Gasto
-                </h2>
-                <p className="text-lg text-gray-400 mb-8">
-                  Analicemos los números. Un asistente tradicional puede ser un
-                  recurso valioso, pero ¿es la opción más eficiente?
-                </p>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                  <div className="border border-gray-700 p-6 rounded-xl">
-                    <h3 className="text-xl font-semibold text-white">
-                      Asistente Humano
-                    </h3>
-                    <p className="text-4xl font-bold text-gray-500 my-4">
-                      $2.5M+<span className="text-lg font-normal">/mes</span>
-                    </p>
-                    <ul className="space-y-2 text-gray-400">
-                      <li className="flex items-center gap-2">
-                        <XCircle className="text-red-500" /> Horario limitado
-                      </li>
-                      <li className="flex items-center gap-2">
-                        <XCircle className="text-red-500" /> Propenso a errores
-                      </li>
-                      <li className="flex items-center gap-2">
-                        <XCircle className="text-red-500" /> Necesita días
-                        libres
-                      </li>
-                    </ul>
-                  </div>
-                  <div className="border-2 border-primaryColor p-6 rounded-xl relative overflow-hidden">
-                    <div className="absolute top-0 right-0 bg-primaryColor text-white text-xs font-bold px-3 py-1 rounded-bl-lg">
-                      RECOMENDADO
-                    </div>
-                    <h3 className="text-xl font-semibold text-white">
-                      Agente IA ORVEX
-                    </h3>
-                    <p className="text-4xl font-bold text-white my-4">
-                      Fracción
-                      <span className="text-lg font-normal"> del costo</span>
-                    </p>
-                    <ul className="space-y-2 text-gray-300">
-                      <li className="flex items-center gap-2">
-                        <CheckCircle className="text-green-500" /> Trabaja 24/7
-                      </li>
-                      <li className="flex items-center gap-2">
-                        <CheckCircle className="text-green-500" /> Precisión
-                        milimétrica
-                      </li>
-                      <li className="flex items-center gap-2">
-                        <CheckCircle className="text-green-500" /> Nunca
-                        descansa
-                      </li>
-                    </ul>
-                  </div>
-                </div>
-                <p className="mt-8 text-center text-lg text-gray-300 italic">
-                  "Si hoy pierdes al menos una venta a la semana, ya estás
-                  pagando el costo de NO tenerlo."
-                </p>
-              </div>
-
-              <div className="bg-gray-900 p-8 rounded-2xl border border-gray-800 shadow-2xl h-full flex flex-col">
-                <div>
-                  <div className="text-primaryColor text-4xl mb-4">
-                    <Users />
-                  </div>
-                  <h3 className="text-2xl font-semibold text-white mb-4">
-                    Únete a los Líderes del Mercado
-                  </h3>
-                  <p className="text-gray-400 leading-relaxed">
-                    Empresas de diversos sectores como tiendas virtuales,
-                    agencias de marketing, centros médicos y psicológicos,
-                    clínicas estéticas, inmobiliarias, restaurantes y
-                    profesionales de alto rendimiento ya confían en ORVEX.
-                  </p>
-                </div>
-                <div className="flex-grow"></div>
-                <p className="text-white font-semibold mt-6">
-                  Si ellos ya transformaron su negocio, tú también puedes
-                  hacerlo.
-                </p>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        {/* Final CTA Section */}
-        <section id="final-cta" className="py-20 sm:py-24 bg-black">
-          <div className="max-w-4xl mx-auto px-6 text-center">
-            <h2 className="text-3xl sm:text-5xl font-bold text-white leading-tight">
-              ¿Listo para Dejar de Perder Clientes y Tiempo?
-            </h2>
-            <p className="mt-4 text-lg sm:text-xl text-gray-300 max-w-2xl mx-auto">
-              Es hora de implementar la solución de IA que trabaja por ti 24/7,
-              convierte más y te devuelve el control de tu negocio.
-            </p>
-            <div className="mt-10">
-              <button
-                onClick={() => setIsModalOpen(true)}
-                className="bg-primaryColor hover:bg-red-700 text-white font-bold py-4 px-10 rounded-full shadow-lg transition-colors duration-300 transform hover:scale-105 inline-block text-xl"
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+              {/* --- Columna Izquierda: Tarjeta de Fundador (Estilo Instagram) --- */}
+              <motion.div
+                className="bg-gray-900 border border-white/10 rounded-3xl p-8 shadow-2xl"
+                initial={{ opacity: 0, scale: 0.9 }}
+                whileInView={{ opacity: 1, scale: 1 }}
+                viewport={{ once: true, amount: 0.5 }}
+                transition={{ duration: 0.7, ease: "easeOut" }}
               >
-                Quiero Implementar mi Agente de IA Ahora
-              </button>
-            </div>
-          </div>
-        </section>
+                <div className="flex items-center gap-6">
+                  <img
+                    src="/assets/woman1.png" // <-- REEMPLAZA CON TU FOTO DE PERFIL
+                    alt="Foto de Jose Huila"
+                    className="w-24 h-24 rounded-full border-4 border-gray-800 object-cover"
+                  />
+                  <div>
+                    <h3 className="text-2xl font-bold text-white flex items-center gap-2">
+                      Jose Huila
+                      <BadgeCheck className="w-6 h-6 text-blue-500" />
+                    </h3>
+                    <p className="text-gray-400">@josehuilaa</p>
+                  </div>
+                </div>
 
-        {/* --- SECCIÓN DE PRECIOS AÑADIDA --- 
-        <section id="pricing" className="py-16 sm:py-24 bg-darkBgColor">
-          <div className="max-w-7xl mx-auto px-6">
-            <div className="text-center mb-16">
-              <h2 className="text-3xl sm:text-4xl font-bold text-white">
-                Un Plan para Cada Etapa de tu Negocio
-              </h2>
-              <p className="mt-4 text-lg text-gray-300 max-w-3xl mx-auto">
-                Elige la potencia que necesitas hoy y escala con nosotros
-                mañana. Sin complicaciones.
-              </p>
-            </div>
+                <div className="grid grid-cols-3 gap-4 text-center my-6">
+                  <div>
+                    <p className="text-2xl font-bold text-white">16</p>
+                    <p className="text-sm text-gray-400">Publicaciones</p>
+                  </div>
+                  <div>
+                    <p className="text-2xl font-bold text-white">16,3 mil</p>
+                    <p className="text-sm text-gray-400">Seguidores</p>
+                  </div>
+                  <div>
+                    <p className="text-2xl font-bold text-white">83</p>
+                    <p className="text-sm text-gray-400">Seguidos</p>
+                  </div>
+                </div>
 
-            <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 items-stretch">
-              {pricingPlans.map((plan, index) => (
-                <div
-                  key={index}
-                  className={`bg-gray-900 p-8 rounded-2xl border h-full flex flex-col shadow-lg 
-                            ${
-                              plan.isPopular
-                                ? "border-2 border-primaryColor relative scale-105 shadow-2xl"
-                                : "border-gray-800"
-                            }`}
-                >
-                  {plan.isPopular && (
-                    <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-primaryColor text-white text-sm font-bold px-4 py-1 rounded-full">
-                      Más Popular
-                    </div>
-                  )}
-                  <h3 className="text-2xl font-semibold text-white">
-                    {plan.name}
-                  </h3>
-                  <p className="text-primaryColor font-semibold mt-1">
-                    {plan.description}
+                <div className="text-gray-300 space-y-2">
+                  <p className="flex items-center gap-2">
+                    <Rocket className="w-4 h-4 text-paradigmaRed" /> Escalo
+                    ventas de marcas con contenido y anuncios
                   </p>
-                  <div className="my-8">
-                    <span
-                      className={`font-bold text-white ${
-                        plan.priceDetails ? "text-5xl" : "text-4xl"
-                      }`}
-                    >
-                      {plan.price}
-                    </span>
-                    {plan.priceDetails && (
-                      <span className="text-lg text-gray-400">
-                        {" "}
-                        {plan.priceDetails}
-                      </span>
-                    )}
-                  </div>
-                  <div className="flex-grow">
-                    <h4 className="font-bold text-white text-lg mb-4">
-                      {plan.extraInfo || "Características Principales:"}
-                    </h4>
-                    <ul className="space-y-3 text-gray-300 mb-6">
-                      {plan.features.map((feature, i) => (
-                        <li key={i} className="flex items-center gap-3">
-                          <CheckCircle className="text-green-500 flex-shrink-0" />{" "}
-                          {feature}
-                        </li>
-                      ))}
-                    </ul>
-                    {plan.name !== "Personalizado" && (
-                      <>
-                        <h4 className="font-bold text-white text-lg mb-4 border-t border-gray-700 pt-6">
-                          Incluido en todos los planes:
-                        </h4>
-                        <ul className="space-y-3 text-gray-300">
-                          <li className="flex items-start gap-3">
-                            <CheckCircle className="text-green-500 mt-1 flex-shrink-0" />
-                            <div>
-                              <span className="font-semibold">
-                                WhatsApp Business API Gratuita:
-                              </span>{" "}
-                              Te ayudamos con la configuración y la verificación
-                              oficial (sello azul).
-                            </div>
-                          </li>
-                          <li className="flex items-start gap-3">
-                            <CheckCircle className="text-green-500 mt-1 flex-shrink-0" />
-                            <div>
-                              <span className="font-semibold">
-                                Bandeja de Entrada Omnicanal:
-                              </span>{" "}
-                              Gestiona WhatsApp, Instagram, Messenger y más en
-                              un solo lugar.
-                            </div>
-                          </li>
-                          <li className="flex items-start gap-3">
-                            <CheckCircle className="text-green-500 mt-1 flex-shrink-0" />
-                            <div>
-                              <span className="font-semibold">
-                                Plataforma de Equipo:
-                              </span>{" "}
-                              Asigna conversaciones, crea plantillas y
-                              automatiza respuestas.
-                            </div>
-                          </li>
-                        </ul>
-                      </>
-                    )}
-                  </div>
-                  <button
-                    onClick={() => setIsModalOpen(true)}
-                    className={`mt-8 block w-full text-center font-bold py-3 px-8 rounded-full transition-colors duration-300 
-                                ${
-                                  plan.isPopular
-                                    ? "bg-primaryColor hover:bg-red-700 text-white"
-                                    : "bg-gray-700 hover:bg-gray-600 text-white"
-                                }`}
-                  >
-                    {plan.buttonText}
+                  <p className="flex items-center gap-2">
+                    <DollarSign className="w-4 h-4 text-paradigmaRed" /> $2.7M
+                    USD Facturados con E-Commerce
+                  </p>
+                  <p className="flex items-center gap-2">
+                    <Link className="w-4 h-4 text-paradigmaRed" /> ¡Así puedo
+                    ayudar a tu empresa!
+                  </p>
+                </div>
+
+                <div className="flex gap-4 mt-6">
+                  <button className="flex-1 bg-blue-500 text-white font-bold py-3 rounded-lg hover:bg-blue-600 transition-colors">
+                    Seguir
+                  </button>
+                  <button className="flex-1 bg-gray-700 text-white font-bold py-3 rounded-lg hover:bg-gray-600 transition-colors">
+                    Mensaje
                   </button>
                 </div>
-              ))}
+              </motion.div>
+
+              {/* --- Columna Derecha: Texto "¿Quién Soy?" --- */}
+              <motion.div
+                className="text-center lg:text-left"
+                initial={{ opacity: 0, x: 50 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true, amount: 0.5 }}
+                transition={{ duration: 0.7, ease: "easeOut" }}
+              >
+                <h2 className="text-4xl md:text-5xl font-bold text-white">
+                  ¿Quién soy?
+                </h2>
+                <p className="mt-6 text-xl text-gray-600 leading-relaxed">
+                  Un gusto, soy Jose. Trabajo en marketing desde que tenía{" "}
+                  <span className="text-paradigmaRed font-semibold">
+                    14 años
+                  </span>
+                  ; empecé desde cero ofreciendo mi trabajo gratis.
+                </p>
+                <p className="mt-4 text-xl text-gray-600 leading-relaxed">
+                  <span className="text-paradigmaRed font-semibold">
+                    5 Años después
+                  </span>{" "}
+                  desarrollamos un método con la que escalamos empresas a vender{" "}
+                  <span className="font-bold bg-gradient-to-r from-paradigmaRed to-paradigmaMagenta bg-clip-text text-transparent">
+                    +$500M/mes
+                  </span>
+                  .
+                </p>
+              </motion.div>
             </div>
           </div>
         </section>
-        */}
 
-        {/* FAQ Section */}
-        <section id="faq" className="py-16 sm:py-24 bg-darkBgColor">
-          <div className="max-w-4xl mx-auto px-6">
-            <div className="text-center mb-12">
-              <h2 className="text-3xl sm:text-4xl font-bold text-white">
-                Preguntas Frecuentes
-              </h2>
-              <p className="mt-4 text-lg text-gray-300">
-                Resolvemos tus dudas para que tomes la mejor decisión.
-              </p>
-            </div>
-            <div>
-              {faqData.map((faq, index) => (
-                <FAQItem
-                  key={index}
-                  question={faq.question}
-                  answer={faq.answer}
-                />
-              ))}
-            </div>
+        {/* ================================================================== */}
+        {/* INICIA LA SECCIÓN DE DUDAS Y TESTIMONIOS (VÍDEOS CORREGIDOS)      */}
+        {/* ================================================================== */}
+        <section className="relative py-24 sm:py-32 bg-darkBgColor overflow-hidden">
+          <div className="absolute inset-0 opacity-30">
+            <div className="absolute top-0 right-0 w-1/2 h-full bg-gradient-to-l from-paradigmaRed/10 to-transparent" />
           </div>
-        </section>
 
-        {/* Contact Section */}
-        <section id="contact" className="py-16 sm:py-24 bg-black">
-          <div className="max-w-3xl mx-auto px-6 text-center">
-            <h2 className="text-3xl sm:text-4xl font-bold text-white mb-8">
-              Agenda tu Demostración Gratuita Ahora
-            </h2>
-            <p className="text-lg text-gray-300 mb-10">
-              Elige la fecha y hora que mejor te convenga. En menos de 30
-              minutos, descubrirás cómo nuestros agentes de IA pueden
-              transformar tu negocio.
-            </p>
+          <div className="relative max-w-7xl mx-auto px-6">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-20 items-center">
+              {/* --- Columna Izquierda: Texto y Llamado a la Acción --- */}
+              <motion.div
+                className="text-center lg:text-left"
+                initial={{ opacity: 0, x: -50 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true, amount: 0.3 }}
+                transition={{ duration: 0.8, ease: "easeOut" }}
+              >
+                <h2 className="text-4xl md:text-5xl font-bold text-white">
+                  Quieres ver un caso de éxito ¿verdad? 
+                </h2>
+                <p className="mt-4 text-lg text-gray-400 max-w-md mx-auto lg:mx-0">
+                  conoce lo que uno de los mejores coaches de LATAM dice 
+                </p>
+                <div className="mt-10">
+                  <a
+                    onClick={() => setIsModalOpen(true)}
+                    className="relative inline-flex items-center justify-center p-0.5 group"
+                  >
+                    <div className="absolute inset-0 bg-gradient-to-r from-paradigmaRed to-paradigmaMagenta rounded-full blur opacity-75 group-hover:opacity-100 transition duration-1000 group-hover:duration-200"></div>
+                    <span className="relative bg-black hover:bg-gray-900 transition-colors duration-300 rounded-full px-8 py-4 text-lg font-bold text-white flex items-center">
+                      Enviar mensaje a WhatsApp
+                    </span>
+                  </a>
+                </div>
+              </motion.div>
 
-            <div
-              className="bg-darkBgColor rounded-xl shadow-xl overflow-hidden"
-              style={{ height: "700px" }}
-            >
-              <CalendlyEmbed url="https://calendly.com/henryaf0519/reunion-demo-orvex" />
+              {/* --- Columna Derecha: Videos de Testimonios (CORREGIDA) --- */}
+              <motion.div
+                className="relative flex justify-center items-center gap-8 py-8" // Eliminamos h-96 y añadimos padding vertical
+                initial={{ opacity: 0, scale: 0.9 }}
+                whileInView={{ opacity: 1, scale: 1 }}
+                viewport={{ once: true, amount: 0.3 }}
+                transition={{ duration: 0.8, ease: "easeOut" }}
+              >
+                {/* Video 1 */}
+                <div className="w-1/2 max-w-[250px] transform -rotate-6 hover:rotate-0 hover:scale-110 hover:z-20 transition-transform duration-300">
+                  <div className="aspect-[9/16] bg-black rounded-2xl shadow-2xl overflow-hidden border-2 border-gray-700">
+                    <WistiaPlayer
+                      mediaId="b0dckf0a2r"
+                      className="w-full h-full"
+                    />
+                  </div>
+                </div>
+
+                {/* Video 2 */}
+                <div className="w-1/2 max-w-[250px] transform rotate-6 hover:rotate-0 hover:scale-110 hover:z-20 transition-transform duration-300">
+                  <div className="aspect-[9/16] bg-black rounded-2xl shadow-2xl overflow-hidden border-2 border-gray-700">
+                    <WistiaPlayer
+                      mediaId="b0dckf0a2r"
+                      className="w-full h-full"
+                    />
+                  </div>
+                </div>
+              </motion.div>
             </div>
-
-            <p className="mt-8 text-sm text-gray-500">
-              Al agendar, aceptas nuestra{" "}
-              <span className="text-primaryColor hover:underline cursor-pointer">
-                Política de Privacidad
-              </span>
-              .
-            </p>
           </div>
         </section>
       </div>

@@ -58,7 +58,7 @@ const AnimatedStatCard: React.FC<AnimatedStatCardProps> = ({
         <div className="flex-grow flex items-center mt-4">
             <p 
                 ref={ref}
-                className="text-6xl md:text-7xl font-bold text-white"
+                className="text-6xl md:text-6xl font-bold text-white"
                 style={{fontVariantNumeric: 'tabular-nums'}}
             >
                 {prefix}0{suffix}

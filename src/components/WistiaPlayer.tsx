@@ -1,4 +1,5 @@
 // src/components/WistiaPlayer.tsx
+
 import React, { useEffect } from 'react';
 
 interface WistiaPlayerProps {
@@ -8,10 +9,8 @@ interface WistiaPlayerProps {
 
 const WistiaPlayer: React.FC<WistiaPlayerProps> = ({ mediaId, className }) => {
   useEffect(() => {
-    // ID único para el script de este video específico
     const embedScriptId = `wistia-embed-script-${mediaId}`;
 
-    // 1. Cargar el script principal del reproductor de Wistia si aún no existe
     if (!document.querySelector('script[src="https://fast.wistia.com/player.js"]')) {
       const playerScript = document.createElement('script');
       playerScript.src = "https://fast.wistia.com/player.js";
@@ -19,8 +18,6 @@ const WistiaPlayer: React.FC<WistiaPlayerProps> = ({ mediaId, className }) => {
       document.body.appendChild(playerScript);
     }
 
-    // 2. Cargar el script específico que activa este video en particular
-    // Nos aseguramos de no cargarlo múltiples veces
     if (!document.getElementById(embedScriptId)) {
       const embedScript = document.createElement('script');
       embedScript.id = embedScriptId;
@@ -29,20 +26,22 @@ const WistiaPlayer: React.FC<WistiaPlayerProps> = ({ mediaId, className }) => {
       document.body.appendChild(embedScript);
     }
 
-    // Función de limpieza: se ejecuta si el componente se desmonta
     return () => {
       const embedScript = document.getElementById(embedScriptId);
       if (embedScript) {
         embedScript.remove();
       }
     };
-  }, [mediaId]); // Este efecto se ejecutará cada vez que el 'mediaId' cambie
+  }, [mediaId]);
 
+  // === CAMBIO CLAVE ===
+  // Aplicamos las clases directamente al reproductor de Wistia
+  // en lugar de envolverlo en un div.
   return (
-    // Usamos un div contenedor para aplicar las clases de tamaño y hacerlo responsivo
-    <div className={className}>
-      <wistia-player media-id={mediaId}></wistia-player>
-    </div>
+    <wistia-player
+      media-id={mediaId}
+      className={className}
+    ></wistia-player>
   );
 };
 
