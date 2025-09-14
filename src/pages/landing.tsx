@@ -1,19 +1,10 @@
-import React, { useState, useEffect, useRef } from "react";
-import {
-  motion,
-  animate,
-  useMotionValue,
-  useMotionValueEvent,
-} from "motion/react";
-import {
-  CheckCircle,
-  TrendingUp,
-  Target,
-} from "lucide-react";
+import React from "react";
+import { motion } from "motion/react";
+import { CheckCircle, TrendingUp, Target } from "lucide-react";
 import WistiaPlayer from "../components/WistiaPlayer";
-import CalendlyModal from "../components/CalendlyModal";
 
 import AnimatedStatCard from "../components/AnimatedStatCard";
+import { Link } from "react-router-dom";
 
 const resultsData = [
   {
@@ -35,39 +26,6 @@ const resultsData = [
 ];
 
 const Landing: React.FC = () => {
-  const fullText = "ESCALAMOS LAS VENTAS DE TU TIENDA ONLINE";
-  const progress = useMotionValue(0);
-  const containerRef = useRef(null);
-  const [isModalOpen, setIsModalOpen] = useState(false);
-
-  useEffect(() => {
-    const el = containerRef.current;
-    if (!el) return;
-
-    const observer = new IntersectionObserver(
-      (entries, obs) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            animate(progress, fullText.length + 1, {
-              duration: fullText.length * 0.08,
-              ease: "linear",
-              onComplete: () => setTypingFinished(true),
-            });
-            obs.unobserve(el);
-          }
-        });
-      },
-      { threshold: 0.5 }
-    );
-
-    observer.observe(el);
-    return () => observer.disconnect();
-  }, [fullText, progress]);
-
-  useMotionValueEvent(progress, "change", (latest) => {
-    setDisplayedText(fullText.slice(0, Math.floor(latest)));
-  });
-
   return (
     <>
       <div
@@ -77,7 +35,8 @@ const Landing: React.FC = () => {
         {/* Hero Section */}
         <section
           id="inicio"
-          className="relative min-h-screen flex items-center justify-center bg-darkBgColor py-24 sm:py-32 overflow-hidden"
+          // He quitado "justify-center" de esta línea para arreglar la visibilidad
+          className="relative min-h-screen flex items-center bg-darkBgColor py-24 sm:py-32 overflow-hidden"
         >
           <div className="container mx-auto px-6 flex flex-col items-center text-center">
             {/* Badge */}
@@ -135,12 +94,12 @@ const Landing: React.FC = () => {
                 escalar.
               </p>
 
-              <button
-                onClick={() => setIsModalOpen(true)}
+              <Link
+                to="/schedule"
                 className="relative inline-flex items-center justify-center mt-10 px-10 py-4 text-xl rounded-full font-bold text-white transition-all duration-300 bg-gradient-to-r from-paradigmaRed to-paradigmaMagenta hover:shadow-2xl hover:shadow-paradigmaRed/40"
               >
                 Agenda tu sesión 1:1
-              </button>
+              </Link>
             </div>
           </div>
         </section>
@@ -335,14 +294,14 @@ const Landing: React.FC = () => {
                 </ul>
 
                 <div className="mt-10">
-                  <a
-                    href="https://wa.me/TUNUMERO" // <-- REEMPLAZA CON TU NÚMERO
-                    target="_blank"
+                  <Link
+                    to={"/schedule"}
+
                     rel="noopener noreferrer"
                     className="inline-block px-8 py-4 rounded-full text-lg font-bold text-white transition-all duration-300 bg-gradient-to-r from-paradigmaRed to-paradigmaMagenta hover:shadow-lg hover:shadow-paradigmaRed/30"
                   >
                     Quiero Escalar Mi Negocio como Experto
-                  </a>
+                  </Link>
                 </div>
               </motion.div>
             </div>
@@ -375,15 +334,15 @@ const Landing: React.FC = () => {
                   Conoce lo que uno de los mejores coaches de LATAM dice
                 </p>
                 <div className="mt-10">
-                  <a
-                    onClick={() => setIsModalOpen(true)}
+                  <Link
+                    to="/schedule"
                     className="relative inline-flex items-center justify-center p-0.5 group"
                   >
                     <div className="absolute inset-0 bg-gradient-to-r from-paradigmaRed to-paradigmaMagenta rounded-full blur opacity-75 group-hover:opacity-100 transition duration-1000 group-hover:duration-200"></div>
                     <span className="relative bg-black hover:bg-gray-900 transition-colors duration-300 rounded-full px-8 py-4 text-lg font-bold text-white flex items-center">
                       Saber más
                     </span>
-                  </a>
+                  </Link>
                 </div>
               </motion.div>
 
@@ -408,11 +367,6 @@ const Landing: React.FC = () => {
           </div>
         </section>
       </div>
-      <CalendlyModal
-        isOpen={isModalOpen}
-        onClose={() => setIsModalOpen(false)}
-        url="https://calendly.com/henryaf0519/reunion-demo-orvex"
-      />
     </>
   );
 };

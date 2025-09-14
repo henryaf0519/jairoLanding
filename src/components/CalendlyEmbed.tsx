@@ -7,8 +7,8 @@ interface CalendlyEmbedProps {
 }
 
 const CalendlyEmbed: React.FC<CalendlyEmbedProps> = ({ url }) => {
-  // Construimos la URL con los parámetros de personalización
-  const calendlyUrl = `${url}?background_color=000000&text_color=ffffff&primary_color=ff0000&hide_landing_page_details=1`;
+  // Construimos la URL con los colores de la marca Paradigma
+  const calendlyUrl = `${url}?background_color=05131d&text_color=ffffff&primary_color=f91b3c&hide_landing_page_details=1`;
 
   return (
     <iframe
