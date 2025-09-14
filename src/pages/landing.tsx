@@ -33,9 +33,9 @@ const resultsData = [
     timeframe: "Resultados en 3 meses",
     description: "Pasamos de tener 25 ventas al doble del producto a tener",
     highlight: "+90 en una sola semana reduciendo x5 los costos.",
-    chartImage1: "/assets/imagen3.webp", // <-- REEMPLAZA CON TU IMAGEN DE GRÁFICO
-    chartImage2: "/assets/imagen4.webp", // <-- REEMPLAZA CON TU IMAGEN DE GRÁFICO
-  }
+    chartImage1: "/assets/imagen3.webp",
+    chartImage2: "/assets/imagen4.webp",
+  },
 ];
 
 const Landing: React.FC = () => {
@@ -174,9 +174,13 @@ const Landing: React.FC = () => {
                   <span className="text-paradigmaRed">+$10k USD/mes</span>
                 </h2>
                 <p className="mt-6 text-lg text-gray-600 leading-relaxed max-w-2xl mx-auto lg:mx-0">
-                  Si inviertes más de  <strong className="text-gray-900">$500 USD/mes</strong> en pauta
-                  publicitaria, con nuestra <strong className="text-gray-900">estrategia de tiple calificación </strong>
-                  multiplicarás tus agendas calificadas x3, x5 y hasta x10 {" "}
+                  Si inviertes más de{" "}
+                  <strong className="text-gray-900">$500 USD/mes</strong> en
+                  pauta publicitaria, con nuestra{" "}
+                  <strong className="text-gray-900">
+                    estrategia de tiple calificación{" "}
+                  </strong>
+                  multiplicarás tus agendas calificadas x3, x5 y hasta x10{" "}
                   <strong className="text-paradigmaRed">
                     con el mismo presupuesto.
                   </strong>{" "}
@@ -250,11 +254,14 @@ const Landing: React.FC = () => {
                 </div>
 
                 {/* --- Columna de Gráficos con Composición Separada --- */}
-                <div className="flex items-center justify-center gap-4">
+                {/* --- Columna de Gráficos con Composición Separada --- */}
+                <div className="flex flex-col items-center justify-center gap-8">
+                  {" "}
+                  {/* <-- CAMBIOS AQUÍ */}
                   <motion.img
                     src={result.chartImage1}
                     alt={`Gráfico 1 para ${result.timeframe}`}
-                    className="w-1/2 rounded-lg shadow-2xl border-2 border-gray-800"
+                    className="w-full rounded-lg shadow-2xl border-2 border-gray-800"
                     initial={{ opacity: 0, x: -30, rotate: -10 }}
                     whileInView={{ opacity: 1, x: 0, rotate: -3 }}
                     viewport={{ once: true }}
@@ -263,7 +270,7 @@ const Landing: React.FC = () => {
                   <motion.img
                     src={result.chartImage2}
                     alt={`Gráfico 2 para ${result.timeframe}`}
-                    className="w-1/2 rounded-lg shadow-2xl border-2 border-gray-700 bg-gray-900 p-1"
+                    className="w-full rounded-lg shadow-2xl border-2 border-gray-700 bg-gray-900 p-1"
                     initial={{ opacity: 0, x: 30, rotate: 10 }}
                     whileInView={{ opacity: 1, x: 0, rotate: 3 }}
                     viewport={{ once: true }}
@@ -276,83 +283,108 @@ const Landing: React.FC = () => {
         </section>
 
         {/* ================================================================== */}
-{/* INICIA LA NUEVA SECCIÓN "EL PROCESO" (VIDEO MÁS GRANDE)          */}
-{/* ================================================================== */}
-<section className="relative py-24 sm:py-32 bg-darkBgColor overflow-hidden">
-  {/* === Efecto de Brillo de Fondo === */}
-  <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-1/2 h-full max-w-4xl bg-paradigmaRed/10 rounded-full blur-3xl -z-0" />
+        {/* INICIA LA NUEVA SECCIÓN "EL PROCESO" (VIDEO MÁS GRANDE)          */}
+        {/* ================================================================== */}
+        <section className="relative py-24 sm:py-32 bg-darkBgColor overflow-hidden">
+          {/* === Efecto de Brillo de Fondo === */}
+          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-1/2 h-full max-w-4xl bg-paradigmaRed/10 rounded-full blur-3xl -z-0" />
 
-  <div className="relative z-10 max-w-7xl mx-auto px-6">
-    <div className="grid grid-cols-1 lg:grid-cols-5 gap-16 items-center">
-      
-      {/* --- Columna de Texto (ocupa 2 de 5 columnas) --- */}
-      <motion.div
-        className="lg:col-span-2 text-center lg:text-left"
-        initial={{ opacity: 0, x: -50 }}
-        whileInView={{ opacity: 1, x: 0 }}
-        viewport={{ once: true, amount: 0.3 }}
-        transition={{ duration: 0.8, ease: "easeOut" }}
-      >
-        <p className="font-semibold text-paradigmaRed tracking-wider">CÓMO LO HACEMOS</p>
-        <h2 className="mt-2 text-4xl md:text-5xl font-bold text-white">
-          El Proceso Probado que Escala Expertos 
-        </h2>
-        <p className="mt-4 text-lg text-gray-400">
-          No dejamos nada al azar. Nuestro método está diseñado para que expertos digitales como tú consigan más agendas calificadas, menor desgaste de tiempo y un crecimiento predecible en menos de 90 días. 
-        </p>
-        
-        <ul className="mt-8 space-y-4 text-left">
-          <li className="flex items-start gap-3">
-            <CheckCircle className="text-paradigmaRed w-6 h-6 mt-1 flex-shrink-0" />
-            <span className="text-gray-300"><strong className="text-white">Diagnóstico Estratégico:</strong> Definimos la base de tu negocio, entendemos tu propuesta única y diseñamos una estrategia tan potente que genera en tus prospectos el miedo a perder la oportunidad de trabajar contigo. </span>
-          </li>
-          <li className="flex items-start gap-3">
-            <CheckCircle className="text-paradigmaRed w-6 h-6 mt-1 flex-shrink-0" />
-            <span className="text-gray-300"><strong className="text-white">Sistema de Triple Calificación:</strong> Implementamos filtros automáticos que ahorran horas de llamadas improductivas, asegurando que sólo lleguen a tu calendario prospectos listos para invertir en tu formación. </span>
-          </li>
-          <li className="flex items-start gap-3">
-            <CheckCircle className="text-paradigmaRed w-6 h-6 mt-1 flex-shrink-0" />
-            <span className="text-gray-300"><strong className="text-white">Optimización del Algoritmo: </strong> Descontaminamos y optimizamos tu cuenta publicitaria para que cada dólar invertido multiplique tus agendas x3, x5 e incluso x10 sin disparar los costos. </span>
-          </li>
-        </ul>
+          <div className="relative z-10 max-w-7xl mx-auto px-6">
+            <div className="grid grid-cols-1 lg:grid-cols-5 gap-16 items-center">
+              {/* --- Columna de Texto (ocupa 2 de 5 columnas) --- */}
+              <motion.div
+                className="lg:col-span-2 text-center lg:text-left"
+                initial={{ opacity: 0, x: -50 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true, amount: 0.3 }}
+                transition={{ duration: 0.8, ease: "easeOut" }}
+              >
+                <p className="font-semibold text-paradigmaRed tracking-wider">
+                  CÓMO LO HACEMOS
+                </p>
+                <h2 className="mt-2 text-4xl md:text-5xl font-bold text-white">
+                  El Proceso Probado que Escala Expertos
+                </h2>
+                <p className="mt-4 text-lg text-gray-400">
+                  No dejamos nada al azar. Nuestro método está diseñado para que
+                  expertos digitales como tú consigan más agendas calificadas,
+                  menor desgaste de tiempo y un crecimiento predecible en menos
+                  de 90 días.
+                </p>
 
-        <div className="mt-10">
-          <a
-            href="https://wa.me/TUNUMERO" // <-- REEMPLAZA CON TU NÚMERO
-            target="_blank"
-            rel="noopener noreferrer"
-            className="relative inline-flex items-center justify-center p-0.5 group"
-          >
-            <div className="absolute inset-0 bg-gradient-to-r from-paradigmaRed to-paradigmaMagenta rounded-full blur opacity-75 group-hover:opacity-100 transition duration-1000 group-hover:duration-200"></div>
-            <span className="relative bg-black hover:bg-gray-900 transition-colors duration-300 rounded-full px-8 py-4 text-lg font-bold text-white flex items-center">
-              Quiero Escalar Mi Negocio como Experto 
-            </span>
-          </a>
-        </div>
-      </motion.div>
+                <ul className="mt-8 space-y-4 text-left">
+                  <li className="flex items-start gap-3">
+                    <CheckCircle className="text-paradigmaRed w-6 h-6 mt-1 flex-shrink-0" />
+                    <span className="text-gray-300">
+                      <strong className="text-white">
+                        Diagnóstico Estratégico:
+                      </strong>{" "}
+                      Definimos la base de tu negocio, entendemos tu propuesta
+                      única y diseñamos una estrategia tan potente que genera en
+                      tus prospectos el miedo a perder la oportunidad de
+                      trabajar contigo.{" "}
+                    </span>
+                  </li>
+                  <li className="flex items-start gap-3">
+                    <CheckCircle className="text-paradigmaRed w-6 h-6 mt-1 flex-shrink-0" />
+                    <span className="text-gray-300">
+                      <strong className="text-white">
+                        Sistema de Triple Calificación:
+                      </strong>{" "}
+                      Implementamos filtros automáticos que ahorran horas de
+                      llamadas improductivas, asegurando que sólo lleguen a tu
+                      calendario prospectos listos para invertir en tu
+                      formación.{" "}
+                    </span>
+                  </li>
+                  <li className="flex items-start gap-3">
+                    <CheckCircle className="text-paradigmaRed w-6 h-6 mt-1 flex-shrink-0" />
+                    <span className="text-gray-300">
+                      <strong className="text-white">
+                        Optimización del Algoritmo:{" "}
+                      </strong>{" "}
+                      Descontaminamos y optimizamos tu cuenta publicitaria para
+                      que cada dólar invertido multiplique tus agendas x3, x5 e
+                      incluso x10 sin disparar los costos.{" "}
+                    </span>
+                  </li>
+                </ul>
 
-      {/* --- Columna de Video (ocupa 3 de 5 columnas) --- */}
-      <motion.div
-        className="lg:col-span-3 relative flex items-center justify-center"
-        initial={{ opacity: 0, scale: 0.9 }}
-        whileInView={{ opacity: 1, scale: 1 }}
-        viewport={{ once: true, amount: 0.3 }}
-        transition={{ duration: 0.8, ease: "easeOut" }}
-      >
-        <div className="relative p-1 bg-gradient-to-br from-white/10 to-transparent rounded-2xl shadow-2xl w-full">
-          <div className="w-full aspect-video bg-black rounded-xl overflow-hidden">
-            <WistiaPlayer
-              mediaId="b0dckf0a2r"
-              className="w-full h-full"
-            />
+                <div className="mt-10">
+                  <a
+                    href="https://wa.me/TUNUMERO" // <-- REEMPLAZA CON TU NÚMERO
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="relative inline-flex items-center justify-center p-0.5 group"
+                  >
+                    <div className="absolute inset-0 bg-gradient-to-r from-paradigmaRed to-paradigmaMagenta rounded-full blur opacity-75 group-hover:opacity-100 transition duration-1000 group-hover:duration-200"></div>
+                    <span className="relative bg-black hover:bg-gray-900 transition-colors duration-300 rounded-full px-8 py-4 text-lg font-bold text-white flex items-center">
+                      Quiero Escalar Mi Negocio como Experto
+                    </span>
+                  </a>
+                </div>
+              </motion.div>
+
+              {/* --- Columna de Video (ocupa 3 de 5 columnas) --- */}
+              <motion.div
+                className="lg:col-span-3 relative flex items-center justify-center"
+                initial={{ opacity: 0, scale: 0.9 }}
+                whileInView={{ opacity: 1, scale: 1 }}
+                viewport={{ once: true, amount: 0.3 }}
+                transition={{ duration: 0.8, ease: "easeOut" }}
+              >
+                <div className="relative p-1 bg-gradient-to-br from-white/10 to-transparent rounded-2xl shadow-2xl w-full">
+                  <div className="w-full aspect-video bg-black rounded-xl overflow-hidden">
+                    <WistiaPlayer
+                      mediaId="b0dckf0a2r"
+                      className="w-full h-full"
+                    />
+                  </div>
+                </div>
+              </motion.div>
+            </div>
           </div>
-        </div>
-      </motion.div>
-
-    </div>
-  </div>
-</section>
-        
+        </section>
 
         {/* ================================================================== */}
         {/* INICIA LA SECCIÓN "¿QUIÉN SOY?"                                    */}
@@ -475,10 +507,10 @@ const Landing: React.FC = () => {
                 transition={{ duration: 0.8, ease: "easeOut" }}
               >
                 <h2 className="text-4xl md:text-5xl font-bold text-white">
-                  Quieres ver un caso de éxito ¿verdad? 
+                  Quieres ver un caso de éxito ¿verdad?
                 </h2>
                 <p className="mt-4 text-lg text-gray-400 max-w-md mx-auto lg:mx-0">
-                  conoce lo que uno de los mejores coaches de LATAM dice 
+                  conoce lo que uno de los mejores coaches de LATAM dice
                 </p>
                 <div className="mt-10">
                   <a
