@@ -9,14 +9,10 @@ import {
   CheckCircle,
   TrendingUp,
   Target,
-  Rocket,
-  DollarSign,
-  Link,
-  BadgeCheck,
 } from "lucide-react";
 import WistiaPlayer from "../components/WistiaPlayer";
 import CalendlyModal from "../components/CalendlyModal";
-import { FaWhatsapp } from "react-icons/fa";
+
 import AnimatedStatCard from "../components/AnimatedStatCard";
 
 const resultsData = [
@@ -41,8 +37,6 @@ const resultsData = [
 const Landing: React.FC = () => {
   const fullText = "ESCALAMOS LAS VENTAS DE TU TIENDA ONLINE";
   const progress = useMotionValue(0);
-  const [displayedText, setDisplayedText] = useState("");
-  const [typingFinished, setTypingFinished] = useState(false);
   const containerRef = useRef(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
