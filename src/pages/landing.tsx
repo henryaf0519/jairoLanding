@@ -83,82 +83,54 @@ const Landing: React.FC = () => {
         {/* Hero Section */}
         <section
           id="inicio"
-          className="relative min-h-screen flex items-center justify-center bg-blueColor"
+          className="relative min-h-screen flex items-center justify-center bg-darkBgColor py-20"
         >
-          <div className="container mx-auto px-6 pt-20 pb-32 md:pb-40">
-            {" "}
-            {/* Aumentamos el padding inferior */}
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
-              {/* Columna Izquierda: Texto y CTA */}
-              <div className="flex flex-col justify-center text-center md:text-left">
-                {/* Contenedor para el logo y el título */}
-                <div className="flex flex-col items-center justify-center md:items-start gap-y-4 mb-4">
-                  <img
-                    src="/assets/logo.png" // Reemplaza esto con la ruta a tu nuevo logo de Paradigma
-                    alt="Logo de Paradigma Agency"
-                    className="h-16 md:h-15 object-contain"
-                  />
+          <div className="container mx-auto px-6 flex flex-col items-center text-center">
+            {/* Badge */}
+            <div className="mb-6">
+              <span className="bg-yellow-900/50 text-yellow-300 text-xs font-semibold px-4 py-1.5 rounded-full border border-yellow-700">
+                EXCLUSIVO PARA EXPERTOS QUE ESTÁN BUSCANDO ESCALAR SU NEGOCIO
+              </span>
+            </div>
 
-                  <motion.h1
-                    ref={containerRef}
-                    className="text-4xl sm:text-5xl lg:text-6xl font-extrabold leading-tight text-white h-48 md:h-64"
-                  >
-                    {displayedText}
-                    <motion.span
-                      className="inline-block w-1 h-12 md:h-16 bg-white ml-2"
-                      animate={
-                        typingFinished ? { opacity: [0, 1, 0] } : { opacity: 1 }
-                      }
-                      transition={
-                        typingFinished
-                          ? { repeat: Infinity, duration: 1.2 }
-                          : { duration: 0 }
-                      }
-                    />
-                  </motion.h1>
-                </div>
+            {/* Main Title */}
+            <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold leading-tight text-white max-w-5xl">
+              Si ya tienes{" "}
+              <span className="text-orange-400">
+                UN PROGRAMA QUE TRANSFORMA VIDAS
+              </span>{" "}
+              lo único que necesitas ahora es un{" "}
+              <span className="text-orange-400">sistema probado </span>que
+              multiplique tus agendas hasta en un 100% en menos de{" "}
+              <span className="text-orange-400">90 días.</span>
+            </h1>
 
-                {/* Párrafo con los NUEVOS colores */}
-                <p className="text-xl sm:text-2xl mt-4 text-gray-300">
-                  Desde{" "}
-                  <span className="font-bold text-paradigmaRed">
-                    $100 millones
-                  </span>{" "}
-                  por mes a{" "}
-                  <span className="font-bold text-paradigmaRed">
-                    +$500 millones
-                  </span>{" "}
-                  por mes
-                </p>
+            {/* Subtitle */}
+            <p className="mt-6 text-lg text-gray-400 max-w-3xl">
+              <span className="text-orange-400 mr-2">✦</span>
+              Garantizando que cada dólar invertido en anuncios se convierta en
+              prospectos calificados que están buscando exactamente lo que
+              ofreces.
+            </p>
 
-                {/* Botón con el NUEVO gradiente */}
-                <div className="mt-10 flex justify-center md:justify-start">
-                  <button
-                    onClick={() => setIsModalOpen(true)}
-                    className="relative inline-flex items-center justify-center p-0.5 group"
-                  >
-                    <div className="absolute inset-0 bg-gradient-to-r from-paradigmaRed to-paradigmaMagenta rounded-full blur opacity-75 group-hover:opacity-100 transition duration-1000 group-hover:duration-200 animate-tilt"></div>
-                    <span className="relative bg-black hover:bg-gray-900 transition-colors duration-300 rounded-full px-8 py-4 text-lg font-bold text-white flex items-center">
-                      <FaWhatsapp className="mr-3 text-2xl" />
-                      Enviar mensaje a WhatsApp
-                    </span>
-                  </button>
-                </div>
+            {/* Video Player */}
+            <div className="mt-10 w-full max-w-4xl mx-auto">
+              <div className="aspect-video bg-black rounded-lg shadow-2xl overflow-hidden border border-gray-700">
+                <WistiaPlayer
+                  mediaId="b0dckf0a2r" // Reemplaza con tu Media ID real de Wistia
+                  className="w-full h-full"
+                />
               </div>
+            </div>
 
-              {/* Columna Derecha: Video */}
-              <div className="flex items-center justify-center">
-                <div className="w-full aspect-video bg-gray-900 rounded-lg shadow-2xl overflow-hidden">
-                  <iframe
-                    className="w-full h-full"
-                    src="https://www.youtube.com/embed/dQw4w9WgXcQ" // <-- REEMPLAZA CON EL VIDEO REAL
-                    title="Video de Inforce"
-                    frameBorder="0"
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                    allowFullScreen
-                  ></iframe>
-                </div>
-              </div>
+            {/* CTA Button */}
+            <div className="mt-10">
+              <button
+                onClick={() => setIsModalOpen(true)}
+                className="bg-orange-500 hover:bg-orange-600 text-white font-bold px-10 py-4 rounded-lg text-xl transition-colors duration-300 shadow-lg shadow-orange-500/20"
+              >
+                Agendar diagnóstico
+              </button>
             </div>
           </div>
         </section>
